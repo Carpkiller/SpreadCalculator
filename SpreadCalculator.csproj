@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CsvHelper">
-      <HintPath>..\packages\CsvHelper.2.4.1\lib\net40-client\CsvHelper.dll</HintPath>
+      <HintPath>packages\CsvHelper.2.4.1\lib\net40-client\CsvHelper.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,7 +46,7 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="ZedGraph">
-      <HintPath>..\Grafy\zedgraph_dll_v5.0.9\ZedGraph.dll</HintPath>
+      <HintPath>packages\ZedGraph.5.1.6\lib\net35-Client\ZedGraph.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -65,7 +65,9 @@
     <Compile Include="Jadro.cs" />
     <Compile Include="PomocneTriedy\ObchodnyDen.cs" />
     <Compile Include="PomocneTriedy\ObchodnyDenMap.cs" />
+    <Compile Include="PomocneTriedy\SpecifikaciaKontraktu.cs" />
     <Compile Include="PomocneTriedy\Spread.cs" />
+    <Compile Include="PracaSoSubormi.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="GrafickeKomponenty\Form1.resx">
@@ -96,6 +98,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="License-LGPL.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

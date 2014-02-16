@@ -8,6 +8,7 @@ using System.Xml;
 using System.Xml.Linq;
 using CsvHelper;
 using SpreadCalculator.PomocneTriedy;
+using System.Globalization;
 
 namespace SpreadCalculator
 {
@@ -16,6 +17,7 @@ namespace SpreadCalculator
         private List<ObchodnyDen> listKontrakt1;
         private List<ObchodnyDen> listKontrakt2;
         public List<Spread> listSpread;
+        private List<SpecifikaciaKontraktu> listSpecifikacii;
 
         public Jadro()
         {
@@ -56,10 +58,27 @@ namespace SpreadCalculator
             return succes1 && succes2;
         }
 
+
+        internal bool parsujKontrakty(int p1, int p2)
+        {
+            listKontrakt1 = new List<ObchodnyDen>();
+            listKontrakt2 = new List<ObchodnyDen>();
+
+            var succes1 = false;
+            var succes2 = false;
+
+            listKontrakt1 = parsujKontraktXml(p1, out succes1);
+            listKontrakt2 = parsujKontraktXml(p2, out succes2);
+
+            listSpread = vypocitajSpread();
+
+            return succes1 && succes2;
+        }
+
         private List<Spread> vypocitajSpread()
         {
             var list = new List<Spread>();
-            var indexZaciatkuDlhsiehoSpreadu = listKontrakt2.IndexOf(new ObchodnyDen(listKontrakt1.First().Date));
+            var indexZaciatkuDlhsiehoSpreadu = listKontrakt2.IndexOf(new ObchodnyDen(listKontrakt1.First().Date));       //  kontrola este z druhej strany
             var dlzka = listKontrakt2.Count - indexZaciatkuDlhsiehoSpreadu;
 
             for (int i = 0; i < dlzka; i++)
@@ -71,11 +90,12 @@ namespace SpreadCalculator
             return list;
         }
 
-        public List<ObchodnyDen> parsujKontraktXml()
+        public List<ObchodnyDen> parsujKontraktXml(int kontrakIndex, out bool succes)
         {
             var list = new List<ObchodnyDen>();
+            succes = false;
 
-            const string uri = "http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_WH1997.xml?auth_token=UqHLDQVcxZy5AknRTZX9";
+            string uri = "http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_"+ listSpecifikacii[kontrakIndex].Symbol+".xml?auth_token=UqHLDQVcxZy5AknRTZX9";
 
             try
             {
@@ -106,12 +126,12 @@ namespace SpreadCalculator
                     {
                         var dat = authors.ElementAt(i*8 + 1).Value.ToString();
                         var datum = DateTime.Parse(authors.ElementAt(i*8 + 1).Value.ToString());
-                        var open = double.Parse(authors.ElementAt(i * 8 + 2).Value.ToString());
-                        var high = double.Parse(authors.ElementAt(i * 8 + 3).Value.ToString());
-                        var low = double.Parse(authors.ElementAt(i * 8 + 4).Value.ToString());
-                        var close = double.Parse(authors.ElementAt(i * 8 + 5).Value.ToString());
-                        var volume = double.Parse(authors.ElementAt(i * 8 + 6).Value.ToString());
-                        var open_interest = double.Parse(authors.ElementAt(i * 8 + 7).Value.ToString());
+                        var open = double.Parse(authors.ElementAt(i * 8 + 2).Value.ToString(), CultureInfo.InvariantCulture);
+                        var high = double.Parse(authors.ElementAt(i * 8 + 3).Value.ToString(), CultureInfo.InvariantCulture);
+                        var low = double.Parse(authors.ElementAt(i * 8 + 4).Value.ToString(), CultureInfo.InvariantCulture);
+                        var close = double.Parse(authors.ElementAt(i * 8 + 5).Value.ToString(), CultureInfo.InvariantCulture);
+                        var volume = double.Parse(authors.ElementAt(i * 8 + 6).Value.ToString(), CultureInfo.InvariantCulture);
+                        var open_interest = double.Parse(authors.ElementAt(i * 8 + 7).Value.ToString(), CultureInfo.InvariantCulture);
                         var den = new ObchodnyDen(datum,open,high,low,close,volume,open_interest);
                         list.Add(den);
                     }
@@ -122,10 +142,39 @@ namespace SpreadCalculator
             {
                 Console.WriteLine(e);
             }
-            
 
+            if (list != null)
+            {
+                succes = true;
+            }
 
             return list;
         }
+
+        public List<string> LoadKontrakty(string komodita)
+        {
+            var list = new List<string>();
+
+            listSpecifikacii = new List<SpecifikaciaKontraktu>();
+            var file = System.Environment.CurrentDirectory.Substring(0, System.Environment.CurrentDirectory.LastIndexOf("bin")) + "Kontrakty\\" + komodita + ".csv";
+
+            if (File.Exists(file))
+            {
+                var csv = new CsvReader(new StreamReader(file));
+                csv.Configuration.HasHeaderRecord = true;
+                csv.Configuration.IgnoreHeaderWhiteSpace = true;
+                csv.Configuration.Delimiter = ";";
+                var myCustomObjects = csv.GetRecords<SpecifikaciaKontraktu>();
+
+                foreach (var item in myCustomObjects)
+                {
+                    listSpecifikacii.Add(item);
+                    list.Add(item.Symbol);
+                }
+            }
+
+            return list;
+        }
+
     }
 }
