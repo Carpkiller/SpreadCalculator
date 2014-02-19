@@ -80,6 +80,10 @@ namespace SpreadCalculator
             var list = new List<Spread>();
             var indexZaciatkuDlhsiehoSpreadu = listKontrakt2.IndexOf(new ObchodnyDen(listKontrakt1.First().Date));       //  kontrola este z druhej strany
             var dlzka = listKontrakt2.Count - indexZaciatkuDlhsiehoSpreadu;
+            if (dlzka > listKontrakt1.Count)
+            {
+                dlzka = listKontrakt1.Count;
+            }
 
             for (int i = 0; i < dlzka; i++)
             {

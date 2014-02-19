@@ -12,6 +12,7 @@ namespace SpreadCalculator
         public Form1()
         {
             InitializeComponent();
+            zg1.Visible =false;
             jadro = new Jadro();
         }
 

@@ -1,0 +1,3 @@
+Komodita;Symbol;Burza;Url;Typy kontraktov;Start rok;End rok;Url - continous
+Wheat;W;CBOT;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_{1}{2}{3}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;H,K,N,U,Z;1960;2016-N;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_W1.xml
+Soybean Meal;SM;CBOT;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_{1}{2}{3}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;F,H,K,N,Q,U,V,Z;1960-V;2015;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_SM1.xml
