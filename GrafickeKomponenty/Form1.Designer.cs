@@ -42,6 +42,8 @@
             this.comboBoxKontrakt2 = new System.Windows.Forms.ComboBox();
             this.zg1 = new ZedGraph.ZedGraphControl();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.comboBoxMesiace2 = new System.Windows.Forms.ComboBox();
+            this.comboBoxMesiace1 = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -133,10 +135,13 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.comboBoxKontrakt1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxKontrakt1.FormattingEnabled = true;
-            this.comboBoxKontrakt1.Location = new System.Drawing.Point(82, 76);
+            this.comboBoxKontrakt1.Items.AddRange(new object[] {
+            "----------"});
+            this.comboBoxKontrakt1.Location = new System.Drawing.Point(84, 76);
             this.comboBoxKontrakt1.Name = "comboBoxKontrakt1";
-            this.comboBoxKontrakt1.Size = new System.Drawing.Size(198, 21);
+            this.comboBoxKontrakt1.Size = new System.Drawing.Size(81, 21);
             this.comboBoxKontrakt1.TabIndex = 6;
+            this.comboBoxKontrakt1.TextChanged += new System.EventHandler(this.comboBoxKontrakt1_TextChanged);
             // 
             // label3
             // 
@@ -155,10 +160,13 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.comboBoxKontrakt2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxKontrakt2.FormattingEnabled = true;
-            this.comboBoxKontrakt2.Location = new System.Drawing.Point(82, 103);
+            this.comboBoxKontrakt2.Items.AddRange(new object[] {
+            "----------"});
+            this.comboBoxKontrakt2.Location = new System.Drawing.Point(84, 103);
             this.comboBoxKontrakt2.Name = "comboBoxKontrakt2";
-            this.comboBoxKontrakt2.Size = new System.Drawing.Size(198, 21);
+            this.comboBoxKontrakt2.Size = new System.Drawing.Size(81, 21);
             this.comboBoxKontrakt2.TabIndex = 8;
+            this.comboBoxKontrakt2.TextChanged += new System.EventHandler(this.comboBoxKontrakt2_TextChanged);
             // 
             // zg1
             // 
@@ -185,11 +193,44 @@
             this.statusStrip1.TabIndex = 11;
             this.statusStrip1.Text = "statusStrip1";
             // 
+            // comboBoxMesiace2
+            // 
+            this.comboBoxMesiace2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.comboBoxMesiace2.DisplayMember = "----------";
+            this.comboBoxMesiace2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxMesiace2.FormattingEnabled = true;
+            this.comboBoxMesiace2.Items.AddRange(new object[] {
+            "----------"});
+            this.comboBoxMesiace2.Location = new System.Drawing.Point(199, 103);
+            this.comboBoxMesiace2.Name = "comboBoxMesiace2";
+            this.comboBoxMesiace2.Size = new System.Drawing.Size(81, 21);
+            this.comboBoxMesiace2.TabIndex = 13;
+            this.comboBoxMesiace2.ValueMember = "----------";
+            // 
+            // comboBoxMesiace1
+            // 
+            this.comboBoxMesiace1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.comboBoxMesiace1.DisplayMember = "----------";
+            this.comboBoxMesiace1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxMesiace1.FormatString = "-------";
+            this.comboBoxMesiace1.FormattingEnabled = true;
+            this.comboBoxMesiace1.Items.AddRange(new object[] {
+            "----------"});
+            this.comboBoxMesiace1.Location = new System.Drawing.Point(199, 76);
+            this.comboBoxMesiace1.Name = "comboBoxMesiace1";
+            this.comboBoxMesiace1.Size = new System.Drawing.Size(81, 21);
+            this.comboBoxMesiace1.TabIndex = 12;
+            this.comboBoxMesiace1.ValueMember = "----------";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1435, 543);
+            this.Controls.Add(this.comboBoxMesiace2);
+            this.Controls.Add(this.comboBoxMesiace1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.zg1);
             this.Controls.Add(this.label3);
@@ -227,6 +268,8 @@
         private System.Windows.Forms.ComboBox comboBoxKontrakt2;
         private ZedGraph.ZedGraphControl zg1;
         private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ComboBox comboBoxMesiace2;
+        private System.Windows.Forms.ComboBox comboBoxMesiace1;
     }
 }
 

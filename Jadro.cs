@@ -18,9 +18,14 @@ namespace SpreadCalculator
         private List<ObchodnyDen> listKontrakt2;
         public List<Spread> listSpread;
         private List<SpecifikaciaKontraktu> listSpecifikacii;
+        private List<SirsiaSpecifikaciaKontraktu> listFuturesKontraktov;
+
+
+        enum KontraktneMesiace { F, G, H, J, K, M, N, Q, U, V, X, Z };
 
         public Jadro()
         {
+            listFuturesKontraktov = new List<SirsiaSpecifikaciaKontraktu>();
         }
 
         public List<ObchodnyDen> parsujKontrakt(string cesta, out bool succes)
@@ -180,5 +185,140 @@ namespace SpreadCalculator
             return list;
         }
 
+
+        public List<string> LoadKontrakty()
+        {
+            listFuturesKontraktov = new PracaSoSubormi().GetKontraktyPodrobnejsie();
+            var list = new List<string>();
+            list.Add("-----------");
+            foreach (var item in listFuturesKontraktov)
+            {
+                list.Add(item.Komodita);
+            }
+            return list;
+        }
+
+        public List<string> LoadRokySpecificke(string komodita)
+        {
+            var list = new List<string>();
+            foreach (var item in listFuturesKontraktov)
+            {
+                if (item.Komodita==komodita)
+                {
+                    list.AddRange(PocitajRoky(item.StartRok, item.EndRok));
+                }
+            }
+
+            return list;
+        }
+
+        private IEnumerable<string> PocitajRoky(string start, string koniec)
+        {
+            var list = new List<string>();
+            try
+            {
+                int startRok = ParsujRok(start);
+                int koniecRok = ParsujRok(koniec);           
+
+                for (int i = koniecRok; i >= startRok; i--)
+                {
+                    list.Add(i.ToString());
+                }
+            }
+            catch (Exception)
+            {
+                list.Add("Chyba load");
+            }
+            return list;
+        }
+
+        public IEnumerable<string> LoadMesiaceSpecificke(string kontrakt, string rokKont)
+        {
+            var list = new List<string>();
+            int rok = ParsujRok(rokKont);
+
+            foreach (var item in listFuturesKontraktov)
+            {
+                if (item.Komodita==kontrakt)
+                {
+                    if (rok == ParsujRok(item.StartRok))
+                    {
+                        if (item.StartRok.Contains("-"))
+                        {
+                            var poslednyMesiac = item.StartRok[5].ToString();
+                            var listVsetkych = ParsujKontraktyVsetky(item);
+                            foreach (var itemVset in listVsetkych)
+                            {
+                                if (itemVset == poslednyMesiac)
+                                {
+                                    list.Add(itemVset);
+                                    break;
+                                }
+                                list.Add(itemVset);
+                            }
+                        }
+                        else
+                        {
+                            list.AddRange(ParsujKontraktyVsetky(item));
+                            break;
+                        }
+                    }
+                    else if (rok == ParsujRok(item.EndRok))
+                    {
+                        if (item.EndRok.Contains("-"))
+                        {
+                            var poslednyMesiac = item.EndRok[5].ToString();
+                            var listVsetkych = ParsujKontraktyVsetky(item);
+                            foreach (var itemVset in listVsetkych)
+                            {
+                                if (itemVset == poslednyMesiac)
+                                {
+                                    list.Add(itemVset);
+                                    break;
+                                }
+                                list.Add(itemVset);
+                            }
+                        }
+                        else
+                        {
+                            list.AddRange(ParsujKontraktyVsetky(item));
+                            break;
+                        }
+                    }
+                    else if (rok < ParsujRok(item.EndRok) && rok > ParsujRok(item.StartRok))
+                    {
+                        list.AddRange(ParsujKontraktyVsetky(item));
+                        break;
+                    }
+                }
+            }
+            return list;
+        }
+
+        private IEnumerable<string> ParsujKontraktyVsetky(SirsiaSpecifikaciaKontraktu item)
+        {
+            var list = new List<string>();
+            for (int i = 0; i < item.TypyKontraktov.Length; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    list.Add(item.TypyKontraktov[i].ToString());
+                }
+            }
+
+            return list;
+        }
+
+        public int ParsujRok(string rok)
+        {
+            if (rok.Contains("-"))
+            {
+                return int.Parse(rok.Substring(0, rok.IndexOf("-")));
+            }
+            else
+            {
+                return int.Parse(rok);
+            }
+        }
     }
 }
