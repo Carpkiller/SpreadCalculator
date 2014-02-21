@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace SpreadCalculator
 {
@@ -50,5 +51,18 @@ namespace SpreadCalculator
             return list;
         }
 
+
+        internal static bool SkontrolujSubor(string kontrakt)
+        {
+            return File.Exists(System.Environment.CurrentDirectory.Substring(0, System.Environment.CurrentDirectory.LastIndexOf("bin")) + "Download\\" + kontrakt + ".csv");
+        }
+
+        internal static void UlozAktualnyList(List<ObchodnyDen> list, string komodita)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(List<ObchodnyDen>));
+            TextWriter textWriter = new StreamWriter(System.Environment.CurrentDirectory.Substring(0, System.Environment.CurrentDirectory.LastIndexOf("bin")) + "Download\\"+komodita+".xml");
+            serializer.Serialize(textWriter, list);
+            textWriter.Close();
+        }
     }
 }

@@ -64,7 +64,7 @@ namespace SpreadCalculator
         }
 
 
-        internal bool parsujKontrakty(int p1, int p2)
+        internal bool parsujKontrakty(int p1, string kontraktnyMesiac1, string rok1, string kontraktnyMesiac2, string rok2)
         {
             listKontrakt1 = new List<ObchodnyDen>();
             listKontrakt2 = new List<ObchodnyDen>();
@@ -72,12 +72,32 @@ namespace SpreadCalculator
             var succes1 = false;
             var succes2 = false;
 
-            listKontrakt1 = parsujKontraktXml(p1, out succes1);
-            listKontrakt2 = parsujKontraktXml(p2, out succes2);
+
+            if (ExistujeStiahnutySubor(listFuturesKontraktov[p1-1].Symbol + kontraktnyMesiac1 + rok1))
+            {
+            }
+            else
+            {
+                listKontrakt1 = parsujKontraktXml(p1, kontraktnyMesiac1, rok1, out succes1);
+            }
+
+            if (ExistujeStiahnutySubor(listFuturesKontraktov[p1-1].Symbol + kontraktnyMesiac1 + rok1))
+            {
+            }
+            else
+            {
+                listKontrakt2 = parsujKontraktXml(p1, kontraktnyMesiac2, rok2, out succes2);
+            }
+
 
             listSpread = vypocitajSpread();
 
             return succes1 && succes2;
+        }
+
+        private bool ExistujeStiahnutySubor(string komodita)
+        {
+            return PracaSoSubormi.SkontrolujSubor(komodita);
         }
 
         private List<Spread> vypocitajSpread()
@@ -90,21 +110,30 @@ namespace SpreadCalculator
                 dlzka = listKontrakt1.Count;
             }
 
-            for (int i = 0; i < dlzka; i++)
+            try
             {
-                var spread = listKontrakt1[i].Settle-listKontrakt2[i+indexZaciatkuDlhsiehoSpreadu].Settle;
-                list.Add(new Spread(spread,listKontrakt1[i].Date));
+                for (int i = 0; i < dlzka; i++)
+                {
+                    var spread = listKontrakt1[i].Settle - listKontrakt2[i + indexZaciatkuDlhsiehoSpreadu].Settle;
+                    list.Add(new Spread(spread, listKontrakt1[i].Date));
+                }
             }
+            catch (Exception e)
+            {
+                Console.Write(e.InnerException.ToString());
+            }
+
 
             return list;
         }
 
-        public List<ObchodnyDen> parsujKontraktXml(int kontrakIndex, out bool succes)
+        public List<ObchodnyDen> parsujKontraktXml(int kontrakIndex, string kontraktnyMesiac, string rok, out bool succes)
         {
             var list = new List<ObchodnyDen>();
             succes = false;
+            var komodita = listFuturesKontraktov[kontrakIndex - 1].Symbol + kontraktnyMesiac + rok;
 
-            string uri = "http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_"+ listSpecifikacii[kontrakIndex].Symbol+".xml?auth_token=UqHLDQVcxZy5AknRTZX9";
+            string uri = "http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_" + komodita + ".xml?auth_token=UqHLDQVcxZy5AknRTZX9";
 
             try
             {
@@ -155,9 +184,19 @@ namespace SpreadCalculator
             if (list != null)
             {
                 succes = true;
+                if (UlozData(list.First()))
+                {
+                    PracaSoSubormi.UlozAktualnyList(list, komodita);
+                }
             }
 
             return list;
+        }
+
+        private bool UlozData(ObchodnyDen obchodnyDen)
+        {
+            var den = (DateTime.Now - obchodnyDen.Date).Days;
+            return den > 6;
         }
 
         public List<string> LoadKontrakty(string komodita)

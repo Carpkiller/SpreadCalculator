@@ -23,7 +23,8 @@ namespace SpreadCalculator
         {
             if (comboBoxKontrakt1.Enabled && comboBoxKontrakt2.Enabled)
             {
-                jadro.parsujKontrakty(comboBoxKontrakt1.SelectedIndex, comboBoxKontrakt2.SelectedIndex);
+                jadro.parsujKontrakty(comboBoxKomodity.SelectedIndex, comboBoxMesiace1.Text, comboBoxKontrakt1.Text, comboBoxMesiace2.Text, comboBoxKontrakt2.Text);
+                MessageBox.Show("Done");
             }
             //  MessageBox.Show(jadro.parsujKontrakty("C:\\_WA\\WindowsHttpNacuvac\\SpreadCalculator\\bin\\Debug\\FUTURE_WH2001.csv", "C:\\_WA\\WindowsHttpNacuvac\\SpreadCalculator\\bin\\Debug\\FUTURE_WK2001.csv").ToString());
             // jadro.parsujKontraktXml();
