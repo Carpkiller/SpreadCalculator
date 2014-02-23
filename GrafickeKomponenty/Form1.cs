@@ -28,7 +28,7 @@ namespace SpreadCalculator
                 {
                 //    MessageBox.Show("Done");
                     zg1.Visible = true;
-                    zg1 = PracasGrafmi.KresliGraf(comboBoxKomodity.SelectedValue.ToString(), jadro.listSpread, zg1);
+                    zg1 = PracasGrafmi.KresliGraf(NazovGrafu(), jadro.listSpread, zg1);
                     zg1.Refresh();
                 }
             }
@@ -90,6 +90,14 @@ namespace SpreadCalculator
                     comboBoxKontrakt1.Enabled = true;
                 }
             }
+        }
+
+        private string NazovGrafu()
+        {
+            var komodita = comboBoxKomodity.SelectedValue.ToString();
+            var kontr1 = comboBoxKontrakt1.SelectedValue.ToString() + comboBoxMesiace1.SelectedValue.ToString();
+            var kontr2 = comboBoxKontrakt2.SelectedValue.ToString() + comboBoxMesiace2.SelectedValue.ToString();
+            return komodita + "  -  " + kontr1 + " " + kontr2;
         }
     }
 }
