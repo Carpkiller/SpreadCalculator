@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
+using ZedGraph;
 
 namespace SpreadCalculator
 {
@@ -23,8 +24,13 @@ namespace SpreadCalculator
         {
             if (comboBoxKontrakt1.Enabled && comboBoxKontrakt2.Enabled)
             {
-                jadro.parsujKontrakty(comboBoxKomodity.SelectedIndex, comboBoxMesiace1.Text, comboBoxKontrakt1.Text, comboBoxMesiace2.Text, comboBoxKontrakt2.Text);
-                MessageBox.Show("Done");
+                if (jadro.parsujKontrakty(comboBoxKomodity.SelectedIndex, comboBoxMesiace1.Text, comboBoxKontrakt1.Text, comboBoxMesiace2.Text, comboBoxKontrakt2.Text))
+                {
+                //    MessageBox.Show("Done");
+                    zg1.Visible = true;
+                    zg1 = PracasGrafmi.KresliGraf(comboBoxKomodity.SelectedValue.ToString(), jadro.listSpread, zg1);
+                    zg1.Refresh();
+                }
             }
             //  MessageBox.Show(jadro.parsujKontrakty("C:\\_WA\\WindowsHttpNacuvac\\SpreadCalculator\\bin\\Debug\\FUTURE_WH2001.csv", "C:\\_WA\\WindowsHttpNacuvac\\SpreadCalculator\\bin\\Debug\\FUTURE_WK2001.csv").ToString());
             // jadro.parsujKontraktXml();

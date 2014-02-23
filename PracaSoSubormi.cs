@@ -54,7 +54,8 @@ namespace SpreadCalculator
 
         internal static bool SkontrolujSubor(string kontrakt)
         {
-            return File.Exists(System.Environment.CurrentDirectory.Substring(0, System.Environment.CurrentDirectory.LastIndexOf("bin")) + "Download\\" + kontrakt + ".csv");
+            var co = File.Exists(System.Environment.CurrentDirectory.Substring(0, System.Environment.CurrentDirectory.LastIndexOf("bin")) + "Download\\" + kontrakt + ".xml");
+            return File.Exists(System.Environment.CurrentDirectory.Substring(0, System.Environment.CurrentDirectory.LastIndexOf("bin")) + "Download\\" + kontrakt + ".xml");
         }
 
         internal static void UlozAktualnyList(List<ObchodnyDen> list, string komodita)
@@ -63,6 +64,16 @@ namespace SpreadCalculator
             TextWriter textWriter = new StreamWriter(System.Environment.CurrentDirectory.Substring(0, System.Environment.CurrentDirectory.LastIndexOf("bin")) + "Download\\"+komodita+".xml");
             serializer.Serialize(textWriter, list);
             textWriter.Close();
+        }
+
+        internal static List<ObchodnyDen> NahrajData(string komodita)
+        {
+            var list = new List<ObchodnyDen>();
+            XmlSerializer serializer = new XmlSerializer(typeof(List<ObchodnyDen>));
+            TextReader textReader = new StreamReader(System.Environment.CurrentDirectory.Substring(0, System.Environment.CurrentDirectory.LastIndexOf("bin")) + "Download\\" + komodita + ".xml");
+            list = (List<ObchodnyDen>) serializer.Deserialize(textReader);
+            textReader.Close();
+            return list;
         }
     }
 }

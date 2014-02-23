@@ -75,24 +75,37 @@ namespace SpreadCalculator
 
             if (ExistujeStiahnutySubor(listFuturesKontraktov[p1-1].Symbol + kontraktnyMesiac1 + rok1))
             {
+                listKontrakt1 = NahrajUlozeneData(listFuturesKontraktov[p1 - 1].Symbol + kontraktnyMesiac1 + rok1, out succes1);
             }
-            else
+            if (succes1 == false)
             {
                 listKontrakt1 = parsujKontraktXml(p1, kontraktnyMesiac1, rok1, out succes1);
             }
 
-            if (ExistujeStiahnutySubor(listFuturesKontraktov[p1-1].Symbol + kontraktnyMesiac1 + rok1))
+            if (ExistujeStiahnutySubor(listFuturesKontraktov[p1-1].Symbol + kontraktnyMesiac2 + rok2))
             {
+                listKontrakt2 = NahrajUlozeneData(listFuturesKontraktov[p1 - 1].Symbol + kontraktnyMesiac2 + rok2, out succes2);
             }
-            else
+            if (succes2 == false)
             {
-                listKontrakt2 = parsujKontraktXml(p1, kontraktnyMesiac2, rok2, out succes2);
+                 listKontrakt2 = parsujKontraktXml(p1, kontraktnyMesiac2, rok2, out succes2);
             }
 
 
             listSpread = vypocitajSpread();
 
             return succes1 && succes2;
+        }
+
+        private List<ObchodnyDen> NahrajUlozeneData(string komodita, out bool succes)
+        {
+            succes = false;
+            var list = PracaSoSubormi.NahrajData(komodita);
+            if (list.Count > 0)
+            {
+                succes = true;
+            }
+            return list;
         }
 
         private bool ExistujeStiahnutySubor(string komodita)

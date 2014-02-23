@@ -173,7 +173,7 @@
             this.zg1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.zg1.Location = new System.Drawing.Point(301, 27);
+            this.zg1.Location = new System.Drawing.Point(301, 30);
             this.zg1.Name = "zg1";
             this.zg1.ScrollGrace = 0D;
             this.zg1.ScrollMaxX = 0D;
@@ -182,7 +182,7 @@
             this.zg1.ScrollMinX = 0D;
             this.zg1.ScrollMinY = 0D;
             this.zg1.ScrollMinY2 = 0D;
-            this.zg1.Size = new System.Drawing.Size(1134, 487);
+            this.zg1.Size = new System.Drawing.Size(1134, 484);
             this.zg1.TabIndex = 10;
             // 
             // statusStrip1
