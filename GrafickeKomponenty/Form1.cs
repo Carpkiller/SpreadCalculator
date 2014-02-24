@@ -68,6 +68,7 @@ namespace SpreadCalculator
 
         private void comboBoxKontrakt1_TextChanged(object sender, EventArgs e)
         {
+            var predZnak = comboBoxMesiace1.SelectedIndex;
             if (comboBoxKontrakt1.SelectedItem != "----------")
             {
                 var listMesiacov = jadro.LoadMesiaceSpecificke(comboBoxKomodity.SelectedItem.ToString(), comboBoxKontrakt1.SelectedItem.ToString());
@@ -75,12 +76,17 @@ namespace SpreadCalculator
                 {
                     comboBoxMesiace1.DataSource = listMesiacov;
                     comboBoxKontrakt1.Enabled = true;
+                    if (listMesiacov.Count >= predZnak)
+                    {
+                        comboBoxMesiace1.SelectedIndex = predZnak;
+                    }
                 }
             }
         }
 
         private void comboBoxKontrakt2_TextChanged(object sender, EventArgs e)
         {
+            var predZnak = comboBoxMesiace2.SelectedIndex;
             if (comboBoxKontrakt2.SelectedItem != "----------")
             {
                 var listMesiacov = jadro.LoadMesiaceSpecificke(comboBoxKomodity.SelectedItem.ToString(), comboBoxKontrakt2.SelectedItem.ToString());
@@ -88,6 +94,10 @@ namespace SpreadCalculator
                 {
                     comboBoxMesiace2.DataSource = listMesiacov;
                     comboBoxKontrakt1.Enabled = true;
+                    if (listMesiacov.Count >= predZnak)
+                    {
+                        comboBoxMesiace2.SelectedIndex = predZnak;
+                    }
                 }
             }
         }

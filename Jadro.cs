@@ -284,7 +284,7 @@ namespace SpreadCalculator
             return list;
         }
 
-        public IEnumerable<string> LoadMesiaceSpecificke(string kontrakt, string rokKont)
+        public List<string> LoadMesiaceSpecificke(string kontrakt, string rokKont)
         {
             var list = new List<string>();
             int rok = ParsujRok(rokKont);
