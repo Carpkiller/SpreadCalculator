@@ -30,6 +30,9 @@ namespace SpreadCalculator
                     zg1.Visible = true;
                     zg1 = PracasGrafmi.KresliGraf(NazovGrafu(), jadro.listSpread, zg1);
                     zg1.Refresh();
+                    zg1.IsShowPointValues = true;
+                    zg1.RestoreScale(zg1.GraphPane);
+                 //   zg1.Scale(0);
                 }
             }
             //  MessageBox.Show(jadro.parsujKontrakty("C:\\_WA\\WindowsHttpNacuvac\\SpreadCalculator\\bin\\Debug\\FUTURE_WH2001.csv", "C:\\_WA\\WindowsHttpNacuvac\\SpreadCalculator\\bin\\Debug\\FUTURE_WK2001.csv").ToString());
@@ -108,6 +111,24 @@ namespace SpreadCalculator
             var kontr1 = comboBoxKontrakt1.SelectedValue.ToString() + comboBoxMesiace1.SelectedValue.ToString();
             var kontr2 = comboBoxKontrakt2.SelectedValue.ToString() + comboBoxMesiace2.SelectedValue.ToString();
             return komodita + "  -  " + kontr1 + " " + kontr2;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (comboBoxKontrakt1.SelectedIndex != 0 && comboBoxKontrakt2.SelectedIndex != 0)
+            {
+                comboBoxKontrakt1.SelectedIndex = comboBoxKontrakt1.SelectedIndex-1;
+                comboBoxKontrakt2.SelectedIndex = comboBoxKontrakt2.SelectedIndex - 1;
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (comboBoxKontrakt1.SelectedIndex != comboBoxKontrakt1.Items.Count - 1 && comboBoxKontrakt2.SelectedIndex != comboBoxKontrakt2.Items.Count - 1)
+            {
+                comboBoxKontrakt1.SelectedIndex = comboBoxKontrakt1.SelectedIndex + 1;
+                comboBoxKontrakt2.SelectedIndex = comboBoxKontrakt2.SelectedIndex + 1;
+            }
         }
     }
 }
