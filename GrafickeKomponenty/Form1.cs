@@ -32,12 +32,9 @@ namespace SpreadCalculator
                     zg1.Refresh();
                     zg1.IsShowPointValues = true;
                     zg1.RestoreScale(zg1.GraphPane);
-                 //   zg1.Scale(0);
+                    textBox1.Text = jadro.statistika.ToString();
                 }
             }
-            //  MessageBox.Show(jadro.parsujKontrakty("C:\\_WA\\WindowsHttpNacuvac\\SpreadCalculator\\bin\\Debug\\FUTURE_WH2001.csv", "C:\\_WA\\WindowsHttpNacuvac\\SpreadCalculator\\bin\\Debug\\FUTURE_WK2001.csv").ToString());
-            // jadro.parsujKontraktXml();
-
         }
 
         private void button2_Click(object sender, EventArgs e)

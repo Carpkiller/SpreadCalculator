@@ -9,6 +9,7 @@ using System.Xml.Linq;
 using CsvHelper;
 using SpreadCalculator.PomocneTriedy;
 using System.Globalization;
+using SpreadCalculator.Statistiky;
 
 namespace SpreadCalculator
 {
@@ -19,7 +20,7 @@ namespace SpreadCalculator
         public List<Spread> listSpread;
         private List<SpecifikaciaKontraktu> listSpecifikacii;
         private List<SirsiaSpecifikaciaKontraktu> listFuturesKontraktov;
-
+        public Statistika statistika;
 
         enum KontraktneMesiace { F, G, H, J, K, M, N, Q, U, V, X, Z };
 
@@ -59,6 +60,7 @@ namespace SpreadCalculator
             listKontrakt2 = parsujKontrakt(p2, out succes2);
 
             listSpread = vypocitajSpread();
+            statistika = new Statistika(listSpread);
 
             return succes1 && succes2;
         }
@@ -93,6 +95,7 @@ namespace SpreadCalculator
 
 
             listSpread = vypocitajSpread();
+            statistika = new Statistika(listSpread);
 
             return succes1 && succes2;
         }

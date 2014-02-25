@@ -47,13 +47,18 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.menuStrip1.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(15, 491);
+            this.button1.Location = new System.Drawing.Point(6, 398);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(109, 23);
             this.button1.TabIndex = 1;
@@ -64,7 +69,7 @@
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button2.Location = new System.Drawing.Point(157, 491);
+            this.button2.Location = new System.Drawing.Point(148, 398);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(123, 23);
             this.button2.TabIndex = 2;
@@ -124,7 +129,7 @@
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 84);
+            this.label2.Location = new System.Drawing.Point(3, 16);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(59, 13);
             this.label2.TabIndex = 7;
@@ -138,7 +143,7 @@
             this.comboBoxKontrakt1.FormattingEnabled = true;
             this.comboBoxKontrakt1.Items.AddRange(new object[] {
             "----------"});
-            this.comboBoxKontrakt1.Location = new System.Drawing.Point(84, 76);
+            this.comboBoxKontrakt1.Location = new System.Drawing.Point(77, 8);
             this.comboBoxKontrakt1.Name = "comboBoxKontrakt1";
             this.comboBoxKontrakt1.Size = new System.Drawing.Size(81, 21);
             this.comboBoxKontrakt1.TabIndex = 6;
@@ -149,7 +154,7 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 106);
+            this.label3.Location = new System.Drawing.Point(3, 38);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(59, 13);
             this.label3.TabIndex = 9;
@@ -163,7 +168,7 @@
             this.comboBoxKontrakt2.FormattingEnabled = true;
             this.comboBoxKontrakt2.Items.AddRange(new object[] {
             "----------"});
-            this.comboBoxKontrakt2.Location = new System.Drawing.Point(84, 103);
+            this.comboBoxKontrakt2.Location = new System.Drawing.Point(77, 35);
             this.comboBoxKontrakt2.Name = "comboBoxKontrakt2";
             this.comboBoxKontrakt2.Size = new System.Drawing.Size(81, 21);
             this.comboBoxKontrakt2.TabIndex = 8;
@@ -174,7 +179,7 @@
             this.zg1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.zg1.Location = new System.Drawing.Point(301, 30);
+            this.zg1.Location = new System.Drawing.Point(302, 30);
             this.zg1.Name = "zg1";
             this.zg1.ScrollGrace = 0D;
             this.zg1.ScrollMaxX = 0D;
@@ -183,7 +188,7 @@
             this.zg1.ScrollMinX = 0D;
             this.zg1.ScrollMinY = 0D;
             this.zg1.ScrollMinY2 = 0D;
-            this.zg1.Size = new System.Drawing.Size(1134, 484);
+            this.zg1.Size = new System.Drawing.Size(1133, 484);
             this.zg1.TabIndex = 10;
             // 
             // statusStrip1
@@ -203,7 +208,7 @@
             this.comboBoxMesiace2.FormattingEnabled = true;
             this.comboBoxMesiace2.Items.AddRange(new object[] {
             "----------"});
-            this.comboBoxMesiace2.Location = new System.Drawing.Point(199, 103);
+            this.comboBoxMesiace2.Location = new System.Drawing.Point(192, 35);
             this.comboBoxMesiace2.Name = "comboBoxMesiace2";
             this.comboBoxMesiace2.Size = new System.Drawing.Size(81, 21);
             this.comboBoxMesiace2.TabIndex = 13;
@@ -219,7 +224,7 @@
             this.comboBoxMesiace1.FormattingEnabled = true;
             this.comboBoxMesiace1.Items.AddRange(new object[] {
             "----------"});
-            this.comboBoxMesiace1.Location = new System.Drawing.Point(199, 76);
+            this.comboBoxMesiace1.Location = new System.Drawing.Point(192, 8);
             this.comboBoxMesiace1.Name = "comboBoxMesiace1";
             this.comboBoxMesiace1.Size = new System.Drawing.Size(81, 21);
             this.comboBoxMesiace1.TabIndex = 12;
@@ -227,7 +232,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(84, 140);
+            this.button3.Location = new System.Drawing.Point(77, 72);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(38, 20);
             this.button3.TabIndex = 14;
@@ -237,7 +242,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(127, 140);
+            this.button4.Location = new System.Drawing.Point(120, 72);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(38, 20);
             this.button4.TabIndex = 15;
@@ -247,32 +252,63 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(13, 177);
+            this.textBox1.Location = new System.Drawing.Point(4, 98);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(267, 308);
+            this.textBox1.Size = new System.Drawing.Size(267, 294);
             this.textBox1.TabIndex = 16;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(12, 61);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(284, 453);
+            this.tabControl1.TabIndex = 17;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.button2);
+            this.tabPage1.Controls.Add(this.button4);
+            this.tabPage1.Controls.Add(this.textBox1);
+            this.tabPage1.Controls.Add(this.button3);
+            this.tabPage1.Controls.Add(this.button1);
+            this.tabPage1.Controls.Add(this.comboBoxMesiace2);
+            this.tabPage1.Controls.Add(this.comboBoxKontrakt1);
+            this.tabPage1.Controls.Add(this.comboBoxMesiace1);
+            this.tabPage1.Controls.Add(this.label2);
+            this.tabPage1.Controls.Add(this.comboBoxKontrakt2);
+            this.tabPage1.Controls.Add(this.label3);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(276, 427);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Spready";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(276, 427);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Grafy";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1435, 543);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.comboBoxMesiace2);
-            this.Controls.Add(this.comboBoxMesiace1);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.zg1);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.comboBoxKontrakt2);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.comboBoxKontrakt1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBoxKomodity);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
@@ -280,6 +316,9 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -305,6 +344,9 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
     }
 }
 
