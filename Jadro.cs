@@ -136,7 +136,7 @@ namespace SpreadCalculator
             }
             catch (Exception e)
             {
-                Console.Write(e.InnerException.ToString());
+                Console.Write(e.ToString());
             }
 
 
