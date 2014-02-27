@@ -12,5 +12,10 @@ namespace SpreadCalculator.PomocneTriedy
             Value = value;
             Date = date;
         }
+
+        public override bool Equals(object obj)
+        {
+            return this.Date == ((Spread) (obj)).Date;
+        }
     }
 }

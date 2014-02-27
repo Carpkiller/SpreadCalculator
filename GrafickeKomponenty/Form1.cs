@@ -127,5 +127,79 @@ namespace SpreadCalculator
                 comboBoxKontrakt2.SelectedIndex = comboBoxKontrakt2.SelectedIndex + 1;
             }
         }
+
+        private void tabControl1_TabIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab.Text == "Sezonnost")
+            {
+                var listKontraktov1 = jadro.LoadRokySpecificke(comboBoxKomodity.SelectedItem.ToString());
+                var listKontraktov2 = new List<string>(listKontraktov1);
+                if (listKontraktov1 != null)
+                {
+                    comboBoxKontrakt1Sez.DataSource = listKontraktov1;
+                    comboBoxKontrakt2Sez.DataSource = listKontraktov2;
+                    comboBoxKontrakt1Sez.Enabled = true;
+                    comboBoxKontrakt2Sez.Enabled = true;
+                }
+            }
+        }
+
+        private void comboBoxKontrakt1Sez_TextChanged(object sender, EventArgs e)
+        {
+            var predZnak = comboBoxMesiace1Sez.SelectedIndex;
+            if (comboBoxKontrakt1Sez.SelectedItem != "----------")
+            {
+                var listMesiacov = jadro.LoadMesiaceSpecificke(comboBoxKomodity.SelectedItem.ToString(), comboBoxKontrakt1Sez.SelectedItem.ToString());
+                if (listMesiacov != null)
+                {
+                    comboBoxMesiace1Sez.DataSource = listMesiacov;
+                    comboBoxKontrakt1Sez.Enabled = true;
+                    if (listMesiacov.Count >= predZnak)
+                    {
+                        comboBoxMesiace1Sez.SelectedIndex = predZnak;
+                    }
+                }
+            }
+        }
+
+        private void comboBoxKontrakt2Sez_TextChanged(object sender, EventArgs e)
+        {
+            var predZnak = comboBoxMesiace2Sez.SelectedIndex;
+            if (comboBoxKontrakt2Sez.SelectedItem != "----------")
+            {
+                var listMesiacov = jadro.LoadMesiaceSpecificke(comboBoxKomodity.SelectedItem.ToString(), comboBoxKontrakt2Sez.SelectedItem.ToString());
+                if (listMesiacov != null)
+                {
+                    comboBoxMesiace2Sez.DataSource = listMesiacov;
+                    comboBoxKontrakt2Sez.Enabled = true;
+                    if (listMesiacov.Count >= predZnak)
+                    {
+                        comboBoxMesiace2Sez.SelectedIndex = predZnak;
+                    }
+                }
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (comboBoxKontrakt1Sez.Enabled && comboBoxKontrakt2Sez.Enabled)
+            {
+                if (jadro.pocitajSezonnost(comboBoxKomodity.SelectedIndex, comboBoxMesiace1Sez.Text, comboBoxKontrakt1Sez.Text, comboBoxMesiace2Sez.Text, comboBoxKontrakt2Sez.Text, textBoxRoky.Text))
+                {
+                    //    MessageBox.Show("Done");
+                    //zg1.Visible = true;
+                    //zg1 = PracasGrafmi.KresliGraf(NazovGrafu(), jadro.listSpread, zg1);
+                    //zg1.Refresh();
+                    //zg1.IsShowPointValues = true;
+                    //zg1.RestoreScale(zg1.GraphPane);
+                    //textBox1.Text = jadro.statistika.ToString();
+                }
+            }
+        }
     }
 }
