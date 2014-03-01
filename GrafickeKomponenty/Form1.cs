@@ -18,6 +18,13 @@ namespace SpreadCalculator
 
             zg1.Visible =false;
             jadro = new Jadro();
+
+            jadro.ZmenaPopisu += new Jadro.ZmenaPopisuHandler(ZmenPopis);
+        }
+
+        private void ZmenPopis()
+        {
+            toolStripStatusLabel1.Text = jadro.stavText;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -59,7 +66,9 @@ namespace SpreadCalculator
                 if (listKontraktov1 != null)
                 {
                     comboBoxKontrakt1.DataSource = listKontraktov1;
+                    comboBoxKontrakt1Sez.DataSource = listKontraktov1;
                     comboBoxKontrakt2.DataSource = listKontraktov2;
+                    comboBoxKontrakt2Sez.DataSource = listKontraktov2;
                     comboBoxKontrakt1.Enabled = true;
                     comboBoxKontrakt2.Enabled = true;
                 }
@@ -192,11 +201,11 @@ namespace SpreadCalculator
                 if (jadro.pocitajSezonnost(comboBoxKomodity.SelectedIndex, comboBoxMesiace1Sez.Text, comboBoxKontrakt1Sez.Text, comboBoxMesiace2Sez.Text, comboBoxKontrakt2Sez.Text, textBoxRoky.Text))
                 {
                     //    MessageBox.Show("Done");
-                    //zg1.Visible = true;
-                    //zg1 = PracasGrafmi.KresliGraf(NazovGrafu(), jadro.listSpread, zg1);
-                    //zg1.Refresh();
-                    //zg1.IsShowPointValues = true;
-                    //zg1.RestoreScale(zg1.GraphPane);
+                    zg1.Visible = true;
+                    zg1 = PracasGrafmi.KresliGraf("Forecast graf", jadro.dataGrafTerajsi,jadro.dataGrafVedalsi, zg1);
+                    zg1.Refresh();
+                    zg1.IsShowPointValues = true;
+                    zg1.RestoreScale(zg1.GraphPane);
                     //textBox1.Text = jadro.statistika.ToString();
                 }
             }

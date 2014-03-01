@@ -52,16 +52,18 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.comboBoxMesiace2Sez = new System.Windows.Forms.ComboBox();
+            this.comboBoxKontrakt2Sez = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.button5 = new System.Windows.Forms.Button();
+            this.textBoxRoky = new System.Windows.Forms.TextBox();
             this.comboBoxKontrakt1Sez = new System.Windows.Forms.ComboBox();
             this.comboBoxMesiace1Sez = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBoxRoky = new System.Windows.Forms.TextBox();
-            this.button5 = new System.Windows.Forms.Button();
-            this.comboBoxMesiace2Sez = new System.Windows.Forms.ComboBox();
-            this.comboBoxKontrakt2Sez = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage4.SuspendLayout();
@@ -95,7 +97,7 @@
             this.menuToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1435, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1370, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -200,14 +202,16 @@
             this.zg1.ScrollMinX = 0D;
             this.zg1.ScrollMinY = 0D;
             this.zg1.ScrollMinY2 = 0D;
-            this.zg1.Size = new System.Drawing.Size(1133, 484);
+            this.zg1.Size = new System.Drawing.Size(1068, 484);
             this.zg1.TabIndex = 10;
             // 
             // statusStrip1
             // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 521);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1435, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1370, 22);
             this.statusStrip1.TabIndex = 11;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -341,6 +345,64 @@
             this.tabPage4.Text = "Sezonnost";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // comboBoxMesiace2Sez
+            // 
+            this.comboBoxMesiace2Sez.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.comboBoxMesiace2Sez.DisplayMember = "----------";
+            this.comboBoxMesiace2Sez.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxMesiace2Sez.FormattingEnabled = true;
+            this.comboBoxMesiace2Sez.Items.AddRange(new object[] {
+            "----------"});
+            this.comboBoxMesiace2Sez.Location = new System.Drawing.Point(192, 42);
+            this.comboBoxMesiace2Sez.Name = "comboBoxMesiace2Sez";
+            this.comboBoxMesiace2Sez.Size = new System.Drawing.Size(81, 21);
+            this.comboBoxMesiace2Sez.TabIndex = 28;
+            this.comboBoxMesiace2Sez.ValueMember = "----------";
+            // 
+            // comboBoxKontrakt2Sez
+            // 
+            this.comboBoxKontrakt2Sez.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.comboBoxKontrakt2Sez.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxKontrakt2Sez.FormattingEnabled = true;
+            this.comboBoxKontrakt2Sez.Items.AddRange(new object[] {
+            "----------"});
+            this.comboBoxKontrakt2Sez.Location = new System.Drawing.Point(77, 42);
+            this.comboBoxKontrakt2Sez.Name = "comboBoxKontrakt2Sez";
+            this.comboBoxKontrakt2Sez.Size = new System.Drawing.Size(81, 21);
+            this.comboBoxKontrakt2Sez.TabIndex = 26;
+            this.comboBoxKontrakt2Sez.TextChanged += new System.EventHandler(this.comboBoxKontrakt2Sez_TextChanged);
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(3, 45);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(59, 13);
+            this.label6.TabIndex = 27;
+            this.label6.Text = "Kontrakt2 :";
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(6, 123);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.TabIndex = 25;
+            this.button5.Text = "Zobraz graf";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // textBoxRoky
+            // 
+            this.textBoxRoky.Location = new System.Drawing.Point(173, 80);
+            this.textBoxRoky.Name = "textBoxRoky";
+            this.textBoxRoky.Size = new System.Drawing.Size(100, 20);
+            this.textBoxRoky.TabIndex = 24;
+            this.textBoxRoky.Text = "1";
+            // 
             // comboBoxKontrakt1Sez
             // 
             this.comboBoxKontrakt1Sez.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -393,69 +455,17 @@
             this.label5.TabIndex = 19;
             this.label5.Text = "Pocet rokov na porovnanie : ";
             // 
-            // textBoxRoky
+            // toolStripStatusLabel1
             // 
-            this.textBoxRoky.Location = new System.Drawing.Point(173, 80);
-            this.textBoxRoky.Name = "textBoxRoky";
-            this.textBoxRoky.Size = new System.Drawing.Size(100, 20);
-            this.textBoxRoky.TabIndex = 24;
-            this.textBoxRoky.Text = "1";
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(6, 123);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 25;
-            this.button5.Text = "Zobraz graf";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // comboBoxMesiace2Sez
-            // 
-            this.comboBoxMesiace2Sez.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.comboBoxMesiace2Sez.DisplayMember = "----------";
-            this.comboBoxMesiace2Sez.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxMesiace2Sez.FormattingEnabled = true;
-            this.comboBoxMesiace2Sez.Items.AddRange(new object[] {
-            "----------"});
-            this.comboBoxMesiace2Sez.Location = new System.Drawing.Point(192, 42);
-            this.comboBoxMesiace2Sez.Name = "comboBoxMesiace2Sez";
-            this.comboBoxMesiace2Sez.Size = new System.Drawing.Size(81, 21);
-            this.comboBoxMesiace2Sez.TabIndex = 28;
-            this.comboBoxMesiace2Sez.ValueMember = "----------";
-            // 
-            // comboBoxKontrakt2Sez
-            // 
-            this.comboBoxKontrakt2Sez.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.comboBoxKontrakt2Sez.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxKontrakt2Sez.FormattingEnabled = true;
-            this.comboBoxKontrakt2Sez.Items.AddRange(new object[] {
-            "----------"});
-            this.comboBoxKontrakt2Sez.Location = new System.Drawing.Point(77, 42);
-            this.comboBoxKontrakt2Sez.Name = "comboBoxKontrakt2Sez";
-            this.comboBoxKontrakt2Sez.Size = new System.Drawing.Size(81, 21);
-            this.comboBoxKontrakt2Sez.TabIndex = 26;
-            this.comboBoxKontrakt2Sez.TextChanged += new System.EventHandler(this.comboBoxKontrakt2Sez_TextChanged);
-            // 
-            // label6
-            // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 45);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(59, 13);
-            this.label6.TabIndex = 27;
-            this.label6.Text = "Kontrakt2 :";
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(39, 17);
+            this.toolStripStatusLabel1.Text = "Ready";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1435, 543);
+            this.ClientSize = new System.Drawing.Size(1370, 543);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.zg1);
@@ -468,6 +478,8 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -512,6 +524,7 @@
         private System.Windows.Forms.ComboBox comboBoxMesiace2Sez;
         private System.Windows.Forms.ComboBox comboBoxKontrakt2Sez;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
     }
 }
 
