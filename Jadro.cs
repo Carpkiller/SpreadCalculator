@@ -52,7 +52,7 @@ namespace SpreadCalculator
             return list;
         }
 
-        internal bool parsujKontrakty(string p1, string p2)
+        internal bool ParsujKontrakty(string p1, string p2)
         {
             listKontrakt1 = new List<ObchodnyDen>();
             listKontrakt2 = new List<ObchodnyDen>();
@@ -74,13 +74,13 @@ namespace SpreadCalculator
         }
 
 
-        internal bool parsujKontrakty(int p1, string kontraktnyMesiac1, string rok1, string kontraktnyMesiac2, string rok2)
+        internal bool ParsujKontrakty(int komodita1, int komodita2, string kontraktnyMesiac1, string rok1, string kontraktnyMesiac2, string rok2)
         {        
             var succes1 = false;
             var succes2 = false;
 
-            var listKontrakt1 = NacitajData(p1, kontraktnyMesiac1, rok1, out succes1);
-            var listKontrakt2 = NacitajData(p1, kontraktnyMesiac2, rok2, out succes2);
+            var listKontrakt1 = NacitajData(komodita1, kontraktnyMesiac1, rok1, out succes1);
+            var listKontrakt2 = NacitajData(komodita2, kontraktnyMesiac2, rok2, out succes2);
 
             listSpread = vypocitajSpread(listKontrakt1, listKontrakt2);
 
@@ -251,10 +251,10 @@ namespace SpreadCalculator
             if (list.Count>0)
             {
                 succes = true;
-             //   if (UlozData(list.First()))
-            //    {
+                if (UlozData(list.First()))
+                {
                     PracaSoSubormi.UlozAktualnyList(list, komodita);
-            //    }
+                }
             }
 
             return list;

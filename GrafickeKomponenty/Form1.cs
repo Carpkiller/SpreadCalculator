@@ -31,7 +31,9 @@ namespace SpreadCalculator
         {
             if (comboBoxKontrakt1.Enabled && comboBoxKontrakt2.Enabled)
             {
-                if (jadro.parsujKontrakty(comboBoxKomodity.SelectedIndex, comboBoxMesiace1.Text, comboBoxKontrakt1.Text, comboBoxMesiace2.Text, comboBoxKontrakt2.Text))
+                var komodita1 = comboBoxKomodity.SelectedIndex;
+                var komodita2 = checkBoxDruhyKontrakt.Checked ? comboBoxKomodity2.SelectedIndex : comboBoxKomodity.SelectedIndex;
+                if (jadro.ParsujKontrakty(komodita1,komodita2, comboBoxMesiace1.Text, comboBoxKontrakt1.Text, comboBoxMesiace2.Text, comboBoxKontrakt2.Text))
                 {
                 //    MessageBox.Show("Done");
                     zg1.Visible = true;
@@ -46,7 +48,7 @@ namespace SpreadCalculator
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Graf graf = new Graf(jadro.listSpread, "FUTURE_WH2010");
+            var graf = new Graf(jadro.listSpread, "FUTURE_WH2010");
             graf.Show(this);
         }
 
@@ -55,6 +57,7 @@ namespace SpreadCalculator
             comboBoxKontrakt1.Enabled = false;
             comboBoxKontrakt2.Enabled = false;
             comboBoxKomodity.DataSource = jadro.LoadKontrakty();
+            comboBoxKomodity2.DataSource = jadro.LoadKontrakty();
         }
 
         private void comboBoxKomodity_TextChanged(object sender, EventArgs e)
@@ -62,15 +65,18 @@ namespace SpreadCalculator
             if (comboBoxKomodity.SelectedItem != "----------")
             {
                 var listKontraktov1 = jadro.LoadRokySpecificke(comboBoxKomodity.SelectedItem.ToString());
-                var listKontraktov2 = new List<string>(listKontraktov1);
                 if (listKontraktov1 != null)
                 {
                     comboBoxKontrakt1.DataSource = listKontraktov1;
                     comboBoxKontrakt1Sez.DataSource = listKontraktov1;
-                    comboBoxKontrakt2.DataSource = listKontraktov2;
-                    comboBoxKontrakt2Sez.DataSource = listKontraktov2;
                     comboBoxKontrakt1.Enabled = true;
-                    comboBoxKontrakt2.Enabled = true;
+                    if (!checkBoxDruhyKontrakt.Checked)
+                    {
+                        var listKontraktov2 = new List<string>(listKontraktov1);
+                        comboBoxKontrakt2.DataSource = listKontraktov2;
+                        comboBoxKontrakt2Sez.DataSource = listKontraktov2;
+                        comboBoxKontrakt2.Enabled = true;
+                    }
                 }
             }
         }
@@ -98,7 +104,7 @@ namespace SpreadCalculator
             var predZnak = comboBoxMesiace2.SelectedIndex;
             if (comboBoxKontrakt2.SelectedItem != "----------")
             {
-                var listMesiacov = jadro.LoadMesiaceSpecificke(comboBoxKomodity.SelectedItem.ToString(), comboBoxKontrakt2.SelectedItem.ToString());
+                var listMesiacov = jadro.LoadMesiaceSpecificke(checkBoxDruhyKontrakt.Checked ? comboBoxKomodity2.SelectedItem.ToString() : comboBoxKomodity.SelectedItem.ToString(), comboBoxKontrakt2.SelectedItem.ToString());
                 if (listMesiacov != null)
                 {
                     comboBoxMesiace2.DataSource = listMesiacov;
@@ -135,11 +141,6 @@ namespace SpreadCalculator
                 comboBoxKontrakt1.SelectedIndex = comboBoxKontrakt1.SelectedIndex + 1;
                 comboBoxKontrakt2.SelectedIndex = comboBoxKontrakt2.SelectedIndex + 1;
             }
-        }
-
-        private void tabControl1_TabIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -207,6 +208,36 @@ namespace SpreadCalculator
                     zg1.IsShowPointValues = true;
                     zg1.RestoreScale(zg1.GraphPane);
                     //textBox1.Text = jadro.statistika.ToString();
+                }
+            }
+        }
+
+        private void checkBoxDruhyKontrakt_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxDruhyKontrakt.Checked)
+            {
+                labelKomodity2.Visible = true;
+                comboBoxKomodity2.Visible = true;
+                var ee = comboBoxKontrakt1.DataSource;
+            }
+            else
+            {
+                labelKomodity2.Visible = false;
+                comboBoxKomodity2.Visible = false;
+            }
+            
+        }
+
+        private void comboBoxKomodity2_TextChanged(object sender, EventArgs e)
+        {
+            if (comboBoxKomodity2.SelectedItem != "----------")
+            {
+                var listKontraktov1 = jadro.LoadRokySpecificke(comboBoxKomodity2.SelectedItem.ToString());
+                if (listKontraktov1 != null)
+                {
+                    comboBoxKontrakt2.DataSource = listKontraktov1;
+                    comboBoxKontrakt2Sez.DataSource = listKontraktov1;
+                    comboBoxKontrakt2.Enabled = true;
                 }
             }
         }

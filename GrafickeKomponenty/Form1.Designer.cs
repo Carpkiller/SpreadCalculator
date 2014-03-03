@@ -42,6 +42,7 @@
             this.comboBoxKontrakt2 = new System.Windows.Forms.ComboBox();
             this.zg1 = new ZedGraph.ZedGraphControl();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.comboBoxMesiace2 = new System.Windows.Forms.ComboBox();
             this.comboBoxMesiace1 = new System.Windows.Forms.ComboBox();
             this.button3 = new System.Windows.Forms.Button();
@@ -61,7 +62,9 @@
             this.comboBoxMesiace1Sez = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.labelKomodity2 = new System.Windows.Forms.Label();
+            this.comboBoxKomodity2 = new System.Windows.Forms.ComboBox();
+            this.checkBoxDruhyKontrakt = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -123,7 +126,7 @@
             this.comboBoxKomodity.FormattingEnabled = true;
             this.comboBoxKomodity.Location = new System.Drawing.Point(84, 27);
             this.comboBoxKomodity.Name = "comboBoxKomodity";
-            this.comboBoxKomodity.Size = new System.Drawing.Size(196, 21);
+            this.comboBoxKomodity.Size = new System.Drawing.Size(170, 21);
             this.comboBoxKomodity.TabIndex = 4;
             this.comboBoxKomodity.TextChanged += new System.EventHandler(this.comboBoxKomodity_TextChanged);
             // 
@@ -202,18 +205,24 @@
             this.zg1.ScrollMinX = 0D;
             this.zg1.ScrollMinY = 0D;
             this.zg1.ScrollMinY2 = 0D;
-            this.zg1.Size = new System.Drawing.Size(1068, 484);
+            this.zg1.Size = new System.Drawing.Size(1068, 525);
             this.zg1.TabIndex = 10;
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 521);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 562);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1370, 22);
             this.statusStrip1.TabIndex = 11;
             this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(39, 17);
+            this.toolStripStatusLabel1.Text = "Ready";
             // 
             // comboBoxMesiace2
             // 
@@ -280,7 +289,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Location = new System.Drawing.Point(12, 61);
+            this.tabControl1.Location = new System.Drawing.Point(12, 102);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(284, 453);
@@ -455,17 +464,49 @@
             this.label5.TabIndex = 19;
             this.label5.Text = "Pocet rokov na porovnanie : ";
             // 
-            // toolStripStatusLabel1
+            // labelKomodity2
             // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(39, 17);
-            this.toolStripStatusLabel1.Text = "Ready";
+            this.labelKomodity2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelKomodity2.AutoSize = true;
+            this.labelKomodity2.Location = new System.Drawing.Point(12, 69);
+            this.labelKomodity2.Name = "labelKomodity2";
+            this.labelKomodity2.Size = new System.Drawing.Size(48, 13);
+            this.labelKomodity2.TabIndex = 19;
+            this.labelKomodity2.Text = "Futures :";
+            this.labelKomodity2.Visible = false;
+            // 
+            // comboBoxKomodity2
+            // 
+            this.comboBoxKomodity2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.comboBoxKomodity2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxKomodity2.FormattingEnabled = true;
+            this.comboBoxKomodity2.Location = new System.Drawing.Point(84, 66);
+            this.comboBoxKomodity2.Name = "comboBoxKomodity2";
+            this.comboBoxKomodity2.Size = new System.Drawing.Size(170, 21);
+            this.comboBoxKomodity2.TabIndex = 18;
+            this.comboBoxKomodity2.Visible = false;
+            this.comboBoxKomodity2.TextChanged += new System.EventHandler(this.comboBoxKomodity2_TextChanged);
+            // 
+            // checkBoxDruhyKontrakt
+            // 
+            this.checkBoxDruhyKontrakt.AutoSize = true;
+            this.checkBoxDruhyKontrakt.Location = new System.Drawing.Point(274, 30);
+            this.checkBoxDruhyKontrakt.Name = "checkBoxDruhyKontrakt";
+            this.checkBoxDruhyKontrakt.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxDruhyKontrakt.TabIndex = 20;
+            this.checkBoxDruhyKontrakt.UseVisualStyleBackColor = true;
+            this.checkBoxDruhyKontrakt.CheckedChanged += new System.EventHandler(this.checkBoxDruhyKontrakt_CheckedChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1370, 543);
+            this.ClientSize = new System.Drawing.Size(1370, 584);
+            this.Controls.Add(this.checkBoxDruhyKontrakt);
+            this.Controls.Add(this.labelKomodity2);
+            this.Controls.Add(this.comboBoxKomodity2);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.zg1);
@@ -525,6 +566,9 @@
         private System.Windows.Forms.ComboBox comboBoxKontrakt2Sez;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.Label labelKomodity2;
+        private System.Windows.Forms.ComboBox comboBoxKomodity2;
+        private System.Windows.Forms.CheckBox checkBoxDruhyKontrakt;
     }
 }
 

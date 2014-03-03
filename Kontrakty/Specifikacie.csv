@@ -1,3 +1,6 @@
 Komodita;Symbol;Burza;Url;TypyKontraktov;StartRok;EndRok;UrlCon
 Wheat;W;CBOT;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_{1}{2}{3}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;H,K,N,U,Z;1960;2016-N;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_W1.xml
-Soybean Meal;SM;CBOT;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_{1}{2}{3}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;F,H,K,N,Q,U,V,Z;1960-V;2015;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_SM1.xml
+Soybean Meal;SM;CBOT;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_{1}{2}{3}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;F,H,K,N,Q,U,V,Z;1960-V;2016;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_SM1.xml
+Soybeans;S;CBOT;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_{1}{2}{3}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;F,H,K,N,Q,U,X;1970;2016;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_S1.xml
+Corn;C;CBOT;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_{1}{2}{3}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;H,K,N,U,Z;1970;2016;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_C1.xml
+Soybean Oil;BO;CBOT;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_{1}{2}{3}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;F,H,K,N,Q,U,V,Z;1962;2016;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_BO1.xml
