@@ -3268,15 +3268,6 @@
     <OpenInterest>64</OpenInterest>
   </ObchodnyDen>
   <ObchodnyDen>
-    <Date>2012-04-06T00:00:00</Date>
-    <Open>0</Open>
-    <High>0</High>
-    <Low>0</Low>
-    <Settle>726.25</Settle>
-    <Volume>0</Volume>
-    <OpenInterest>67</OpenInterest>
-  </ObchodnyDen>
-  <ObchodnyDen>
     <Date>2012-04-05T00:00:00</Date>
     <Open>726.25</Open>
     <High>726.25</High>

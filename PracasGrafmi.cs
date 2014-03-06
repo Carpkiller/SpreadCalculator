@@ -116,5 +116,64 @@ namespace SpreadCalculator
 
             return zg1;
         }
+
+        public static ZedGraphControl KresliJednoduchyGraf(string forecastGraf, List<ObchodnyDen> getDataPreGraf, ZedGraphControl zg1)
+        {
+            zg1.GraphPane.CurveList.Clear();
+            zg1.GraphPane.GraphObjList.Clear();
+
+            GraphPane myPane = zg1.GraphPane;
+
+            // Set the titles and axis labels
+            myPane.Title.Text = forecastGraf;
+            myPane.XAxis.Title.Text = "Date";
+            myPane.YAxis.Title.Text = "$";
+            myPane.XAxis.Type = AxisType.Date;
+
+            var spl = new StockPointList();
+            int rok = getDataPreGraf.First().Date.Year;
+            DateTime predchadzDatum = getDataPreGraf.First().Date;
+
+            foreach (var den in getDataPreGraf)
+            {
+                var x = (double)new XDate(DateTime.Parse(den.Date.ToShortDateString()));
+
+                double open = den.Open;
+                double close = den.Settle;
+                double hi = den.High;
+                double low = den.Low;
+
+                var pt = new StockPt(x, hi, low, open, close, 100000);
+                spl.Add(pt);
+
+                if (den.Date.Year != predchadzDatum.Year)
+                {
+                    LineItem line = new LineItem(String.Empty, new[] { x, x },    new[] { myPane.YAxis.Scale.Min, myPane.YAxis.Scale.Max },    Color.Black, SymbolType.None);
+                    line.Line.Style = System.Drawing.Drawing2D.DashStyle.Dash;
+                    line.Line.Width = 1f;
+                    //myPane.CurveList.Add(line);
+                    Console.WriteLine("Datum  " + den.Date);
+                }
+                predchadzDatum = den.Date;
+
+            }
+
+            JapaneseCandleStickItem myCurve = myPane.AddJapaneseCandleStick("trades", spl);
+            myCurve.Stick.IsAutoSize = true;
+            myCurve.Stick.Color = Color.Blue;
+
+            // Use DateAsOrdinal to skip weekend gaps
+            myPane.XAxis.Type = AxisType.DateAsOrdinal;
+
+            // pretty it up a little
+            //myPane.Chart.Fill = new Fill(Color.White, Color.LightGoldenrodYellow, 45.0f);
+            //myPane.Fill = new Fill(Color.White, Color.FromArgb(220, 220, 255), 45.0f);
+
+            // Tell ZedGraph to calculate the axis ranges
+            zg1.AxisChange();
+            zg1.Invalidate();
+
+            return zg1;
+        }
     }
 }

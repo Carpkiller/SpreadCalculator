@@ -69,6 +69,7 @@ namespace SpreadCalculator
                 {
                     comboBoxKontrakt1.DataSource = listKontraktov1;
                     comboBoxKontrakt1Sez.DataSource = listKontraktov1;
+                    comboBoxKontrakt1Graf.DataSource = listKontraktov1;
                     comboBoxKontrakt1.Enabled = true;
                     if (!checkBoxDruhyKontrakt.Checked)
                     {
@@ -239,6 +240,40 @@ namespace SpreadCalculator
                     comboBoxKontrakt2Sez.DataSource = listKontraktov1;
                     comboBoxKontrakt2.Enabled = true;
                 }
+            }
+        }
+
+        private void comboBoxKontrakt1Graf_TextChanged(object sender, EventArgs e)
+        {
+            var predZnak = comboBoxMesiace1Graf.SelectedIndex;
+            if (comboBoxKontrakt1Graf.SelectedItem != "----------")
+            {
+                var listMesiacov = jadro.LoadMesiaceSpecificke(comboBoxKomodity.SelectedItem.ToString(), comboBoxKontrakt1Graf.SelectedItem.ToString());
+                if (listMesiacov != null)
+                {
+                    comboBoxMesiace1Graf.DataSource = listMesiacov;
+                    comboBoxKontrakt1Graf.Enabled = true;
+                    if (listMesiacov.Count >= predZnak)
+                    {
+                        comboBoxMesiace1Graf.SelectedIndex = predZnak;
+                    }
+                }
+            }
+        }
+
+        private void buttonJednoduchyGraf_Click(object sender, EventArgs e)
+        {
+            if (comboBoxMesiace1Graf.Text != null && comboBoxKontrakt1Graf.Text != null)
+            {
+                //    MessageBox.Show("Done");
+                zg1.Visible = true;
+                zg1 = PracasGrafmi.KresliJednoduchyGraf("Forecast graf",
+                    jadro.GetDataPreGraf(comboBoxKomodity.SelectedIndex, comboBoxMesiace1Graf.Text,
+                        comboBoxKontrakt1Graf.Text), zg1);
+                zg1.Refresh();
+                zg1.IsShowPointValues = true;
+                zg1.RestoreScale(zg1.GraphPane);
+                //textBox1.Text = jadro.statistika.ToString();
             }
         }
     }

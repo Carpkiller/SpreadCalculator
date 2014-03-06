@@ -91,6 +91,10 @@ namespace SpreadCalculator
                     stavText = "Nacitanie uspesne dokoncene";
                     statistika = new Statistika(listSpread);
                 }
+                else
+                {
+                    stavText = "Spread mimo rozsah/ chybajuce data";
+                }
             }
 
             if (ZmenaPopisu != null)
@@ -100,7 +104,7 @@ namespace SpreadCalculator
                 ZmenaPopisu();
             }
 
-            return succes1 && succes2;
+            return succes1 && succes2 && listSpread.Count>0;
         }
 
         private List<ObchodnyDen> NacitajData(int p1, string kontraktnyMesiac1, string rok1, out bool succes)
@@ -629,5 +633,28 @@ namespace SpreadCalculator
         public List<Spread> dataGrafTerajsi { get; set; }
 
         public List<Spread> dataGrafVedalsi { get; set; }
+
+        public List<ObchodnyDen> GetDataPreGraf(int p1, string p2, string p3)
+        {
+            bool succes;
+            var listKontrakt = NacitajData(p1, p2, p3, out succes);
+            foreach (var obchodnyDen in listKontrakt)
+            {
+                if (obchodnyDen.High==0)
+                {
+                    obchodnyDen.High = obchodnyDen.Settle;
+                }
+                if (obchodnyDen.Low == 0)
+                {
+                    obchodnyDen.Low = obchodnyDen.Settle;
+                }
+                if (obchodnyDen.Open == 0)
+                {
+                    obchodnyDen.Open = obchodnyDen.Settle;
+                }
+            }
+
+            return listKontrakt;
+        }
     }
 }
