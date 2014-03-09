@@ -77,6 +77,9 @@ namespace SpreadCalculator
             var succes1 = false;
             var succes2 = false;
 
+            kontraktnyMesiac1 = kontraktnyMesiac1.Contains("  -") ? kontraktnyMesiac1.Substring(0, kontraktnyMesiac1.IndexOf("  -")) : kontraktnyMesiac1;
+            kontraktnyMesiac2 = kontraktnyMesiac2.Contains("  -") ? kontraktnyMesiac2.Substring(0, kontraktnyMesiac2.IndexOf("  -")) : kontraktnyMesiac2;
+
             var listKontrakt1 = NacitajData(komodita1, kontraktnyMesiac1, rok1, out succes1);
             var listKontrakt2 = NacitajData(komodita2, kontraktnyMesiac2, rok2, out succes2);
 
