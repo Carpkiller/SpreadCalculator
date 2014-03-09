@@ -23,8 +23,6 @@ namespace SpreadCalculator
         public Statistika statistika;
         public string stavText = "Ready";
 
-        enum KontraktneMesiace { F, G, H, J, K, M, N, Q, U, V, X, Z };
-
         public delegate void ZmenaPopisuHandler();
         public event ZmenaPopisuHandler ZmenaPopisu;
 
@@ -299,24 +297,17 @@ namespace SpreadCalculator
         public List<string> LoadKontrakty()
         {
             listFuturesKontraktov = new PracaSoSubormi().GetKontraktyPodrobnejsie();
-            var list = new List<string>();
-            list.Add("-----------");
-            foreach (var item in listFuturesKontraktov)
-            {
-                list.Add(item.Komodita);
-            }
+            var list = new List<string> {"-----------"};
+            list.AddRange(listFuturesKontraktov.Select(item => item.Komodita + "  - " + item.Symbol));
             return list;
         }
 
         public List<string> LoadRokySpecificke(string komodita)
         {
             var list = new List<string>();
-            foreach (var item in listFuturesKontraktov)
+            foreach (var item in listFuturesKontraktov.Where(item => item.Komodita==komodita.Substring(0,komodita.IndexOf("  -"))))
             {
-                if (item.Komodita==komodita)
-                {
-                    list.AddRange(PocitajRoky(item.StartRok, item.EndRok));
-                }
+                list.AddRange(PocitajRoky(item.StartRok, item.EndRok));
             }
 
             return list;
@@ -346,6 +337,7 @@ namespace SpreadCalculator
         {
             var list = new List<string>();
             int rok = ParsujRok(rokKont);
+            kontrakt = kontrakt.Contains("  -") ? kontrakt.Substring(0, kontrakt.IndexOf("  -")) : kontrakt;
 
             foreach (var item in listFuturesKontraktov)
             {
@@ -361,15 +353,15 @@ namespace SpreadCalculator
                             {
                                 if (itemVset == poslednyMesiac)
                                 {
-                                    list.Add(itemVset);
+                                    list.Add(KontraktneMesiace.GetPopis(itemVset));
                                     break;
                                 }
-                                list.Add(itemVset);
+                                list.Add(KontraktneMesiace.GetPopis(itemVset));
                             }
                         }
                         else
                         {
-                            list.AddRange(ParsujKontraktyVsetky(item));
+                            list.AddRange(ParsujKontraktyVsetky(item).Select(KontraktneMesiace.GetPopis));
                             break;
                         }
                     }
@@ -383,21 +375,21 @@ namespace SpreadCalculator
                             {
                                 if (itemVset == poslednyMesiac)
                                 {
-                                    list.Add(itemVset);
+                                    list.Add(KontraktneMesiace.GetPopis(itemVset));
                                     break;
                                 }
-                                list.Add(itemVset);
+                                list.Add(KontraktneMesiace.GetPopis(itemVset));
                             }
                         }
                         else
                         {
-                            list.AddRange(ParsujKontraktyVsetky(item));
+                            list.AddRange(ParsujKontraktyVsetky(item).Select(KontraktneMesiace.GetPopis));
                             break;
                         }
                     }
                     else if (rok < ParsujRok(item.EndRok) && rok > ParsujRok(item.StartRok))
                     {
-                        list.AddRange(ParsujKontraktyVsetky(item));
+                        list.AddRange(ParsujKontraktyVsetky(item).Select(KontraktneMesiace.GetPopis));
                         break;
                     }
                 }
@@ -407,16 +399,7 @@ namespace SpreadCalculator
 
         private IEnumerable<string> ParsujKontraktyVsetky(SirsiaSpecifikaciaKontraktu item)
         {
-            var list = new List<string>();
-            for (int i = 0; i < item.TypyKontraktov.Length; i++)
-            {
-                if (i % 2 == 0)
-                {
-                    list.Add(item.TypyKontraktov[i].ToString());
-                }
-            }
-
-            return list;
+            return item.TypyKontraktov.Where((t, i) => i%2 == 0).Select(t => t.ToString()).ToList();
         }
 
         public int ParsujRok(string rok)

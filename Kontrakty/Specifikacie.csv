@@ -1,6 +1,11 @@
-Komodita;Symbol;Burza;Url;TypyKontraktov;StartRok;EndRok;UrlCon
-Wheat;W;CBOT;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_{1}{2}{3}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;H,K,N,U,Z;1960;2016-N;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_W1.xml
-Soybean Meal;SM;CBOT;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_{1}{2}{3}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;F,H,K,N,Q,U,V,Z;1960-V;2016;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_SM1.xml
-Soybeans;S;CBOT;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_{1}{2}{3}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;F,H,K,N,Q,U,X;1970;2016;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_S1.xml
-Corn;C;CBOT;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_{1}{2}{3}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;H,K,N,U,Z;1970;2016;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_C1.xml
-Soybean Oil;BO;CBOT;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_{1}{2}{3}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;F,H,K,N,Q,U,V,Z;1962;2016;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_BO1.xml
+Komodita;Symbol;Burza;Url;TypyKontraktov;StartRok;EndRok;UrlCon;Kategoria;HodnotaBod
+Wheat;W;CBOT;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_{1}{2}{3}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;H,K,N,U,Z;1960;2016-N;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_W1.xml;;
+Soybean Meal;SM;CBOT;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_{1}{2}{3}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;F,H,K,N,Q,U,V,Z;1960-V;2016;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_SM1.xml;;
+Soybeans;S;CBOT;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_{1}{2}{3}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;F,H,K,N,Q,U,X;1970;2016;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_S1.xml;;
+Corn;C;CBOT;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_{1}{2}{3}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;H,K,N,U,Z;1970;2016;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_C1.xml;;
+Soybean Oil;BO;CBOT;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_{1}{2}{3}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;F,H,K,N,Q,U,V,Z;1962;2016;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_BO1.xml;;
+Gasoline;RB;NYMEX;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_{1}{2}{3}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;F,G,H,J,K,M,N,Q,U,V,X,Z;2006;2016;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_RB1.xml;Energy;
+Natural Gas;NG;NYMEX;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_{1}{2}{3}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;F,G,H,J,K,M,N,Q,U,V,X,Z;1991;2025;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_NG1.xml;Energy;
+Lean Hogs;LN;CME;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_{1}{2}{3}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;G,J,K,M,N,Q,V,Z;1970;2015;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_LN1.xml;Ags;
+Live Cattle;LC;CME;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_{1}{2}{3}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;G,J,M,Q,V,Z;1965-G;2015-Q;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_LC1.xml;Ags;
+Feeder Cattle;FC;CME;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_{1}{2}{3}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;F,H,J,K,Q,U,V,X;1981-H;2014;http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_FC1.xml;Ags;

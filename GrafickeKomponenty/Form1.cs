@@ -16,7 +16,7 @@ namespace SpreadCalculator
             comboBoxKontrakt1.SelectedIndex = 0;
             comboBoxKontrakt2.SelectedIndex = 0;
 
-            zg1.Visible =false;
+            zg1.Visible = false;
             jadro = new Jadro();
 
             jadro.ZmenaPopisu += new Jadro.ZmenaPopisuHandler(ZmenPopis);
@@ -33,9 +33,9 @@ namespace SpreadCalculator
             {
                 var komodita1 = comboBoxKomodity.SelectedIndex;
                 var komodita2 = checkBoxDruhyKontrakt.Checked ? comboBoxKomodity2.SelectedIndex : comboBoxKomodity.SelectedIndex;
-                if (jadro.ParsujKontrakty(komodita1,komodita2, comboBoxMesiace1.Text, comboBoxKontrakt1.Text, comboBoxMesiace2.Text, comboBoxKontrakt2.Text))
+                if (jadro.ParsujKontrakty(komodita1, komodita2, comboBoxMesiace1.Text, comboBoxKontrakt1.Text, comboBoxMesiace2.Text, comboBoxKontrakt2.Text))
                 {
-                //    MessageBox.Show("Done");
+                    //    MessageBox.Show("Done");
                     zg1.Visible = true;
                     zg1 = PracasGrafmi.KresliGraf(NazovGrafu(), jadro.listSpread, zg1);
                     zg1.Refresh();
@@ -62,7 +62,7 @@ namespace SpreadCalculator
 
         private void comboBoxKomodity_TextChanged(object sender, EventArgs e)
         {
-            if (comboBoxKomodity.SelectedItem != "----------")
+            if (comboBoxKomodity.SelectedItem != "-----------")
             {
                 var listKontraktov1 = jadro.LoadRokySpecificke(comboBoxKomodity.SelectedItem.ToString());
                 if (listKontraktov1 != null)
@@ -130,7 +130,7 @@ namespace SpreadCalculator
         {
             if (comboBoxKontrakt1.SelectedIndex != 0 && comboBoxKontrakt2.SelectedIndex != 0)
             {
-                comboBoxKontrakt1.SelectedIndex = comboBoxKontrakt1.SelectedIndex-1;
+                comboBoxKontrakt1.SelectedIndex = comboBoxKontrakt1.SelectedIndex - 1;
                 comboBoxKontrakt2.SelectedIndex = comboBoxKontrakt2.SelectedIndex - 1;
             }
         }
@@ -204,7 +204,7 @@ namespace SpreadCalculator
                 {
                     //    MessageBox.Show("Done");
                     zg1.Visible = true;
-                    zg1 = PracasGrafmi.KresliGraf("Forecast graf", jadro.dataGrafTerajsi,jadro.dataGrafVedalsi, zg1);
+                    zg1 = PracasGrafmi.KresliGraf("Forecast graf", jadro.dataGrafTerajsi, jadro.dataGrafVedalsi, zg1);
                     zg1.Refresh();
                     zg1.IsShowPointValues = true;
                     zg1.RestoreScale(zg1.GraphPane);
@@ -226,12 +226,12 @@ namespace SpreadCalculator
                 labelKomodity2.Visible = false;
                 comboBoxKomodity2.Visible = false;
             }
-            
+
         }
 
         private void comboBoxKomodity2_TextChanged(object sender, EventArgs e)
         {
-            if (comboBoxKomodity2.SelectedItem != "----------")
+            if (comboBoxKomodity2.SelectedItem != "-----------")
             {
                 var listKontraktov1 = jadro.LoadRokySpecificke(comboBoxKomodity2.SelectedItem.ToString());
                 if (listKontraktov1 != null)
@@ -246,7 +246,7 @@ namespace SpreadCalculator
         private void comboBoxKontrakt1Graf_TextChanged(object sender, EventArgs e)
         {
             var predZnak = comboBoxMesiace1Graf.SelectedIndex;
-            if (comboBoxKontrakt1Graf.SelectedItem != "----------")
+            if (!ReferenceEquals(comboBoxKontrakt1Graf.SelectedItem, "-----------"))
             {
                 var listMesiacov = jadro.LoadMesiaceSpecificke(comboBoxKomodity.SelectedItem.ToString(), comboBoxKontrakt1Graf.SelectedItem.ToString());
                 if (listMesiacov != null)
