@@ -623,7 +623,8 @@ namespace SpreadCalculator
         public List<ObchodnyDen> GetDataPreGraf(int p1, string p2, string p3)
         {
             bool succes;
-            var listKontrakt = NacitajData(p1, p2, p3, out succes);
+            var mesiac = p2.Contains("  -") ? p2.Substring(0, p2.IndexOf("  -")) : p2;
+            var listKontrakt = NacitajData(p1, mesiac, p3, out succes);
             foreach (var obchodnyDen in listKontrakt)
             {
                 if (obchodnyDen.High==0)
@@ -641,6 +642,25 @@ namespace SpreadCalculator
             }
 
             return listKontrakt;
+        }
+
+        public string PocitajStatistiky(int komodita1, int komodita2, string mesiac1, string rok1, string mesiac2, string rok2, int pocetRokov)
+        {
+            var list = new List<List<Spread>>();
+            mesiac1 = mesiac1.Contains("  -") ? mesiac1.Substring(0, mesiac1.IndexOf("  -")) : mesiac1;
+            mesiac2 = mesiac2.Contains("  -") ? mesiac2.Substring(0, mesiac2.IndexOf("  -")) : mesiac2;
+
+            for (int i = 0; i < pocetRokov; i++)
+            {
+                var succes = true;
+                var listKontrakt1 = NacitajData(komodita1, mesiac1, (int.Parse(rok1) - (i + 1)).ToString(), out succes);
+                var listKontrakt2 = NacitajData(komodita2, mesiac2, (int.Parse(rok2) - (i + 1)).ToString(), out succes);
+                var spread = vypocitajSpread(listKontrakt1, listKontrakt2);
+
+                list.Add(spread);
+            }
+
+            return Testy.PocitajStatistiky(list, 10);
         }
     }
 }

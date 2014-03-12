@@ -1,4 +1,4 @@
-﻿namespace SpreadCalculator
+﻿namespace SpreadCalculator.GrafickeKomponenty
 {
     partial class Form1
     {
@@ -51,6 +51,13 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.comboBoxMesiace2Graf = new System.Windows.Forms.ComboBox();
+            this.buttonJednoduchyGraf = new System.Windows.Forms.Button();
+            this.comboBoxKontrakt1Graf = new System.Windows.Forms.ComboBox();
+            this.comboBoxKontrakt2Graf = new System.Windows.Forms.ComboBox();
+            this.comboBoxMesiace1Graf = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.comboBoxMesiace2Sez = new System.Windows.Forms.ComboBox();
@@ -65,18 +72,22 @@
             this.labelKomodity2 = new System.Windows.Forms.Label();
             this.comboBoxKomodity2 = new System.Windows.Forms.ComboBox();
             this.checkBoxDruhyKontrakt = new System.Windows.Forms.CheckBox();
-            this.buttonJednoduchyGraf = new System.Windows.Forms.Button();
-            this.comboBoxMesiace2Graf = new System.Windows.Forms.ComboBox();
-            this.comboBoxKontrakt1Graf = new System.Windows.Forms.ComboBox();
-            this.comboBoxMesiace1Graf = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.comboBoxKontrakt2Graf = new System.Windows.Forms.ComboBox();
-            this.label8 = new System.Windows.Forms.Label();
+            this.textBoxVelky = new System.Windows.Forms.TextBox();
+            this.comboBox2TestyMesiac = new System.Windows.Forms.ComboBox();
+            this.buttonTesty = new System.Windows.Forms.Button();
+            this.comboBox1TestyRok = new System.Windows.Forms.ComboBox();
+            this.comboBox2TestyRok = new System.Windows.Forms.ComboBox();
+            this.comboBox1TestyMesiac = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -342,8 +353,108 @@
             this.tabPage2.Text = "Grafy";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // comboBoxMesiace2Graf
+            // 
+            this.comboBoxMesiace2Graf.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.comboBoxMesiace2Graf.DisplayMember = "----------";
+            this.comboBoxMesiace2Graf.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxMesiace2Graf.FormattingEnabled = true;
+            this.comboBoxMesiace2Graf.Items.AddRange(new object[] {
+            "----------"});
+            this.comboBoxMesiace2Graf.Location = new System.Drawing.Point(192, 36);
+            this.comboBoxMesiace2Graf.Name = "comboBoxMesiace2Graf";
+            this.comboBoxMesiace2Graf.Size = new System.Drawing.Size(81, 21);
+            this.comboBoxMesiace2Graf.TabIndex = 26;
+            this.comboBoxMesiace2Graf.ValueMember = "----------";
+            // 
+            // buttonJednoduchyGraf
+            // 
+            this.buttonJednoduchyGraf.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonJednoduchyGraf.Location = new System.Drawing.Point(59, 79);
+            this.buttonJednoduchyGraf.Name = "buttonJednoduchyGraf";
+            this.buttonJednoduchyGraf.Size = new System.Drawing.Size(109, 23);
+            this.buttonJednoduchyGraf.TabIndex = 2;
+            this.buttonJednoduchyGraf.Text = "Zobraz graf";
+            this.buttonJednoduchyGraf.UseVisualStyleBackColor = true;
+            this.buttonJednoduchyGraf.Click += new System.EventHandler(this.buttonJednoduchyGraf_Click);
+            // 
+            // comboBoxKontrakt1Graf
+            // 
+            this.comboBoxKontrakt1Graf.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.comboBoxKontrakt1Graf.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxKontrakt1Graf.FormattingEnabled = true;
+            this.comboBoxKontrakt1Graf.Items.AddRange(new object[] {
+            "----------"});
+            this.comboBoxKontrakt1Graf.Location = new System.Drawing.Point(77, 9);
+            this.comboBoxKontrakt1Graf.Name = "comboBoxKontrakt1Graf";
+            this.comboBoxKontrakt1Graf.Size = new System.Drawing.Size(81, 21);
+            this.comboBoxKontrakt1Graf.TabIndex = 21;
+            this.comboBoxKontrakt1Graf.TextChanged += new System.EventHandler(this.comboBoxKontrakt1Graf_TextChanged);
+            // 
+            // comboBoxKontrakt2Graf
+            // 
+            this.comboBoxKontrakt2Graf.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.comboBoxKontrakt2Graf.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxKontrakt2Graf.FormattingEnabled = true;
+            this.comboBoxKontrakt2Graf.Items.AddRange(new object[] {
+            "----------"});
+            this.comboBoxKontrakt2Graf.Location = new System.Drawing.Point(77, 36);
+            this.comboBoxKontrakt2Graf.Name = "comboBoxKontrakt2Graf";
+            this.comboBoxKontrakt2Graf.Size = new System.Drawing.Size(81, 21);
+            this.comboBoxKontrakt2Graf.TabIndex = 23;
+            // 
+            // comboBoxMesiace1Graf
+            // 
+            this.comboBoxMesiace1Graf.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.comboBoxMesiace1Graf.DisplayMember = "----------";
+            this.comboBoxMesiace1Graf.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxMesiace1Graf.FormatString = "-------";
+            this.comboBoxMesiace1Graf.FormattingEnabled = true;
+            this.comboBoxMesiace1Graf.Items.AddRange(new object[] {
+            "----------"});
+            this.comboBoxMesiace1Graf.Location = new System.Drawing.Point(192, 9);
+            this.comboBoxMesiace1Graf.Name = "comboBoxMesiace1Graf";
+            this.comboBoxMesiace1Graf.Size = new System.Drawing.Size(81, 21);
+            this.comboBoxMesiace1Graf.TabIndex = 25;
+            this.comboBoxMesiace1Graf.ValueMember = "----------";
+            // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(3, 39);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(59, 13);
+            this.label8.TabIndex = 24;
+            this.label8.Text = "Kontrakt2 :";
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(3, 17);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(59, 13);
+            this.label7.TabIndex = 22;
+            this.label7.Text = "Kontrakt1 :";
+            // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.textBox2);
+            this.tabPage3.Controls.Add(this.label11);
+            this.tabPage3.Controls.Add(this.comboBox2TestyMesiac);
+            this.tabPage3.Controls.Add(this.buttonTesty);
+            this.tabPage3.Controls.Add(this.comboBox1TestyRok);
+            this.tabPage3.Controls.Add(this.comboBox2TestyRok);
+            this.tabPage3.Controls.Add(this.comboBox1TestyMesiac);
+            this.tabPage3.Controls.Add(this.label9);
+            this.tabPage3.Controls.Add(this.label10);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Size = new System.Drawing.Size(276, 427);
@@ -514,102 +625,133 @@
             this.checkBoxDruhyKontrakt.UseVisualStyleBackColor = true;
             this.checkBoxDruhyKontrakt.CheckedChanged += new System.EventHandler(this.checkBoxDruhyKontrakt_CheckedChanged);
             // 
-            // buttonJednoduchyGraf
+            // textBoxVelky
             // 
-            this.buttonJednoduchyGraf.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonJednoduchyGraf.Location = new System.Drawing.Point(59, 79);
-            this.buttonJednoduchyGraf.Name = "buttonJednoduchyGraf";
-            this.buttonJednoduchyGraf.Size = new System.Drawing.Size(109, 23);
-            this.buttonJednoduchyGraf.TabIndex = 2;
-            this.buttonJednoduchyGraf.Text = "Zobraz graf";
-            this.buttonJednoduchyGraf.UseVisualStyleBackColor = true;
-            this.buttonJednoduchyGraf.Click += new System.EventHandler(this.buttonJednoduchyGraf_Click);
+            this.textBoxVelky.Location = new System.Drawing.Point(302, 27);
+            this.textBoxVelky.Multiline = true;
+            this.textBoxVelky.Name = "textBoxVelky";
+            this.textBoxVelky.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxVelky.Size = new System.Drawing.Size(1068, 528);
+            this.textBoxVelky.TabIndex = 21;
+            this.textBoxVelky.Visible = false;
             // 
-            // comboBoxMesiace2Graf
+            // comboBox2TestyMesiac
             // 
-            this.comboBoxMesiace2Graf.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.comboBox2TestyMesiac.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.comboBoxMesiace2Graf.DisplayMember = "----------";
-            this.comboBoxMesiace2Graf.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxMesiace2Graf.FormattingEnabled = true;
-            this.comboBoxMesiace2Graf.Items.AddRange(new object[] {
+            this.comboBox2TestyMesiac.DisplayMember = "----------";
+            this.comboBox2TestyMesiac.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2TestyMesiac.FormattingEnabled = true;
+            this.comboBox2TestyMesiac.Items.AddRange(new object[] {
             "----------"});
-            this.comboBoxMesiace2Graf.Location = new System.Drawing.Point(192, 36);
-            this.comboBoxMesiace2Graf.Name = "comboBoxMesiace2Graf";
-            this.comboBoxMesiace2Graf.Size = new System.Drawing.Size(81, 21);
-            this.comboBoxMesiace2Graf.TabIndex = 26;
-            this.comboBoxMesiace2Graf.ValueMember = "----------";
+            this.comboBox2TestyMesiac.Location = new System.Drawing.Point(192, 40);
+            this.comboBox2TestyMesiac.Name = "comboBox2TestyMesiac";
+            this.comboBox2TestyMesiac.Size = new System.Drawing.Size(81, 21);
+            this.comboBox2TestyMesiac.TabIndex = 33;
+            this.comboBox2TestyMesiac.ValueMember = "----------";
             // 
-            // comboBoxKontrakt1Graf
+            // buttonTesty
             // 
-            this.comboBoxKontrakt1Graf.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.buttonTesty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonTesty.Location = new System.Drawing.Point(68, 113);
+            this.buttonTesty.Name = "buttonTesty";
+            this.buttonTesty.Size = new System.Drawing.Size(109, 23);
+            this.buttonTesty.TabIndex = 27;
+            this.buttonTesty.Text = "Zobraz graf";
+            this.buttonTesty.UseVisualStyleBackColor = true;
+            this.buttonTesty.Click += new System.EventHandler(this.buttonTesty_Click);
+            // 
+            // comboBox1TestyRok
+            // 
+            this.comboBox1TestyRok.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.comboBoxKontrakt1Graf.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxKontrakt1Graf.FormattingEnabled = true;
-            this.comboBoxKontrakt1Graf.Items.AddRange(new object[] {
+            this.comboBox1TestyRok.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1TestyRok.FormattingEnabled = true;
+            this.comboBox1TestyRok.Items.AddRange(new object[] {
             "----------"});
-            this.comboBoxKontrakt1Graf.Location = new System.Drawing.Point(77, 9);
-            this.comboBoxKontrakt1Graf.Name = "comboBoxKontrakt1Graf";
-            this.comboBoxKontrakt1Graf.Size = new System.Drawing.Size(81, 21);
-            this.comboBoxKontrakt1Graf.TabIndex = 21;
-            this.comboBoxKontrakt1Graf.TextChanged += new System.EventHandler(this.comboBoxKontrakt1Graf_TextChanged);
+            this.comboBox1TestyRok.Location = new System.Drawing.Point(77, 13);
+            this.comboBox1TestyRok.Name = "comboBox1TestyRok";
+            this.comboBox1TestyRok.Size = new System.Drawing.Size(81, 21);
+            this.comboBox1TestyRok.TabIndex = 28;
+            this.comboBox1TestyRok.TextChanged += new System.EventHandler(this.comboBox1TestyRok_TextChanged);
             // 
-            // comboBoxMesiace1Graf
+            // comboBox2TestyRok
             // 
-            this.comboBoxMesiace1Graf.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.comboBox2TestyRok.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.comboBoxMesiace1Graf.DisplayMember = "----------";
-            this.comboBoxMesiace1Graf.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxMesiace1Graf.FormatString = "-------";
-            this.comboBoxMesiace1Graf.FormattingEnabled = true;
-            this.comboBoxMesiace1Graf.Items.AddRange(new object[] {
+            this.comboBox2TestyRok.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2TestyRok.FormattingEnabled = true;
+            this.comboBox2TestyRok.Items.AddRange(new object[] {
             "----------"});
-            this.comboBoxMesiace1Graf.Location = new System.Drawing.Point(192, 9);
-            this.comboBoxMesiace1Graf.Name = "comboBoxMesiace1Graf";
-            this.comboBoxMesiace1Graf.Size = new System.Drawing.Size(81, 21);
-            this.comboBoxMesiace1Graf.TabIndex = 25;
-            this.comboBoxMesiace1Graf.ValueMember = "----------";
+            this.comboBox2TestyRok.Location = new System.Drawing.Point(77, 40);
+            this.comboBox2TestyRok.Name = "comboBox2TestyRok";
+            this.comboBox2TestyRok.Size = new System.Drawing.Size(81, 21);
+            this.comboBox2TestyRok.TabIndex = 30;
+            this.comboBox2TestyRok.TextChanged += new System.EventHandler(this.comboBox2TestyRok_TextChanged);
             // 
-            // label7
+            // comboBox1TestyMesiac
             // 
-            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.comboBox1TestyMesiac.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(3, 17);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(59, 13);
-            this.label7.TabIndex = 22;
-            this.label7.Text = "Kontrakt1 :";
-            // 
-            // comboBoxKontrakt2Graf
-            // 
-            this.comboBoxKontrakt2Graf.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.comboBoxKontrakt2Graf.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxKontrakt2Graf.FormattingEnabled = true;
-            this.comboBoxKontrakt2Graf.Items.AddRange(new object[] {
+            this.comboBox1TestyMesiac.DisplayMember = "----------";
+            this.comboBox1TestyMesiac.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1TestyMesiac.FormatString = "-------";
+            this.comboBox1TestyMesiac.FormattingEnabled = true;
+            this.comboBox1TestyMesiac.Items.AddRange(new object[] {
             "----------"});
-            this.comboBoxKontrakt2Graf.Location = new System.Drawing.Point(77, 36);
-            this.comboBoxKontrakt2Graf.Name = "comboBoxKontrakt2Graf";
-            this.comboBoxKontrakt2Graf.Size = new System.Drawing.Size(81, 21);
-            this.comboBoxKontrakt2Graf.TabIndex = 23;
+            this.comboBox1TestyMesiac.Location = new System.Drawing.Point(192, 13);
+            this.comboBox1TestyMesiac.Name = "comboBox1TestyMesiac";
+            this.comboBox1TestyMesiac.Size = new System.Drawing.Size(81, 21);
+            this.comboBox1TestyMesiac.TabIndex = 32;
+            this.comboBox1TestyMesiac.ValueMember = "----------";
             // 
-            // label8
+            // label9
             // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(3, 39);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(59, 13);
-            this.label8.TabIndex = 24;
-            this.label8.Text = "Kontrakt2 :";
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(3, 43);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(59, 13);
+            this.label9.TabIndex = 31;
+            this.label9.Text = "Kontrakt2 :";
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(3, 21);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(59, 13);
+            this.label10.TabIndex = 29;
+            this.label10.Text = "Kontrakt1 :";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(173, 77);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.TabIndex = 35;
+            this.textBox2.Text = "5";
+            // 
+            // label11
+            // 
+            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(3, 80);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(71, 13);
+            this.label11.TabIndex = 34;
+            this.label11.Text = "Pocet rokov :";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1370, 584);
+            this.Controls.Add(this.textBoxVelky);
             this.Controls.Add(this.checkBoxDruhyKontrakt);
             this.Controls.Add(this.labelKomodity2);
             this.Controls.Add(this.comboBoxKomodity2);
@@ -632,6 +774,8 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
@@ -684,6 +828,16 @@
         private System.Windows.Forms.ComboBox comboBoxMesiace1Graf;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBoxVelky;
+        private System.Windows.Forms.ComboBox comboBox2TestyMesiac;
+        private System.Windows.Forms.Button buttonTesty;
+        private System.Windows.Forms.ComboBox comboBox1TestyRok;
+        private System.Windows.Forms.ComboBox comboBox2TestyRok;
+        private System.Windows.Forms.ComboBox comboBox1TestyMesiac;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label11;
     }
 }
 

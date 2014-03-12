@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Windows.Forms;
-using ZedGraph;
 
-namespace SpreadCalculator
+namespace SpreadCalculator.GrafickeKomponenty
 {
     public partial class Form1 : Form
     {
-        private Jadro jadro;
+        private readonly Jadro _jadro;
 
         public Form1()
         {
@@ -17,14 +15,14 @@ namespace SpreadCalculator
             comboBoxKontrakt2.SelectedIndex = 0;
 
             zg1.Visible = false;
-            jadro = new Jadro();
+            _jadro = new Jadro();
 
-            jadro.ZmenaPopisu += new Jadro.ZmenaPopisuHandler(ZmenPopis);
+            _jadro.ZmenaPopisu += ZmenPopis;
         }
 
         private void ZmenPopis()
         {
-            toolStripStatusLabel1.Text = jadro.stavText;
+            toolStripStatusLabel1.Text = _jadro.stavText;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -33,22 +31,23 @@ namespace SpreadCalculator
             {
                 var komodita1 = comboBoxKomodity.SelectedIndex;
                 var komodita2 = checkBoxDruhyKontrakt.Checked ? comboBoxKomodity2.SelectedIndex : comboBoxKomodity.SelectedIndex;
-                if (jadro.ParsujKontrakty(komodita1, komodita2, comboBoxMesiace1.Text, comboBoxKontrakt1.Text, comboBoxMesiace2.Text, comboBoxKontrakt2.Text))
+                if (_jadro.ParsujKontrakty(komodita1, komodita2, comboBoxMesiace1.Text, comboBoxKontrakt1.Text, comboBoxMesiace2.Text, comboBoxKontrakt2.Text))
                 {
                     //    MessageBox.Show("Done");
+                    textBoxVelky.Visible = false;
                     zg1.Visible = true;
-                    zg1 = PracasGrafmi.KresliGraf(NazovGrafu(), jadro.listSpread, zg1);
+                    zg1 = PracasGrafmi.KresliGraf(NazovGrafu(), _jadro.listSpread, zg1);
                     zg1.Refresh();
                     zg1.IsShowPointValues = true;
                     zg1.RestoreScale(zg1.GraphPane);
-                    textBox1.Text = jadro.statistika.ToString();
+                    textBox1.Text = _jadro.statistika.ToString();
                 }
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            var graf = new Graf(jadro.listSpread, "FUTURE_WH2010");
+            var graf = new Graf(_jadro.listSpread, "FUTURE_WH2010");
             graf.Show(this);
         }
 
@@ -56,26 +55,28 @@ namespace SpreadCalculator
         {
             comboBoxKontrakt1.Enabled = false;
             comboBoxKontrakt2.Enabled = false;
-            comboBoxKomodity.DataSource = jadro.LoadKontrakty();
-            comboBoxKomodity2.DataSource = jadro.LoadKontrakty();
+            comboBoxKomodity.DataSource = _jadro.LoadKontrakty();
+            comboBoxKomodity2.DataSource = _jadro.LoadKontrakty();
         }
 
         private void comboBoxKomodity_TextChanged(object sender, EventArgs e)
         {
-            if (comboBoxKomodity.SelectedItem != "-----------")
+            if (!ReferenceEquals(comboBoxKomodity.SelectedItem, "-----------"))
             {
-                var listKontraktov1 = jadro.LoadRokySpecificke(comboBoxKomodity.SelectedItem.ToString());
+                var listKontraktov1 = _jadro.LoadRokySpecificke(comboBoxKomodity.SelectedItem.ToString());
                 if (listKontraktov1 != null)
                 {
                     comboBoxKontrakt1.DataSource = listKontraktov1;
                     comboBoxKontrakt1Sez.DataSource = listKontraktov1;
                     comboBoxKontrakt1Graf.DataSource = listKontraktov1;
+                    comboBox1TestyRok.DataSource = listKontraktov1;
                     comboBoxKontrakt1.Enabled = true;
                     if (!checkBoxDruhyKontrakt.Checked)
                     {
                         var listKontraktov2 = new List<string>(listKontraktov1);
                         comboBoxKontrakt2.DataSource = listKontraktov2;
                         comboBoxKontrakt2Sez.DataSource = listKontraktov2;
+                        comboBox2TestyRok.DataSource = listKontraktov2;
                         comboBoxKontrakt2.Enabled = true;
                     }
                 }
@@ -85,9 +86,9 @@ namespace SpreadCalculator
         private void comboBoxKontrakt1_TextChanged(object sender, EventArgs e)
         {
             var predZnak = comboBoxMesiace1.SelectedIndex;
-            if (comboBoxKontrakt1.SelectedItem != "----------")
+            if (!ReferenceEquals(comboBoxKontrakt1.SelectedItem, "----------"))
             {
-                var listMesiacov = jadro.LoadMesiaceSpecificke(comboBoxKomodity.SelectedItem.ToString(), comboBoxKontrakt1.SelectedItem.ToString());
+                var listMesiacov = _jadro.LoadMesiaceSpecificke(comboBoxKomodity.SelectedItem.ToString(), comboBoxKontrakt1.SelectedItem.ToString());
                 if (listMesiacov != null)
                 {
                     comboBoxMesiace1.DataSource = listMesiacov;
@@ -103,9 +104,9 @@ namespace SpreadCalculator
         private void comboBoxKontrakt2_TextChanged(object sender, EventArgs e)
         {
             var predZnak = comboBoxMesiace2.SelectedIndex;
-            if (comboBoxKontrakt2.SelectedItem != "----------")
+            if (!ReferenceEquals(comboBoxKontrakt2.SelectedItem, "----------"))
             {
-                var listMesiacov = jadro.LoadMesiaceSpecificke(checkBoxDruhyKontrakt.Checked ? comboBoxKomodity2.SelectedItem.ToString() : comboBoxKomodity.SelectedItem.ToString(), comboBoxKontrakt2.SelectedItem.ToString());
+                var listMesiacov = _jadro.LoadMesiaceSpecificke(checkBoxDruhyKontrakt.Checked ? comboBoxKomodity2.SelectedItem.ToString() : comboBoxKomodity.SelectedItem.ToString(), comboBoxKontrakt2.SelectedItem.ToString());
                 if (listMesiacov != null)
                 {
                     comboBoxMesiace2.DataSource = listMesiacov;
@@ -121,8 +122,8 @@ namespace SpreadCalculator
         private string NazovGrafu()
         {
             var komodita = comboBoxKomodity.SelectedValue.ToString();
-            var kontr1 = comboBoxKontrakt1.SelectedValue.ToString() + comboBoxMesiace1.SelectedValue.ToString();
-            var kontr2 = comboBoxKontrakt2.SelectedValue.ToString() + comboBoxMesiace2.SelectedValue.ToString();
+            var kontr1 = comboBoxKontrakt1.SelectedValue + comboBoxMesiace1.SelectedValue.ToString();
+            var kontr2 = comboBoxKontrakt2.SelectedValue + comboBoxMesiace2.SelectedValue.ToString();
             return komodita + "  -  " + kontr1 + " " + kontr2;
         }
 
@@ -146,9 +147,9 @@ namespace SpreadCalculator
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedTab.Text == "Sezonnost")
+            if (tabControl1.SelectedTab.Text == @"Sezonnost")
             {
-                var listKontraktov1 = jadro.LoadRokySpecificke(comboBoxKomodity.SelectedItem.ToString());
+                var listKontraktov1 = _jadro.LoadRokySpecificke(comboBoxKomodity.SelectedItem.ToString());
                 var listKontraktov2 = new List<string>(listKontraktov1);
                 if (listKontraktov1 != null)
                 {
@@ -163,9 +164,9 @@ namespace SpreadCalculator
         private void comboBoxKontrakt1Sez_TextChanged(object sender, EventArgs e)
         {
             var predZnak = comboBoxMesiace1Sez.SelectedIndex;
-            if (comboBoxKontrakt1Sez.SelectedItem != "----------")
+            if (!ReferenceEquals(comboBoxKontrakt1Sez.SelectedItem, "----------"))
             {
-                var listMesiacov = jadro.LoadMesiaceSpecificke(comboBoxKomodity.SelectedItem.ToString(), comboBoxKontrakt1Sez.SelectedItem.ToString());
+                var listMesiacov = _jadro.LoadMesiaceSpecificke(comboBoxKomodity.SelectedItem.ToString(), comboBoxKontrakt1Sez.SelectedItem.ToString());
                 if (listMesiacov != null)
                 {
                     comboBoxMesiace1Sez.DataSource = listMesiacov;
@@ -181,9 +182,9 @@ namespace SpreadCalculator
         private void comboBoxKontrakt2Sez_TextChanged(object sender, EventArgs e)
         {
             var predZnak = comboBoxMesiace2Sez.SelectedIndex;
-            if (comboBoxKontrakt2Sez.SelectedItem != "----------")
+            if (!ReferenceEquals(comboBoxKontrakt2Sez.SelectedItem, "----------"))
             {
-                var listMesiacov = jadro.LoadMesiaceSpecificke(comboBoxKomodity.SelectedItem.ToString(), comboBoxKontrakt2Sez.SelectedItem.ToString());
+                var listMesiacov = _jadro.LoadMesiaceSpecificke(comboBoxKomodity.SelectedItem.ToString(), comboBoxKontrakt2Sez.SelectedItem.ToString());
                 if (listMesiacov != null)
                 {
                     comboBoxMesiace2Sez.DataSource = listMesiacov;
@@ -200,11 +201,12 @@ namespace SpreadCalculator
         {
             if (comboBoxKontrakt1Sez.Enabled && comboBoxKontrakt2Sez.Enabled)
             {
-                if (jadro.pocitajSezonnost(comboBoxKomodity.SelectedIndex, comboBoxMesiace1Sez.Text, comboBoxKontrakt1Sez.Text, comboBoxMesiace2Sez.Text, comboBoxKontrakt2Sez.Text, textBoxRoky.Text))
+                if (_jadro.pocitajSezonnost(comboBoxKomodity.SelectedIndex, comboBoxMesiace1Sez.Text, comboBoxKontrakt1Sez.Text, comboBoxMesiace2Sez.Text, comboBoxKontrakt2Sez.Text, textBoxRoky.Text))
                 {
                     //    MessageBox.Show("Done");
+                    textBoxVelky.Visible = false;
                     zg1.Visible = true;
-                    zg1 = PracasGrafmi.KresliGraf("Forecast graf", jadro.dataGrafTerajsi, jadro.dataGrafVedalsi, zg1);
+                    zg1 = PracasGrafmi.KresliGraf("Forecast graf", _jadro.dataGrafTerajsi, _jadro.dataGrafVedalsi, zg1);
                     zg1.Refresh();
                     zg1.IsShowPointValues = true;
                     zg1.RestoreScale(zg1.GraphPane);
@@ -219,7 +221,6 @@ namespace SpreadCalculator
             {
                 labelKomodity2.Visible = true;
                 comboBoxKomodity2.Visible = true;
-                var ee = comboBoxKontrakt1.DataSource;
             }
             else
             {
@@ -231,13 +232,14 @@ namespace SpreadCalculator
 
         private void comboBoxKomodity2_TextChanged(object sender, EventArgs e)
         {
-            if (comboBoxKomodity2.SelectedItem != "-----------")
+            if (!ReferenceEquals(comboBoxKomodity2.SelectedItem, "-----------"))
             {
-                var listKontraktov1 = jadro.LoadRokySpecificke(comboBoxKomodity2.SelectedItem.ToString());
+                var listKontraktov1 = _jadro.LoadRokySpecificke(comboBoxKomodity2.SelectedItem.ToString());
                 if (listKontraktov1 != null)
                 {
                     comboBoxKontrakt2.DataSource = listKontraktov1;
                     comboBoxKontrakt2Sez.DataSource = listKontraktov1;
+                    comboBox2TestyRok.DataSource = listKontraktov1;
                     comboBoxKontrakt2.Enabled = true;
                 }
             }
@@ -248,7 +250,7 @@ namespace SpreadCalculator
             var predZnak = comboBoxMesiace1Graf.SelectedIndex;
             if (!ReferenceEquals(comboBoxKontrakt1Graf.SelectedItem, "-----------"))
             {
-                var listMesiacov = jadro.LoadMesiaceSpecificke(comboBoxKomodity.SelectedItem.ToString(), comboBoxKontrakt1Graf.SelectedItem.ToString());
+                var listMesiacov = _jadro.LoadMesiaceSpecificke(comboBoxKomodity.SelectedItem.ToString(), comboBoxKontrakt1Graf.SelectedItem.ToString());
                 if (listMesiacov != null)
                 {
                     comboBoxMesiace1Graf.DataSource = listMesiacov;
@@ -268,12 +270,57 @@ namespace SpreadCalculator
                 //    MessageBox.Show("Done");
                 zg1.Visible = true;
                 zg1 = PracasGrafmi.KresliJednoduchyGraf("Forecast graf",
-                    jadro.GetDataPreGraf(comboBoxKomodity.SelectedIndex, comboBoxMesiace1Graf.Text,
+                    _jadro.GetDataPreGraf(comboBoxKomodity.SelectedIndex, comboBoxMesiace1Graf.Text,
                         comboBoxKontrakt1Graf.Text), zg1);
                 zg1.Refresh();
                 zg1.IsShowPointValues = true;
                 zg1.RestoreScale(zg1.GraphPane);
                 //textBox1.Text = jadro.statistika.ToString();
+            }
+        }
+
+        private void buttonTesty_Click(object sender, EventArgs e)
+        {
+            var komodita1 = comboBoxKomodity.SelectedIndex;
+            var komodita2 = checkBoxDruhyKontrakt.Checked ? comboBoxKomodity2.SelectedIndex : comboBoxKomodity.SelectedIndex;
+            zg1.Visible = false;
+            textBoxVelky.Visible = true;
+            textBoxVelky.Text = _jadro.PocitajStatistiky(komodita1, komodita2, comboBox1TestyMesiac.Text, comboBox1TestyRok.Text, comboBox2TestyMesiac.Text, comboBox2TestyRok.Text, int.Parse(textBox2.Text));
+        }
+
+        private void comboBox1TestyRok_TextChanged(object sender, EventArgs e)
+        {
+            var predZnak = comboBox1TestyMesiac.SelectedIndex;
+            if (!ReferenceEquals(comboBox1TestyRok.SelectedItem, "----------"))
+            {
+                var listMesiacov = _jadro.LoadMesiaceSpecificke(comboBoxKomodity.SelectedItem.ToString(), comboBox1TestyRok.SelectedItem.ToString());
+                if (listMesiacov != null)
+                {
+                    comboBox1TestyMesiac.DataSource = listMesiacov;
+                    comboBox1TestyRok.Enabled = true;
+                    if (listMesiacov.Count >= predZnak)
+                    {
+                        comboBox1TestyMesiac.SelectedIndex = predZnak;
+                    }
+                }
+            }
+        }
+
+        private void comboBox2TestyRok_TextChanged(object sender, EventArgs e)
+        {
+            var predZnak = comboBox2TestyMesiac.SelectedIndex;
+            if (!ReferenceEquals(comboBox2TestyRok.SelectedItem, "----------"))
+            {
+                var listMesiacov = _jadro.LoadMesiaceSpecificke(comboBoxKomodity.SelectedItem.ToString(), comboBox2TestyRok.SelectedItem.ToString());
+                if (listMesiacov != null)
+                {
+                    comboBox2TestyMesiac.DataSource = listMesiacov;
+                    comboBox2TestyRok.Enabled = true;
+                    if (listMesiacov.Count >= predZnak)
+                    {
+                        comboBox2TestyMesiac.SelectedIndex = predZnak;
+                    }
+                }
             }
         }
     }
