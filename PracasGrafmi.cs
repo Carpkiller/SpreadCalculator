@@ -182,5 +182,69 @@ namespace SpreadCalculator
             }
             return null;
         }
+
+        internal static ZedGraphControl KresliGraf(string p, List<Spread> list1, List<List<Spread>> list2, ZedGraphControl zg1)
+        {
+            zg1.GraphPane.CurveList.Clear();
+            zg1.GraphPane.GraphObjList.Clear();
+
+            GraphPane myPane = zg1.GraphPane;
+
+            // Set the titles and axis labels
+            myPane.Title.Text = p;
+            myPane.XAxis.Title.Text = "Date";
+            myPane.YAxis.Title.Text = "$";
+            myPane.XAxis.Type = AxisType.Date;
+
+            PointPairList list = new PointPairList();
+            int rok = list1.First().Date.Year;
+            DateTime predchadzDatum = list1.First().Date;
+
+            foreach (var item in list1)
+            {
+                var x = (double)new XDate(DateTime.Parse(item.Date.ToShortDateString()));
+                var y = item.Value;
+                //Console.WriteLine(x + " " + y);
+                list.Add(x, y);
+                //Console.WriteLine(rok + " > " + item.Date.Year.ToString() + "  " + (item.Date + " > " + new DateTime(item.Date.Year, 1, 1)).ToString() + " " + (predchadzDatum + " < " + new DateTime(item.Date.Year, 1, 1)).ToString());
+                //Console.WriteLine((rok > item.Date.Year).ToString() + "  " + (item.Date > new DateTime(item.Date.Year, 1, 1)).ToString() + " " + (predchadzDatum < new DateTime(item.Date.Year, 1, 1)).ToString());
+                if (item.Date.Year != predchadzDatum.Year)
+                {
+                    LineItem line = new LineItem(String.Empty, new[] { x, x }, new[] { myPane.YAxis.Scale.Min, myPane.YAxis.Scale.Max }, Color.Black, SymbolType.None);
+                    line.Line.Style = System.Drawing.Drawing2D.DashStyle.Dash;
+                    line.Line.Width = 1f;
+                    myPane.CurveList.Add(line);
+                    Console.WriteLine("Datum  " + item.Date);
+                }
+                predchadzDatum = item.Date;
+            }
+
+            myPane.CurveList.Add(new LineItem("Priebeh tento rok", list, Color.Blue, SymbolType.None));
+            foreach (var myCustomObjects2 in list2)
+            {
+                zg1.Invalidate();
+                list = new PointPairList();
+                rok = myCustomObjects2.First().Date.Year;
+                predchadzDatum = myCustomObjects2.First().Date;
+
+                foreach (var item in myCustomObjects2)
+                {
+                    var x = (double) new XDate(DateTime.Parse(item.Date.ToShortDateString()));
+                    var y = item.Value;
+                    //Console.WriteLine(x + " " + y);
+                    list.Add(x, y);
+                    //Console.WriteLine(rok + " > " + item.Date.Year.ToString() + "  " + (item.Date + " > " + new DateTime(item.Date.Year, 1, 1)).ToString() + " " + (predchadzDatum + " < " + new DateTime(item.Date.Year, 1, 1)).ToString());
+                    //Console.WriteLine((rok > item.Date.Year).ToString() + "  " + (item.Date > new DateTime(item.Date.Year, 1, 1)).ToString() + " " + (predchadzDatum < new DateTime(item.Date.Year, 1, 1)).ToString());
+                }
+
+                myPane.CurveList.Add(new LineItem("Priebeh v minulosti", list, Farby.ListFarieb[list2.IndexOf(myCustomObjects2)], SymbolType.None));
+            }
+
+            zg1.Refresh();
+            //  LineItem myCurve = myPane.AddCurve("My Curve", list, Color.Blue, SymbolType.None);
+            zg1.AxisChange();
+
+            return zg1;
+        }
     }
 }

@@ -22,7 +22,7 @@ namespace SpreadCalculator.GrafickeKomponenty
 
         private void ZmenPopis()
         {
-            toolStripStatusLabel1.Text = _jadro.stavText;
+            toolStripStatusLabel1.Text = _jadro.StavText;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -36,18 +36,18 @@ namespace SpreadCalculator.GrafickeKomponenty
                     //    MessageBox.Show("Done");
                     textBoxVelky.Visible = false;
                     zg1.Visible = true;
-                    zg1 = PracasGrafmi.KresliGraf(NazovGrafu(), _jadro.listSpread, zg1);
+                    zg1 = PracasGrafmi.KresliGraf(NazovGrafu(), _jadro.ListSpread, zg1);
                     zg1.Refresh();
                     zg1.IsShowPointValues = true;
                     zg1.RestoreScale(zg1.GraphPane);
-                    textBox1.Text = _jadro.statistika.ToString();
+                    textBox1.Text = _jadro.Statistika.ToString();
                 }
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            var graf = new Graf(_jadro.listSpread, "FUTURE_WH2010");
+            var graf = new Graf(_jadro.ListSpread, "FUTURE_WH2010");
             graf.Show(this);
         }
 
@@ -201,16 +201,32 @@ namespace SpreadCalculator.GrafickeKomponenty
         {
             if (comboBoxKontrakt1Sez.Enabled && comboBoxKontrakt2Sez.Enabled)
             {
-                if (_jadro.pocitajSezonnost(comboBoxKomodity.SelectedIndex, comboBoxMesiace1Sez.Text, comboBoxKontrakt1Sez.Text, comboBoxMesiace2Sez.Text, comboBoxKontrakt2Sez.Text, textBoxRoky.Text))
+                if (_jadro.PocitajSezonnost(comboBoxKomodity.SelectedIndex, comboBoxMesiace1Sez.Text, comboBoxKontrakt1Sez.Text, comboBoxMesiace2Sez.Text, comboBoxKontrakt2Sez.Text, textBoxRoky.Text))
                 {
-                    //    MessageBox.Show("Done");
-                    textBoxVelky.Visible = false;
-                    zg1.Visible = true;
-                    zg1 = PracasGrafmi.KresliGraf("Forecast graf", _jadro.dataGrafTerajsi, _jadro.dataGrafVedalsi, zg1);
-                    zg1.Refresh();
-                    zg1.IsShowPointValues = true;
-                    zg1.RestoreScale(zg1.GraphPane);
-                    //textBox1.Text = jadro.statistika.ToString();
+                    if (checkBoxJednotliveRoky.Checked)
+                    {
+                        //    MessageBox.Show("Done");
+                        textBoxVelky.Visible = false;
+                        zg1.Visible = true;
+                        zg1 = PracasGrafmi.KresliGraf("Forecast graf", _jadro.dataGrafTerajsi, _jadro.dataGrafVsetky,
+                            zg1);
+                        zg1.Refresh();
+                        zg1.IsShowPointValues = true;
+                        zg1.RestoreScale(zg1.GraphPane);
+                        //textBox1.Text = jadro.statistika.ToString();
+                    }
+                    else
+                    {
+                        //    MessageBox.Show("Done");
+                        textBoxVelky.Visible = false;
+                        zg1.Visible = true;
+                        zg1 = PracasGrafmi.KresliGraf("Forecast graf", _jadro.dataGrafTerajsi, _jadro.dataGrafVedalsi,
+                            zg1);
+                        zg1.Refresh();
+                        zg1.IsShowPointValues = true;
+                        zg1.RestoreScale(zg1.GraphPane);
+                        //textBox1.Text = jadro.statistika.ToString();
+                    }
                 }
             }
         }

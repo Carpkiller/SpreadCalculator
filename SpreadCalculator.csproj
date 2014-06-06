@@ -63,6 +63,7 @@
       <DependentUpon>Graf.cs</DependentUpon>
     </Compile>
     <Compile Include="Jadro.cs" />
+    <Compile Include="PomocneTriedy\Farby.cs" />
     <Compile Include="PomocneTriedy\KontraktneMesiace.cs" />
     <Compile Include="PomocneTriedy\ObchodnyDen.cs" />
     <Compile Include="PomocneTriedy\ObchodnyDenMap.cs" />
