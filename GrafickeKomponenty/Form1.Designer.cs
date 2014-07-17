@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -69,6 +72,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.checkBoxJednotliveRoky = new System.Windows.Forms.CheckBox();
             this.comboBoxMesiace2Sez = new System.Windows.Forms.ComboBox();
             this.comboBoxKontrakt2Sez = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -82,7 +86,15 @@
             this.comboBoxKomodity2 = new System.Windows.Forms.ComboBox();
             this.checkBoxDruhyKontrakt = new System.Windows.Forms.CheckBox();
             this.textBoxVelky = new System.Windows.Forms.TextBox();
-            this.checkBoxJednotliveRoky = new System.Windows.Forms.CheckBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.labelPravitko = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label14 = new System.Windows.Forms.Label();
+            this.labelHodnotaBodu = new System.Windows.Forms.Label();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -90,6 +102,8 @@
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -120,7 +134,7 @@
             this.menuToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1370, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1476, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -225,7 +239,7 @@
             this.zg1.ScrollMinX = 0D;
             this.zg1.ScrollMinY = 0D;
             this.zg1.ScrollMinY2 = 0D;
-            this.zg1.Size = new System.Drawing.Size(1068, 525);
+            this.zg1.Size = new System.Drawing.Size(962, 525);
             this.zg1.TabIndex = 10;
             // 
             // statusStrip1
@@ -234,7 +248,7 @@
             this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 562);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1370, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1476, 22);
             this.statusStrip1.TabIndex = 11;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -593,6 +607,16 @@
             this.tabPage4.Text = "Sezonnost";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // checkBoxJednotliveRoky
+            // 
+            this.checkBoxJednotliveRoky.AutoSize = true;
+            this.checkBoxJednotliveRoky.Location = new System.Drawing.Point(6, 172);
+            this.checkBoxJednotliveRoky.Name = "checkBoxJednotliveRoky";
+            this.checkBoxJednotliveRoky.Size = new System.Drawing.Size(135, 17);
+            this.checkBoxJednotliveRoky.TabIndex = 29;
+            this.checkBoxJednotliveRoky.Text = "Zobrazit jednotlive roky";
+            this.checkBoxJednotliveRoky.UseVisualStyleBackColor = true;
+            // 
             // comboBoxMesiace2Sez
             // 
             this.comboBoxMesiace2Sez.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -740,29 +764,123 @@
             // 
             // textBoxVelky
             // 
+            this.textBoxVelky.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxVelky.Location = new System.Drawing.Point(302, 27);
             this.textBoxVelky.Multiline = true;
             this.textBoxVelky.Name = "textBoxVelky";
             this.textBoxVelky.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxVelky.Size = new System.Drawing.Size(1068, 528);
+            this.textBoxVelky.Size = new System.Drawing.Size(962, 528);
             this.textBoxVelky.TabIndex = 21;
             this.textBoxVelky.Visible = false;
             // 
-            // checkBoxJednotliveRoky
+            // label12
             // 
-            this.checkBoxJednotliveRoky.AutoSize = true;
-            this.checkBoxJednotliveRoky.Location = new System.Drawing.Point(6, 172);
-            this.checkBoxJednotliveRoky.Name = "checkBoxJednotliveRoky";
-            this.checkBoxJednotliveRoky.Size = new System.Drawing.Size(135, 17);
-            this.checkBoxJednotliveRoky.TabIndex = 29;
-            this.checkBoxJednotliveRoky.Text = "Zobrazit jednotlive roky";
-            this.checkBoxJednotliveRoky.UseVisualStyleBackColor = true;
+            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(1280, 35);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(57, 13);
+            this.label12.TabIndex = 22;
+            this.label12.Text = "Hodnota : ";
+            // 
+            // labelPravitko
+            // 
+            this.labelPravitko.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelPravitko.AutoSize = true;
+            this.labelPravitko.Location = new System.Drawing.Point(1354, 35);
+            this.labelPravitko.Name = "labelPravitko";
+            this.labelPravitko.Size = new System.Drawing.Size(0, 13);
+            this.labelPravitko.TabIndex = 23;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(4, 5);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(127, 13);
+            this.label13.TabIndex = 24;
+            this.label13.Text = "Zobrazit posl. zaznamov :";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Checked = true;
+            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox1.Location = new System.Drawing.Point(7, 32);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(59, 17);
+            this.checkBox1.TabIndex = 25;
+            this.checkBox1.Text = "Vsetko";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(7, 63);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(100, 20);
+            this.textBox3.TabIndex = 26;
+            this.textBox3.Text = "0";
+            // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.textBox3);
+            this.panel1.Controls.Add(this.label13);
+            this.panel1.Controls.Add(this.checkBox1);
+            this.panel1.Location = new System.Drawing.Point(1283, 102);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(160, 95);
+            this.panel1.TabIndex = 27;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(1280, 66);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(90, 13);
+            this.label14.TabIndex = 28;
+            this.label14.Text = "Hodnota 1 bodu :";
+            // 
+            // labelHodnotaBodu
+            // 
+            this.labelHodnotaBodu.AutoSize = true;
+            this.labelHodnotaBodu.Location = new System.Drawing.Point(1374, 66);
+            this.labelHodnotaBodu.Name = "labelHodnotaBodu";
+            this.labelHodnotaBodu.Size = new System.Drawing.Size(0, 13);
+            this.labelHodnotaBodu.TabIndex = 29;
+            // 
+            // chart1
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(302, 27);
+            this.chart1.Name = "chart1";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(962, 528);
+            this.chart1.TabIndex = 30;
+            this.chart1.Text = "chart1";
+            this.chart1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseDown);
+            this.chart1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseMove);
+            this.chart1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseUp);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1370, 584);
+            this.ClientSize = new System.Drawing.Size(1476, 584);
+            this.Controls.Add(this.chart1);
+            this.Controls.Add(this.labelHodnotaBodu);
+            this.Controls.Add(this.label14);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.labelPravitko);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.textBoxVelky);
             this.Controls.Add(this.checkBoxDruhyKontrakt);
             this.Controls.Add(this.labelKomodity2);
@@ -790,6 +908,9 @@
             this.tabPage3.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -851,6 +972,15 @@
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.CheckBox checkBoxJednotliveRoky;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label labelPravitko;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label labelHodnotaBodu;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
     }
 }
 

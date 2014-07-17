@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace SpreadCalculator.GrafickeKomponenty
@@ -7,6 +9,11 @@ namespace SpreadCalculator.GrafickeKomponenty
     public partial class Form1 : Form
     {
         private readonly Jadro _jadro;
+        private readonly PracasGrafmiVS _pracaSGrafmi;
+
+        private Point positionDown;
+        private Point positionUp;
+        private int poc = 0;
 
         public Form1()
         {
@@ -16,7 +23,7 @@ namespace SpreadCalculator.GrafickeKomponenty
 
             zg1.Visible = false;
             _jadro = new Jadro();
-
+            _pracaSGrafmi = new PracasGrafmiVS(chart1);
             _jadro.ZmenaPopisu += ZmenPopis;
         }
 
@@ -35,12 +42,15 @@ namespace SpreadCalculator.GrafickeKomponenty
                 {
                     //    MessageBox.Show("Done");
                     textBoxVelky.Visible = false;
-                    zg1.Visible = true;
-                    zg1 = PracasGrafmi.KresliGraf(NazovGrafu(), _jadro.ListSpread, zg1);
-                    zg1.Refresh();
-                    zg1.IsShowPointValues = true;
-                    zg1.RestoreScale(zg1.GraphPane);
-                    textBox1.Text = _jadro.Statistika.ToString();
+                    zg1.Visible = false;
+                    chart1.Visible = true;
+                    //zg1 = PracasGrafmi.KresliGraf(NazovGrafu(), _jadro.ListSpread, zg1);
+                    //zg1.Refresh();
+                    //zg1.IsShowPointValues = true;
+                    //zg1.RestoreScale(zg1.GraphPane);
+                    //textBox1.Text = _jadro.Statistika.ToString();
+
+                    _pracaSGrafmi.VykresliSpread(NazovGrafu(), _jadro.ListSpread);
                 }
             }
         }
@@ -338,6 +348,62 @@ namespace SpreadCalculator.GrafickeKomponenty
                     }
                 }
             }
+        }
+
+        private void chart1_MouseDown(object sender, MouseEventArgs e)
+        {
+            poc = 1;
+            Console.WriteLine(positionDown);
+            positionDown = MousePosition;
+
+            chart1.ChartAreas[0].CursorX.SetCursorPixelPosition(new Point(e.X, e.Y), true);
+            chart1.ChartAreas[0].CursorY.SetCursorPixelPosition(new Point(e.X, e.Y), true);
+
+            double pX = chart1.ChartAreas[0].CursorX.Position; //X Axis Coordinate of your mouse cursor
+            double pY = chart1.ChartAreas[0].CursorY.Position; //Y Axis Coordinate of your mouse cursor
+            var zacSur = pY.ToString();
+
+            if (chart1.Series[1].Points.Count > 0)
+            {
+                chart1.Series[1].Points.Clear();
+            }
+
+            chart1.Series[1].Points.AddXY(pX, pY);
+            chart1.Series[1].Points.First().Label = zacSur;
+            chart1.Invalidate();
+        }
+
+        private void chart1_MouseMove(object sender, MouseEventArgs e)
+        {
+            chart1.ChartAreas[0].CursorX.SetCursorPixelPosition(new Point(e.X, e.Y), true);
+            chart1.ChartAreas[0].CursorY.SetCursorPixelPosition(new Point(e.X, e.Y), true);
+            if (poc == 1)
+            {
+                positionUp = chart1.PointToScreen(MousePosition);
+
+                chart1.ChartAreas[0].CursorX.SetCursorPixelPosition(new Point(e.X, e.Y), true);
+                chart1.ChartAreas[0].CursorY.SetCursorPixelPosition(new Point(e.X, e.Y), true);
+
+                double pX = chart1.ChartAreas[0].CursorX.Position; //X Axis Coordinate of your mouse cursor
+                double pY = chart1.ChartAreas[0].CursorY.Position; //Y Axis Coordinate of your mouse cursor
+                //Console.WriteLine("priebezna - " + pX + " : " + pY);
+                Console.WriteLine("Poc pred " + chart1.Series[1].Points.Count);
+                if (chart1.Series[1].Points.Count == 2)
+                {
+                    chart1.Series[1].Points.RemoveAt(1);
+                }
+                chart1.Series[1].Points.AddXY(pX, pY);
+                chart1.Series[1].Points.Last().Label = pY.ToString();
+                Console.WriteLine("Poc po " + chart1.Series[1].Points.Count);
+                chart1.Invalidate();
+            }
+        }
+
+        private void chart1_MouseUp(object sender, MouseEventArgs e)
+        {
+            Console.WriteLine("koncova - " + positionUp);
+            positionUp = MousePosition;
+            poc = 0;
         }
     }
 }
