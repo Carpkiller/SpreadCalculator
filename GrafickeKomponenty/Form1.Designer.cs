@@ -28,31 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.koniecToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stiahnutDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comboBoxKomodity = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxKontrakt1 = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBoxKontrakt2 = new System.Windows.Forms.ComboBox();
-            this.zg1 = new ZedGraph.ZedGraphControl();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.comboBoxMesiace2 = new System.Windows.Forms.ComboBox();
             this.comboBoxMesiace1 = new System.Windows.Forms.ComboBox();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.comboBoxRokyKorelacie = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.comboBoxMesiace2Graf = new System.Windows.Forms.ComboBox();
             this.buttonJednoduchyGraf = new System.Windows.Forms.Button();
@@ -89,12 +89,15 @@
             this.label12 = new System.Windows.Forms.Label();
             this.labelPravitko = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.checkBoxVyber = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label15 = new System.Windows.Forms.Label();
+            this.comboBoxMesiace = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
             this.labelHodnotaBodu = new System.Windows.Forms.Label();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -109,9 +112,9 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(6, 398);
+            this.button1.Location = new System.Drawing.Point(6, 345);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(109, 23);
+            this.button1.Size = new System.Drawing.Size(264, 34);
             this.button1.TabIndex = 1;
             this.button1.Text = "Nacitaj data";
             this.button1.UseVisualStyleBackColor = true;
@@ -120,21 +123,22 @@
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button2.Location = new System.Drawing.Point(148, 398);
+            this.button2.Location = new System.Drawing.Point(6, 385);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(123, 23);
+            this.button2.Size = new System.Drawing.Size(197, 36);
             this.button2.TabIndex = 2;
-            this.button2.Text = "Zobraz graf";
+            this.button2.Text = "Graf korelacie";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuToolStripMenuItem});
+            this.menuToolStripMenuItem,
+            this.dataToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1476, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1300, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -151,6 +155,21 @@
             this.koniecToolStripMenuItem.Name = "koniecToolStripMenuItem";
             this.koniecToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.koniecToolStripMenuItem.Text = "Koniec";
+            // 
+            // dataToolStripMenuItem
+            // 
+            this.dataToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.stiahnutDataToolStripMenuItem});
+            this.dataToolStripMenuItem.Name = "dataToolStripMenuItem";
+            this.dataToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
+            this.dataToolStripMenuItem.Text = "Data";
+            // 
+            // stiahnutDataToolStripMenuItem
+            // 
+            this.stiahnutDataToolStripMenuItem.Name = "stiahnutDataToolStripMenuItem";
+            this.stiahnutDataToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.stiahnutDataToolStripMenuItem.Text = "Stiahnut data";
+            this.stiahnutDataToolStripMenuItem.Click += new System.EventHandler(this.stiahnutDataToolStripMenuItem_Click);
             // 
             // comboBoxKomodity
             // 
@@ -225,30 +244,13 @@
             this.comboBoxKontrakt2.TabIndex = 8;
             this.comboBoxKontrakt2.TextChanged += new System.EventHandler(this.comboBoxKontrakt2_TextChanged);
             // 
-            // zg1
-            // 
-            this.zg1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.zg1.Location = new System.Drawing.Point(302, 30);
-            this.zg1.Name = "zg1";
-            this.zg1.ScrollGrace = 0D;
-            this.zg1.ScrollMaxX = 0D;
-            this.zg1.ScrollMaxY = 0D;
-            this.zg1.ScrollMaxY2 = 0D;
-            this.zg1.ScrollMinX = 0D;
-            this.zg1.ScrollMinY = 0D;
-            this.zg1.ScrollMinY2 = 0D;
-            this.zg1.Size = new System.Drawing.Size(962, 525);
-            this.zg1.TabIndex = 10;
-            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 562);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1476, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1300, 22);
             this.statusStrip1.TabIndex = 11;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -309,14 +311,6 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(4, 98);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(267, 294);
-            this.textBox1.TabIndex = 16;
-            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
@@ -332,9 +326,11 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label16);
+            this.tabPage1.Controls.Add(this.listBox1);
+            this.tabPage1.Controls.Add(this.comboBoxRokyKorelacie);
             this.tabPage1.Controls.Add(this.button2);
             this.tabPage1.Controls.Add(this.button4);
-            this.tabPage1.Controls.Add(this.textBox1);
             this.tabPage1.Controls.Add(this.button3);
             this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.comboBoxMesiace2);
@@ -350,6 +346,20 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Spready";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxRokyKorelacie
+            // 
+            this.comboBoxRokyKorelacie.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxRokyKorelacie.FormattingEnabled = true;
+            this.comboBoxRokyKorelacie.Items.AddRange(new object[] {
+            "3",
+            "5",
+            "8",
+            "12"});
+            this.comboBoxRokyKorelacie.Location = new System.Drawing.Point(209, 394);
+            this.comboBoxRokyKorelacie.Name = "comboBoxRokyKorelacie";
+            this.comboBoxRokyKorelacie.Size = new System.Drawing.Size(61, 21);
+            this.comboBoxRokyKorelacie.TabIndex = 17;
             // 
             // tabPage2
             // 
@@ -771,7 +781,7 @@
             this.textBoxVelky.Multiline = true;
             this.textBoxVelky.Name = "textBoxVelky";
             this.textBoxVelky.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxVelky.Size = new System.Drawing.Size(962, 528);
+            this.textBoxVelky.Size = new System.Drawing.Size(786, 528);
             this.textBoxVelky.TabIndex = 21;
             this.textBoxVelky.Visible = false;
             // 
@@ -779,7 +789,7 @@
             // 
             this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(1280, 35);
+            this.label12.Location = new System.Drawing.Point(1125, 35);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(57, 13);
             this.label12.TabIndex = 22;
@@ -789,7 +799,7 @@
             // 
             this.labelPravitko.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelPravitko.AutoSize = true;
-            this.labelPravitko.Location = new System.Drawing.Point(1354, 35);
+            this.labelPravitko.Location = new System.Drawing.Point(1199, 35);
             this.labelPravitko.Name = "labelPravitko";
             this.labelPravitko.Size = new System.Drawing.Size(0, 13);
             this.labelPravitko.TabIndex = 23;
@@ -803,41 +813,53 @@
             this.label13.TabIndex = 24;
             this.label13.Text = "Zobrazit posl. zaznamov :";
             // 
-            // checkBox1
+            // checkBoxVyber
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(7, 32);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(59, 17);
-            this.checkBox1.TabIndex = 25;
-            this.checkBox1.Text = "Vsetko";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(7, 63);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 26;
-            this.textBox3.Text = "0";
+            this.checkBoxVyber.AutoSize = true;
+            this.checkBoxVyber.Checked = true;
+            this.checkBoxVyber.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxVyber.Location = new System.Drawing.Point(7, 32);
+            this.checkBoxVyber.Name = "checkBoxVyber";
+            this.checkBoxVyber.Size = new System.Drawing.Size(59, 17);
+            this.checkBoxVyber.TabIndex = 25;
+            this.checkBoxVyber.Text = "Vsetko";
+            this.checkBoxVyber.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.textBox3);
+            this.panel1.Controls.Add(this.label15);
+            this.panel1.Controls.Add(this.comboBoxMesiace);
             this.panel1.Controls.Add(this.label13);
-            this.panel1.Controls.Add(this.checkBox1);
-            this.panel1.Location = new System.Drawing.Point(1283, 102);
+            this.panel1.Controls.Add(this.checkBoxVyber);
+            this.panel1.Location = new System.Drawing.Point(1128, 102);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(160, 95);
             this.panel1.TabIndex = 27;
             // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(90, 65);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(52, 13);
+            this.label15.TabIndex = 27;
+            this.label15.Text = "mesiacov";
+            // 
+            // comboBoxMesiace
+            // 
+            this.comboBoxMesiace.FormattingEnabled = true;
+            this.comboBoxMesiace.Location = new System.Drawing.Point(10, 60);
+            this.comboBoxMesiace.Name = "comboBoxMesiace";
+            this.comboBoxMesiace.Size = new System.Drawing.Size(60, 21);
+            this.comboBoxMesiace.TabIndex = 26;
+            // 
             // label14
             // 
+            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(1280, 66);
+            this.label14.Location = new System.Drawing.Point(1125, 66);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(90, 13);
             this.label14.TabIndex = 28;
@@ -845,36 +867,62 @@
             // 
             // labelHodnotaBodu
             // 
+            this.labelHodnotaBodu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelHodnotaBodu.AutoSize = true;
-            this.labelHodnotaBodu.Location = new System.Drawing.Point(1374, 66);
+            this.labelHodnotaBodu.Location = new System.Drawing.Point(1219, 66);
             this.labelHodnotaBodu.Name = "labelHodnotaBodu";
             this.labelHodnotaBodu.Size = new System.Drawing.Size(0, 13);
             this.labelHodnotaBodu.TabIndex = 29;
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            chartArea3.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chart1.Legends.Add(legend3);
             this.chart1.Location = new System.Drawing.Point(302, 27);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(962, 528);
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.chart1.Series.Add(series3);
+            this.chart1.Size = new System.Drawing.Size(796, 528);
             this.chart1.TabIndex = 30;
             this.chart1.Text = "chart1";
             this.chart1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseDown);
             this.chart1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseMove);
             this.chart1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseUp);
             // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.listBox1.Location = new System.Drawing.Point(6, 124);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(264, 212);
+            this.listBox1.TabIndex = 18;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(6, 108);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(148, 13);
+            this.label16.TabIndex = 19;
+            this.label16.Text = "Naposledy otvorene spready :";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1476, 584);
+            this.ClientSize = new System.Drawing.Size(1300, 584);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.labelHodnotaBodu);
             this.Controls.Add(this.label14);
@@ -887,13 +935,12 @@
             this.Controls.Add(this.comboBoxKomodity2);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.zg1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBoxKomodity);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Spread calculator";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -929,13 +976,12 @@
         private System.Windows.Forms.ComboBox comboBoxKontrakt1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox comboBoxKontrakt2;
-        private ZedGraph.ZedGraphControl zg1;
+        //private ZedGraph.ZedGraphControl zg1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ComboBox comboBoxMesiace2;
         private System.Windows.Forms.ComboBox comboBoxMesiace1;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -975,12 +1021,18 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label labelPravitko;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.CheckBox checkBoxVyber;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label labelHodnotaBodu;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.ComboBox comboBoxMesiace;
+        private System.Windows.Forms.ComboBox comboBoxRokyKorelacie;
+        private System.Windows.Forms.ToolStripMenuItem dataToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stiahnutDataToolStripMenuItem;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Label label16;
     }
 }
 

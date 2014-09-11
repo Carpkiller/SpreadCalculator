@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Windows.Forms.DataVisualization.Charting;
 using System.Xml;
 using System.Xml.Linq;
 using CsvHelper;
+using SpreadCalculator.GrafickeKomponenty;
 using SpreadCalculator.PomocneTriedy;
 using System.Globalization;
 using SpreadCalculator.Statistiky;
@@ -17,10 +19,15 @@ namespace SpreadCalculator
         private List<ObchodnyDen> _listKontrakt1;
         private List<ObchodnyDen> _listKontrakt2;
         public List<Spread> ListSpread;
+        public List<Spread> PlnyListSpread;
         private List<SpecifikaciaKontraktu> _listSpecifikacii;
         private List<SirsiaSpecifikaciaKontraktu> _listFuturesKontraktov;
+        public List<string> SledovaneSpready;
         public Statistika Statistika;
         public string StavText = "Ready";
+        public SpravcaDownloadManager DownloadManager;
+        public string HodnotaBodu { get; set; }
+        public double Interval { get; set; }
 
         public delegate void ZmenaPopisuHandler();
         public event ZmenaPopisuHandler ZmenaPopisu;
@@ -28,6 +35,7 @@ namespace SpreadCalculator
         public Jadro()
         {
             _listFuturesKontraktov = new List<SirsiaSpecifikaciaKontraktu>();
+            SledovaneSpready = new List<string>();
         }
 
         public List<ObchodnyDen> ParsujKontrakt(string cesta, out bool succes)
@@ -49,40 +57,55 @@ namespace SpreadCalculator
             return list;
         }
 
-        internal bool ParsujKontrakty(string p1, string p2)
-        {
-            _listKontrakt1 = new List<ObchodnyDen>();
-            _listKontrakt2 = new List<ObchodnyDen>();
+        //internal bool ParsujKontrakty(string p1, string p2)
+        //{
+        //    _listKontrakt1 = new List<ObchodnyDen>();
+        //    _listKontrakt2 = new List<ObchodnyDen>();
 
-            bool succes1;
-            bool succes2;
+        //    bool succes1;
+        //    bool succes2;
 
-            _listKontrakt1 = ParsujKontrakt(p1,out succes1);
-            _listKontrakt2 = ParsujKontrakt(p2, out succes2);
+        //    _listKontrakt1 = ParsujKontrakt(p1,out succes1);
+        //    _listKontrakt2 = ParsujKontrakt(p2, out succes2);
 
-            ListSpread = vypocitajSpread(_listKontrakt1, _listKontrakt2);
+        //    ListSpread = vypocitajSpread(_listKontrakt1, _listKontrakt2);
 
-            if (ListSpread.Count > 0)
-            {
-                Statistika = new Statistika(ListSpread);
-            }
+        //    if (ListSpread.Count > 0)
+        //    {
+        //        Statistika = new Statistika(ListSpread);
+        //    }
 
-            return succes1 && succes2;
-        }
+        //    return succes1 && succes2;
+        //}
 
 
-        internal bool ParsujKontrakty(int komodita1, int komodita2, string kontraktnyMesiac1, string rok1, string kontraktnyMesiac2, string rok2)
+        internal bool ParsujKontrakty(int komodita1, int komodita2, string kontraktnyMesiac1, string rok1, string kontraktnyMesiac2, string rok2, int dlzka)
         {        
             bool succes1;
             bool succes2;
+            double hodnotaBodu1;
+            double hodnotaBodu2;
 
             kontraktnyMesiac1 = kontraktnyMesiac1.Contains("  -") ? kontraktnyMesiac1.Substring(0, kontraktnyMesiac1.IndexOf("  -")) : kontraktnyMesiac1;
             kontraktnyMesiac2 = kontraktnyMesiac2.Contains("  -") ? kontraktnyMesiac2.Substring(0, kontraktnyMesiac2.IndexOf("  -")) : kontraktnyMesiac2;
 
-            var listKontrakt1 = NacitajData(komodita1, kontraktnyMesiac1, rok1, out succes1);
-            var listKontrakt2 = NacitajData(komodita2, kontraktnyMesiac2, rok2, out succes2);
+            var listKontrakt1 = NacitajData(komodita1, kontraktnyMesiac1, rok1, out succes1, out hodnotaBodu1);
+            var listKontrakt2 = NacitajData(komodita2, kontraktnyMesiac2, rok2, out succes2, out hodnotaBodu2);
 
-            ListSpread = vypocitajSpread(listKontrakt1, listKontrakt2);
+            ListSpread = vypocitajSpread(listKontrakt1, listKontrakt2, hodnotaBodu1, hodnotaBodu2);
+            PlnyListSpread = ListSpread;
+
+            if (dlzka != 0)
+            {
+                for (int i = 0; i < ListSpread.Count; i++)
+                {
+                    if (ListSpread[i].Date < ListSpread.First().Date.AddMonths(-dlzka))
+                    {
+                        ListSpread = ListSpread.Take(i).ToList();
+                        break;
+                    }
+                }
+            }
 
             if (ListSpread!= null)
             {
@@ -107,7 +130,7 @@ namespace SpreadCalculator
             return succes1 && succes2 && ListSpread.Count>0;
         }
 
-        private List<ObchodnyDen> NacitajData(int p1, string kontraktnyMesiac1, string rok1, out bool succes)
+        private List<ObchodnyDen> NacitajData(int p1, string kontraktnyMesiac1, string rok1, out bool succes, out double hodnotaBodu)
         {
             succes = false;
             var listdata = new List<ObchodnyDen>();
@@ -133,9 +156,13 @@ namespace SpreadCalculator
                     StavText = "Stahujem kontrakt " + _listFuturesKontraktov[p1 - 1].Symbol + kontraktnyMesiac1 + rok1;
                     ZmenaPopisu();
                 }
-                listdata = ParsujKontraktXml(p1, kontraktnyMesiac1, rok1, out succes);
+                listdata = ParsujKontraktXml(out succes, skratene: null, kontrakIndex: p1, kontraktnyMesiac: kontraktnyMesiac1, rok: rok1);
             }
 
+            HodnotaBodu = _listFuturesKontraktov[p1 - 1].HodnotaBod;
+            Interval = _listFuturesKontraktov[p1 - 1].VelkostTicku;
+
+            hodnotaBodu = double.Parse(HodnotaBodu);
             return listdata;
         }
 
@@ -155,7 +182,7 @@ namespace SpreadCalculator
             return PracaSoSubormi.SkontrolujSubor(komodita);
         }
 
-        private List<Spread> vypocitajSpread(List<ObchodnyDen> listKontrakt1, List<ObchodnyDen> listKontrakt2)
+        private List<Spread> vypocitajSpread(List<ObchodnyDen> listKontrakt1, List<ObchodnyDen> listKontrakt2, double hodnotaBodu1, double hodnotaBodu2)
         {
             try
             {
@@ -178,17 +205,27 @@ namespace SpreadCalculator
                 }
 
                 try
-                {                    
+                {
                     for (int i = 0; i < dlzka; i++)
                     {
-                        double spread;
+                        double spread = 0;
                         if (opacne)
                         {
-                            spread = listKontrakt1[i + indexZaciatkuDlhsiehoSpreadu].Settle - listKontrakt2[i].Settle;
+                            if (hodnotaBodu1 != hodnotaBodu2)
+                                spread = hodnotaBodu1*listKontrakt1[i + indexZaciatkuDlhsiehoSpreadu].Settle -
+                                         hodnotaBodu2*listKontrakt2[i].Settle;
+                            else
+                                spread = listKontrakt1[i + indexZaciatkuDlhsiehoSpreadu].Settle -
+                                         listKontrakt2[i].Settle;
                         }
                         else
                         {
-                            spread = listKontrakt1[i].Settle - listKontrakt2[i + indexZaciatkuDlhsiehoSpreadu].Settle;
+                            if (hodnotaBodu1 != hodnotaBodu2)
+                                spread = hodnotaBodu1*listKontrakt1[i].Settle -
+                                         hodnotaBodu2*listKontrakt2[i + indexZaciatkuDlhsiehoSpreadu].Settle;
+                            else
+                                spread = listKontrakt1[i].Settle -
+                                         listKontrakt2[i + indexZaciatkuDlhsiehoSpreadu].Settle;
                         }
                         list.Add(new Spread(spread, listKontrakt1[i].Date));
                     }
@@ -197,7 +234,8 @@ namespace SpreadCalculator
                 {
                     Console.Write(e.ToString());
                 }
-
+                if (hodnotaBodu1 != hodnotaBodu2)
+                    HodnotaBodu = "1";
 
                 return list;
             }
@@ -213,11 +251,12 @@ namespace SpreadCalculator
             }
         }
 
-        public List<ObchodnyDen> ParsujKontraktXml(int kontrakIndex, string kontraktnyMesiac, string rok, out bool succes)
+        public List<ObchodnyDen> ParsujKontraktXml(out bool succes, string skratene = null, int kontrakIndex = 0, string kontraktnyMesiac = null, string rok = null)
         {
             var list = new List<ObchodnyDen>();
             succes = false;
-            var komodita = _listFuturesKontraktov[kontrakIndex - 1].Symbol + kontraktnyMesiac + rok;
+
+            string komodita = skratene ?? _listFuturesKontraktov[kontrakIndex - 1].Symbol + kontraktnyMesiac + rok;
 
             string uri = "http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_" + komodita + ".xml?auth_token=UqHLDQVcxZy5AknRTZX9";
 
@@ -449,15 +488,20 @@ namespace SpreadCalculator
                 bool succes2;
                 bool succes3;
                 bool succes4;
-                var listKontraktHlavny1 = NacitajData(komodita, kontraktnyMesiac1, rokKont1, out succes1);
-                var listKontraktHlavny2 = NacitajData(komodita, kontraktnyMesiac2, rokKont2, out succes2);
-                var spreadHlavny = vypocitajSpread(listKontraktHlavny1, listKontraktHlavny2);
+                double hodnotaBodu1;
+                double hodnotaBodu2;
+                double hodnotaBodu1Vedl;
+                double hodnotaBodu2Vedl;
+
+                var listKontraktHlavny1 = NacitajData(komodita, kontraktnyMesiac1, rokKont1, out succes1, out hodnotaBodu1);
+                var listKontraktHlavny2 = NacitajData(komodita, kontraktnyMesiac2, rokKont2, out succes2, out hodnotaBodu2);
+                var spreadHlavny = vypocitajSpread(listKontraktHlavny1, listKontraktHlavny2, hodnotaBodu1, hodnotaBodu2);
 
                 listMinulychRokov = NacitajMinuleRoky(komodita, kontraktnyMesiac1, kontraktnyMesiac2, rok1, rok2,
                     int.Parse(roky));
-                var listKontraktVedlajsi1 = NacitajData(komodita, kontraktnyMesiac1, (rok1 - 1).ToString(), out succes3);
-                var listKontraktVedlajsi2 = NacitajData(komodita, kontraktnyMesiac2, (rok2 - 1).ToString(), out succes4);
-                var spreadVedlajsi = vypocitajSpread(listKontraktVedlajsi1, listKontraktVedlajsi2);
+                var listKontraktVedlajsi1 = NacitajData(komodita, kontraktnyMesiac1, (rok1 - 1).ToString(), out succes3, out hodnotaBodu1Vedl);
+                var listKontraktVedlajsi2 = NacitajData(komodita, kontraktnyMesiac2, (rok2 - 1).ToString(), out succes4, out hodnotaBodu2Vedl);
+                var spreadVedlajsi = vypocitajSpread(listKontraktVedlajsi1, listKontraktVedlajsi2, hodnotaBodu1Vedl, hodnotaBodu2Vedl);
 
                 // var dnesnyDen = DateTime.Now; 
 
@@ -499,9 +543,11 @@ namespace SpreadCalculator
                 for (int i = 0; i < pocetRokov; i++)
                 {
                     var succes = true;
-                    var listKontraktVedlajsi1 = NacitajData(komodita, kontraktnyMesiac1, (rok1 - (i + 1)).ToString(), out succes);
-                    var listKontraktVedlajsi2 = NacitajData(komodita, kontraktnyMesiac2, (rok2 - (i + 1)).ToString(), out succes);
-                    var spreadVedlajsi = vypocitajSpread(listKontraktVedlajsi1, listKontraktVedlajsi2);
+                    double hodnotaBodu1;
+                    double hodnotaBodu2;
+                    var listKontraktVedlajsi1 = NacitajData(komodita, kontraktnyMesiac1, (rok1 - (i + 1)).ToString(), out succes, out hodnotaBodu1);
+                    var listKontraktVedlajsi2 = NacitajData(komodita, kontraktnyMesiac2, (rok2 - (i + 1)).ToString(), out succes, out hodnotaBodu2);
+                    var spreadVedlajsi = vypocitajSpread(listKontraktVedlajsi1, listKontraktVedlajsi2, hodnotaBodu1, hodnotaBodu2);
 
                     var index = spreadVedlajsi.IndexOf(new Spread(0, new DateTime(DateTime.Now.Year - (i + 1), DateTime.Now.Month, DateTime.Now.Day)));
                     var dataGrafVedlajsi = Preved110Graf(spreadVedlajsi, 307);
@@ -678,11 +724,12 @@ namespace SpreadCalculator
 
         public List<List<Spread>> dataGrafVsetky { get; set; }
 
-        public List<ObchodnyDen> GetDataPreGraf(int p1, string p2, string p3)
+        public List<ObchodnyDen> GetDataPreGraf(int p1, string p2, string p3, int dlzka)
         {
             bool succes;
+            double hodnotaBodu;
             var mesiac = p2.Contains("  -") ? p2.Substring(0, p2.IndexOf("  -", System.StringComparison.Ordinal)) : p2;
-            var listKontrakt = NacitajData(p1, mesiac, p3, out succes);
+            var listKontrakt = NacitajData(p1, mesiac, p3, out succes, out hodnotaBodu);
             foreach (var obchodnyDen in listKontrakt)
             {
                 if (obchodnyDen.High==0)
@@ -699,6 +746,20 @@ namespace SpreadCalculator
                 }
             }
 
+            dlzka = 12;
+            var koncDatum = listKontrakt[0].Date.AddMonths(-1*dlzka);
+
+            if (dlzka != 0)
+            {
+                for (int i = 0; i < listKontrakt.Count; i++)
+                {
+                    if (listKontrakt[i].Date < koncDatum)
+                    {
+                        return listKontrakt.Take(i).ToList();
+                    }
+                }
+            }
+
             return listKontrakt;
         }
 
@@ -711,14 +772,73 @@ namespace SpreadCalculator
             for (int i = 0; i < pocetRokov; i++)
             {
                 bool succes;
-                var listKontrakt1 = NacitajData(komodita1, mesiac1, (int.Parse(rok1) - (i + 1)).ToString(CultureInfo.InvariantCulture), out succes);
-                var listKontrakt2 = NacitajData(komodita2, mesiac2, (int.Parse(rok2) - (i + 1)).ToString(CultureInfo.InvariantCulture), out succes);
-                var spread = vypocitajSpread(listKontrakt1, listKontrakt2);
+                double hodnotaBodu1;
+                double hodnotaBodu2;
+                var listKontrakt1 = NacitajData(komodita1, mesiac1, (int.Parse(rok1) - (i + 1)).ToString(CultureInfo.InvariantCulture), out succes, out hodnotaBodu1);
+                var listKontrakt2 = NacitajData(komodita2, mesiac2, (int.Parse(rok2) - (i + 1)).ToString(CultureInfo.InvariantCulture), out succes, out hodnotaBodu2);
+                var spread = vypocitajSpread(listKontrakt1, listKontrakt2, hodnotaBodu1, hodnotaBodu2);
 
                 list.Add(spread);
             }
 
             return Testy.PocitajStatistiky(list, 10);
+        }
+
+        public string PocitajHodnotuVyberu(int komodita1, int komodita2, double pX, double pY)
+        {
+            return Math.Abs(double.Parse(HodnotaBodu)*(pX - pY)).ToString();
+        }
+
+        public List<string> GetMesiace()
+        {
+            var list = new List<string>();
+            int mesiac = 3;
+            var poslednyDatum = PlnyListSpread[0].Date;
+
+            foreach (var spread in PlnyListSpread)
+            {
+                if (spread.Date < poslednyDatum.AddMonths(-mesiac))
+                {
+                    list.Add(mesiac.ToString());
+                    mesiac +=3;
+                }
+            }
+            return list;
+        }
+
+        public List<List<Spread>> PocitajGrafKorelacie(int komodita1, int komodita2, string mesiac1, string kontrakt1, string mesiac2, string kontrakt2, int dlzka)
+        {
+            var succes = true;
+            double hodnotaBodu1;
+            double hodnotaBodu2;
+            var list = new List<List<Spread>>();
+
+            for (int i = 0; i < dlzka; i++)
+            {
+                var kontrakt1Upr = (int.Parse(kontrakt1) - i).ToString();
+                var kontrakt2Upr = (int.Parse(kontrakt2) - i).ToString();
+                var listKontraktHlavny1 = NacitajData(komodita1, mesiac1, kontrakt1Upr, out succes, out hodnotaBodu1);
+                var listKontraktHlavny2 = NacitajData(komodita2, mesiac2, kontrakt2Upr, out succes, out hodnotaBodu2);
+                var spread = vypocitajSpread(listKontraktHlavny1, listKontraktHlavny2, hodnotaBodu1, hodnotaBodu2).Take(250).ToList();
+
+                foreach (var item in spread)
+                {
+                    item.Date = item.Date.AddYears(i);
+                }
+                list.Add(spread);
+            }
+
+            return list;
+        }
+
+        public void VytvorDownloadManagera()
+        {
+            DownloadManager = new SpravcaDownloadManager(this);
+        }
+
+        public void PridajSledovanySpread(int komodita1, int komodita2, string text, string s, string text1, string s1)
+        {
+            SledovaneSpready.Add(_listFuturesKontraktov[komodita1 - 1].Symbol + text);
         }
     }
 }

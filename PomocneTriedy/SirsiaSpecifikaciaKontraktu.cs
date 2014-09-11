@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SpreadCalculator.PomocneTriedy
+﻿namespace SpreadCalculator.PomocneTriedy
 {
     public class SirsiaSpecifikaciaKontraktu
     {
@@ -16,5 +10,8 @@ namespace SpreadCalculator.PomocneTriedy
         public string StartRok { get; set; }
         public string EndRok { get; set; }
         public string UrlCon { get; set; }
+        public string Kategoria { get; set; }
+        public string HodnotaBod { get; set; }
+        public double VelkostTicku { get; set; }
     }
 }
