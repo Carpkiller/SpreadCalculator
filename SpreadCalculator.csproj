@@ -75,6 +75,8 @@
     <Compile Include="PomocneTriedy\ObchodnyDen.cs" />
     <Compile Include="PomocneTriedy\ObchodnyDenMap.cs" />
     <Compile Include="PomocneTriedy\SirsiaSpecifikaciaKontraktu.cs" />
+    <Compile Include="PomocneTriedy\SledovaneSpreadyData.cs" />
+    <Compile Include="PomocneTriedy\SledovanySpread.cs" />
     <Compile Include="PomocneTriedy\SpecifikaciaKontraktu.cs" />
     <Compile Include="PomocneTriedy\Spread.cs" />
     <Compile Include="PracasGrafmi.cs" />

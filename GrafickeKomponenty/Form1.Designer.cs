@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -52,6 +52,8 @@
             this.button4 = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label16 = new System.Windows.Forms.Label();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.comboBoxRokyKorelacie = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.comboBoxMesiace2Graf = new System.Windows.Forms.ComboBox();
@@ -96,8 +98,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.labelHodnotaBodu = new System.Windows.Forms.Label();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.label16 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -147,13 +147,13 @@
             this.menuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.koniecToolStripMenuItem});
             this.menuToolStripMenuItem.Name = "menuToolStripMenuItem";
-            this.menuToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
+            this.menuToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
             this.menuToolStripMenuItem.Text = "Menu";
             // 
             // koniecToolStripMenuItem
             // 
             this.koniecToolStripMenuItem.Name = "koniecToolStripMenuItem";
-            this.koniecToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.koniecToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.koniecToolStripMenuItem.Text = "Koniec";
             // 
             // dataToolStripMenuItem
@@ -161,13 +161,13 @@
             this.dataToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.stiahnutDataToolStripMenuItem});
             this.dataToolStripMenuItem.Name = "dataToolStripMenuItem";
-            this.dataToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
+            this.dataToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
             this.dataToolStripMenuItem.Text = "Data";
             // 
             // stiahnutDataToolStripMenuItem
             // 
             this.stiahnutDataToolStripMenuItem.Name = "stiahnutDataToolStripMenuItem";
-            this.stiahnutDataToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.stiahnutDataToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.stiahnutDataToolStripMenuItem.Text = "Stiahnut data";
             this.stiahnutDataToolStripMenuItem.Click += new System.EventHandler(this.stiahnutDataToolStripMenuItem_Click);
             // 
@@ -257,7 +257,7 @@
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(39, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(38, 17);
             this.toolStripStatusLabel1.Text = "Ready";
             // 
             // comboBoxMesiace2
@@ -346,6 +346,29 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Spready";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(6, 108);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(148, 13);
+            this.label16.TabIndex = 19;
+            this.label16.Text = "Naposledy otvorene spready :";
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4"});
+            this.listBox1.Location = new System.Drawing.Point(6, 124);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(264, 212);
+            this.listBox1.TabIndex = 18;
+            this.listBox1.DoubleClick += new System.EventHandler(this.listBox1_DoubleClick);
             // 
             // comboBoxRokyKorelacie
             // 
@@ -879,44 +902,22 @@
             this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea3.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chart1.Legends.Add(legend3);
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
             this.chart1.Location = new System.Drawing.Point(302, 27);
             this.chart1.Name = "chart1";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.chart1.Series.Add(series3);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chart1.Series.Add(series2);
             this.chart1.Size = new System.Drawing.Size(796, 528);
             this.chart1.TabIndex = 30;
             this.chart1.Text = "chart1";
             this.chart1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseDown);
             this.chart1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseMove);
             this.chart1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseUp);
-            // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.listBox1.Location = new System.Drawing.Point(6, 124);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(264, 212);
-            this.listBox1.TabIndex = 18;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(6, 108);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(148, 13);
-            this.label16.TabIndex = 19;
-            this.label16.Text = "Naposledy otvorene spready :";
             // 
             // Form1
             // 
@@ -941,6 +942,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Spread calculator";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

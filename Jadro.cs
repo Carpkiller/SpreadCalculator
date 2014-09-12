@@ -22,7 +22,7 @@ namespace SpreadCalculator
         public List<Spread> PlnyListSpread;
         private List<SpecifikaciaKontraktu> _listSpecifikacii;
         private List<SirsiaSpecifikaciaKontraktu> _listFuturesKontraktov;
-        public List<string> SledovaneSpready;
+        public SledovaneSpreadyData SledovaneSpready;
         public Statistika Statistika;
         public string StavText = "Ready";
         public SpravcaDownloadManager DownloadManager;
@@ -35,7 +35,7 @@ namespace SpreadCalculator
         public Jadro()
         {
             _listFuturesKontraktov = new List<SirsiaSpecifikaciaKontraktu>();
-            SledovaneSpready = new List<string>();
+            SledovaneSpready = new SledovaneSpreadyData();
         }
 
         public List<ObchodnyDen> ParsujKontrakt(string cesta, out bool succes)
@@ -836,9 +836,14 @@ namespace SpreadCalculator
             DownloadManager = new SpravcaDownloadManager(this);
         }
 
-        public void PridajSledovanySpread(int komodita1, int komodita2, string text, string s, string text1, string s1)
+        public void PridajSledovanySpread(int komodita1, int komodita2, string mesiac1, string rok1, string mesiac2, string rok2)
         {
-            SledovaneSpready.Add(_listFuturesKontraktov[komodita1 - 1].Symbol + text);
+            SledovaneSpready.PridajZaznam(new SledovanySpread(komodita1,mesiac1,rok1,komodita2,mesiac2,rok2));
+        }
+
+        public void Koniec()
+        {
+            SledovaneSpready.UlozData();
         }
     }
 }

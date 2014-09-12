@@ -12,9 +12,7 @@ namespace SpreadCalculator.GrafickeKomponenty
         private readonly Jadro _jadro;
         private readonly PracasGrafmiVS _pracaSGrafmi;
 
-        private Point _positionDown;
-        private Point _positionUp;
-        private int poc;
+        private int _poc;
         private double _zacSur;
 
         public Form1()
@@ -29,7 +27,7 @@ namespace SpreadCalculator.GrafickeKomponenty
             _jadro.ZmenaPopisu += ZmenPopis;
             labelHodnotaBodu.Text = _jadro.HodnotaBodu;
             comboBoxRokyKorelacie.SelectedIndex = 0;
-            listBox1.DataSource = _jadro.SledovaneSpready;
+            listBox1.DataSource = _jadro.SledovaneSpready.PopisSpreadov();
         }
 
         private void ZmenPopis()
@@ -49,27 +47,18 @@ namespace SpreadCalculator.GrafickeKomponenty
                 if (_jadro.ParsujKontrakty(komodita1, komodita2, comboBoxMesiace1.Text, comboBoxKontrakt1.Text,
                     comboBoxMesiace2.Text, comboBoxKontrakt2.Text, dlzka))
                 {
-                    //MessageBox.Show("Done");
-                    //zg1.Visible = false;
-                    //zg1 = PracasGrafmi.KresliGraf(NazovGrafu(), _jadro.ListSpread, zg1);
-                    //zg1.Refresh();
-                    //zg1.IsShowPointValues = true;
-                    //zg1.RestoreScale(zg1.GraphPane);
-                    //textBox1.Text = _jadro.Statistika.ToString();
-
-
                     textBoxVelky.Visible = false;
                     chart1.Visible = true;
                     _pracaSGrafmi.VykresliSpread(NazovGrafu(), _jadro.ListSpread);
                     labelHodnotaBodu.Text = _jadro.HodnotaBodu + @" $";
                     comboBoxMesiace.DataSource = _jadro.GetMesiace();
 
-                    DialogResult rs = MessageBox.Show(@"Chces pridat spread k sledovanym spreadom?", "Otazka", MessageBoxButtons.OKCancel);
+                    DialogResult rs = MessageBox.Show(@"Chces pridat spread k sledovanym spreadom?", @"Otazka", MessageBoxButtons.OKCancel);
                     if (rs==DialogResult.OK)
                     {
                         _jadro.PridajSledovanySpread(komodita1, komodita2, comboBoxMesiace1.Text, comboBoxKontrakt1.Text,comboBoxMesiace2.Text, comboBoxKontrakt2.Text);
                         listBox1.DataSource = null;
-                        listBox1.DataSource = _jadro.SledovaneSpready;
+                        listBox1.DataSource = _jadro.SledovaneSpready.PopisSpreadov();
                     }
                 }
             }
@@ -407,9 +396,8 @@ namespace SpreadCalculator.GrafickeKomponenty
         {
             if (tabPage1.Visible && chart1.Series.Count > 1)
             {
-                poc = 1;
+                _poc = 1;
                 //Console.WriteLine(_positionDown);
-                _positionDown = MousePosition;
 
                 chart1.ChartAreas[0].CursorY.Interval = _jadro.Interval;
 
@@ -440,9 +428,9 @@ namespace SpreadCalculator.GrafickeKomponenty
                 chart1.ChartAreas[0].CursorX.SetCursorPixelPosition(new Point(e.X, e.Y), true);
                 chart1.ChartAreas[0].CursorY.SetCursorPixelPosition(new Point(e.X, e.Y), true);
 
-                if (poc == 1)
+                if (_poc == 1)
                 {
-                    _positionUp = chart1.PointToScreen(MousePosition);
+                    chart1.PointToScreen(MousePosition);
 
                     chart1.ChartAreas[0].CursorX.SetCursorPixelPosition(new Point(e.X, e.Y), true);
                     chart1.ChartAreas[0].CursorY.SetCursorPixelPosition(new Point(e.X, e.Y), true);
@@ -471,14 +459,35 @@ namespace SpreadCalculator.GrafickeKomponenty
         private void chart1_MouseUp(object sender, MouseEventArgs e)
         {
             //Console.WriteLine("koncova - " + positionUp);
-            _positionUp = MousePosition;
-            poc = 0;
+            _poc = 0;
         }
 
         private void stiahnutDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var downloadManager = new DownloadManager(_jadro);
             downloadManager.Show();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _jadro.Koniec();
+        }
+
+        private void listBox1_DoubleClick(object sender, EventArgs e)
+        {
+            var spread = _jadro.SledovaneSpready.GetZaznam(listBox1.SelectedIndex);
+                var komodita1 = spread.komodita1;
+                var komodita2 = spread.komodita2;
+                var dlzka = checkBoxVyber.Checked ? 0 : int.Parse(comboBoxMesiace.SelectedValue.ToString());
+                if (_jadro.ParsujKontrakty(komodita1, komodita2, spread.kontrakt1, spread.rok1,
+                    spread.kontrakt2, spread.rok2, dlzka))
+                {
+                    textBoxVelky.Visible = false;
+                    chart1.Visible = true;
+                    _pracaSGrafmi.VykresliSpread(_jadro.SledovaneSpready.PopisSpreadov()[listBox1.SelectedIndex], _jadro.ListSpread);
+                    labelHodnotaBodu.Text = _jadro.HodnotaBodu + @" $";
+                    comboBoxMesiace.DataSource = _jadro.GetMesiace();
+                }
         }
     }
 }

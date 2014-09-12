@@ -1,4 +1,5 @@
-﻿using CsvHelper;
+﻿using System.Globalization;
+using CsvHelper;
 using SpreadCalculator.PomocneTriedy;
 using System;
 using System.Collections.Generic;
@@ -36,16 +37,27 @@ namespace SpreadCalculator
 
             if (File.Exists(file))
             {
-                var csv = new CsvReader(new StreamReader(file));
-                csv.Configuration.HasHeaderRecord = true;
-                csv.Configuration.IgnoreHeaderWhiteSpace = true;
-                csv.Configuration.Delimiter = ";";
-                var myCustomObjects = csv.GetRecords<SirsiaSpecifikaciaKontraktu>();
-
-                foreach (var item in myCustomObjects)
+                try
                 {
-                    list.Add(item);
+                    var csv = new CsvReader(new StreamReader(file));
+                    csv.Configuration.HasHeaderRecord = true;
+                    csv.Configuration.IgnoreHeaderWhiteSpace = true;
+                    csv.Configuration.Delimiter = ";";
+                    csv.Configuration.CultureInfo = CultureInfo.GetCultureInfoByIetfLanguageTag("sk-SK");
+                    //csv.Configuration.IgnoreReadingExceptions = true;
+                    var myCustomObjects = csv.GetRecords<SirsiaSpecifikaciaKontraktu>();
+
+                    foreach (var item in myCustomObjects)
+                    {
+                        list.Add(item);
+                    }
                 }
+                catch (Exception e)
+                {
+                    var ee = e.Data["CsvHelper"];
+                     Console.WriteLine(e.Data.Values);
+                }
+
             }
 
             return list;
