@@ -4,9 +4,6 @@ using SpreadCalculator.PomocneTriedy;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace SpreadCalculator
@@ -66,7 +63,6 @@ namespace SpreadCalculator
 
         internal static bool SkontrolujSubor(string kontrakt)
         {
-            var co = File.Exists(System.Environment.CurrentDirectory.Substring(0, System.Environment.CurrentDirectory.LastIndexOf("bin")) + "Download\\" + kontrakt + ".xml");
             return File.Exists(System.Environment.CurrentDirectory.Substring(0, System.Environment.CurrentDirectory.LastIndexOf("bin")) + "Download\\" + kontrakt + ".xml");
         }
 
@@ -84,6 +80,29 @@ namespace SpreadCalculator
             XmlSerializer serializer = new XmlSerializer(typeof(List<ObchodnyDen>));
             TextReader textReader = new StreamReader(System.Environment.CurrentDirectory.Substring(0, System.Environment.CurrentDirectory.LastIndexOf("bin")) + "Download\\" + komodita + ".xml");
             list = (List<ObchodnyDen>) serializer.Deserialize(textReader);
+            textReader.Close();
+            return list;
+        }
+
+        public static void UlozDocasnyAktualnyList(List<ObchodnyDen> list, string komodita)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(List<ObchodnyDen>));
+            TextWriter textWriter = new StreamWriter(System.Environment.CurrentDirectory.Substring(0, System.Environment.CurrentDirectory.LastIndexOf("bin")) + "Docasne subory\\" + komodita + ".xml");
+            serializer.Serialize(textWriter, list);
+            textWriter.Close();
+        }
+
+        public static bool SkontrolujDocasnySubor(string kontrakt)
+        {
+            return File.Exists(System.Environment.CurrentDirectory.Substring(0, System.Environment.CurrentDirectory.LastIndexOf("bin")) + "Docasne subory\\" + kontrakt + ".xml");
+        }
+
+        public static List<ObchodnyDen> NahrajDocasneData(string komodita)
+        {
+            var list = new List<ObchodnyDen>();
+            XmlSerializer serializer = new XmlSerializer(typeof(List<ObchodnyDen>));
+            TextReader textReader = new StreamReader(System.Environment.CurrentDirectory.Substring(0, System.Environment.CurrentDirectory.LastIndexOf("bin")) + "Docasne subory\\" + komodita + ".xml");
+            list = (List<ObchodnyDen>)serializer.Deserialize(textReader);
             textReader.Close();
             return list;
         }

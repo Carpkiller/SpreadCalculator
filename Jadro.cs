@@ -148,6 +148,10 @@ namespace SpreadCalculator
                 }
                 listdata = NahrajUlozeneData(_listFuturesKontraktov[p1 - 1].Symbol + kontraktnyMesiac1 + rok1, out succes);
             }
+            if (succes == false && ExistujeDocasneStiahnutySubor(_listFuturesKontraktov[p1 - 1].Symbol + kontraktnyMesiac1 + rok1))
+            {
+                listdata = NahrajDocasneUlozeneData(_listFuturesKontraktov[p1 - 1].Symbol + kontraktnyMesiac1 + rok1, out succes);
+            }
             if (succes == false)
             {
                 if (ZmenaPopisu != null)
@@ -164,6 +168,22 @@ namespace SpreadCalculator
 
             hodnotaBodu = double.Parse(HodnotaBodu);
             return listdata;
+        }
+
+        private List<ObchodnyDen> NahrajDocasneUlozeneData(string komodita, out bool succes)
+        {
+            succes = false;
+            var list = PracaSoSubormi.NahrajDocasneData(komodita);
+            if (list.Count > 0)
+            {
+                succes = true;
+            }
+            return list;
+        }
+
+        private bool ExistujeDocasneStiahnutySubor(string komodita)
+        {
+            return PracaSoSubormi.SkontrolujDocasnySubor(komodita);
         }
 
         private List<ObchodnyDen> NahrajUlozeneData(string komodita, out bool succes)
@@ -318,6 +338,10 @@ namespace SpreadCalculator
                 if (UlozData(list.First()))
                 {
                     PracaSoSubormi.UlozAktualnyList(list, komodita);
+                }
+                else
+                {
+                    PracaSoSubormi.UlozDocasnyAktualnyList(list, komodita);
                 }
             }
 

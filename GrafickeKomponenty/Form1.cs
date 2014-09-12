@@ -53,10 +53,12 @@ namespace SpreadCalculator.GrafickeKomponenty
                     labelHodnotaBodu.Text = _jadro.HodnotaBodu + @" $";
                     comboBoxMesiace.DataSource = _jadro.GetMesiace();
 
-                    DialogResult rs = MessageBox.Show(@"Chces pridat spread k sledovanym spreadom?", @"Otazka", MessageBoxButtons.OKCancel);
-                    if (rs==DialogResult.OK)
+                    DialogResult rs = MessageBox.Show(@"Chces pridat spread k sledovanym spreadom?", @"Otazka",
+                        MessageBoxButtons.OKCancel);
+                    if (rs == DialogResult.OK)
                     {
-                        _jadro.PridajSledovanySpread(komodita1, komodita2, comboBoxMesiace1.Text, comboBoxKontrakt1.Text,comboBoxMesiace2.Text, comboBoxKontrakt2.Text);
+                        _jadro.PridajSledovanySpread(komodita1, komodita2, comboBoxMesiace1.Text, comboBoxKontrakt1.Text,
+                            comboBoxMesiace2.Text, comboBoxKontrakt2.Text);
                         listBox1.DataSource = null;
                         listBox1.DataSource = _jadro.SledovaneSpready.PopisSpreadov();
                     }
@@ -408,13 +410,14 @@ namespace SpreadCalculator.GrafickeKomponenty
                 double pY = chart1.ChartAreas[0].CursorY.Position; //Y Axis Coordinate of your mouse cursor
                 _zacSur = pY;
 
-                if (chart1.Series[chart1.Series.Count-1].Points.Count > 0)
+                if (chart1.Series[chart1.Series.Count - 1].Points.Count > 0)
                 {
                     chart1.Series[chart1.Series.Count - 1].Points.Clear();
                 }
 
                 chart1.Series[chart1.Series.Count - 1].Points.AddXY(pX, pY);
-                chart1.Series[chart1.Series.Count - 1].Points.First().Label = _zacSur.ToString(CultureInfo.InvariantCulture);
+                chart1.Series[chart1.Series.Count - 1].Points.First().Label =
+                    _zacSur.ToString(CultureInfo.InvariantCulture);
                 chart1.Invalidate();
             }
         }
@@ -443,7 +446,8 @@ namespace SpreadCalculator.GrafickeKomponenty
                         chart1.Series[chart1.Series.Count - 1].Points.RemoveAt(1);
                     }
                     chart1.Series[chart1.Series.Count - 1].Points.AddXY(pX, pY);
-                    chart1.Series[chart1.Series.Count - 1].Points.Last().Label = pY.ToString(CultureInfo.InvariantCulture);
+                    chart1.Series[chart1.Series.Count - 1].Points.Last().Label =
+                        pY.ToString(CultureInfo.InvariantCulture);
                     //Console.WriteLine("Poc po " + chart1.Series[1].Points.Count);
                     chart1.Invalidate();
 
@@ -476,18 +480,28 @@ namespace SpreadCalculator.GrafickeKomponenty
         private void listBox1_DoubleClick(object sender, EventArgs e)
         {
             var spread = _jadro.SledovaneSpready.GetZaznam(listBox1.SelectedIndex);
-                var komodita1 = spread.komodita1;
-                var komodita2 = spread.komodita2;
-                var dlzka = checkBoxVyber.Checked ? 0 : int.Parse(comboBoxMesiace.SelectedValue.ToString());
-                if (_jadro.ParsujKontrakty(komodita1, komodita2, spread.kontrakt1, spread.rok1,
-                    spread.kontrakt2, spread.rok2, dlzka))
-                {
-                    textBoxVelky.Visible = false;
-                    chart1.Visible = true;
-                    _pracaSGrafmi.VykresliSpread(_jadro.SledovaneSpready.PopisSpreadov()[listBox1.SelectedIndex], _jadro.ListSpread);
-                    labelHodnotaBodu.Text = _jadro.HodnotaBodu + @" $";
-                    comboBoxMesiace.DataSource = _jadro.GetMesiace();
-                }
+            var komodita1 = spread.komodita1;
+            var komodita2 = spread.komodita2;
+
+            comboBoxKomodity.SelectedIndex = komodita1;
+            if (komodita1 != komodita2)
+                comboBoxKomodity2.SelectedIndex = komodita2;
+            comboBoxMesiace1.Text = spread.kontrakt1;
+            comboBoxMesiace2.Text = spread.kontrakt2;
+            comboBoxKontrakt1.Text = spread.rok1;
+            comboBoxKontrakt2.Text = spread.rok2;
+
+            var dlzka = checkBoxVyber.Checked ? 0 : int.Parse(comboBoxMesiace.SelectedValue.ToString());
+            if (_jadro.ParsujKontrakty(komodita1, komodita2, spread.kontrakt1, spread.rok1,
+                spread.kontrakt2, spread.rok2, dlzka))
+            {
+                textBoxVelky.Visible = false;
+                chart1.Visible = true;
+                _pracaSGrafmi.VykresliSpread(_jadro.SledovaneSpready.PopisSpreadov()[listBox1.SelectedIndex],
+                    _jadro.ListSpread);
+                labelHodnotaBodu.Text = _jadro.HodnotaBodu + @" $";
+                comboBoxMesiace.DataSource = _jadro.GetMesiace();
+            }
         }
     }
 }
