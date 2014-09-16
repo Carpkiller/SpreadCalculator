@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfObchodnyDen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ObchodnyDen>
+    <Date>2014-09-15T00:00:00</Date>
+    <Open>218.35</Open>
+    <High>218.575</High>
+    <Low>216.525</Low>
+    <Settle>218</Settle>
+    <Volume>1574</Volume>
+    <OpenInterest>8883</OpenInterest>
+  </ObchodnyDen>
+  <ObchodnyDen>
+    <Date>2014-09-12T00:00:00</Date>
+    <Open>217.8</Open>
+    <High>219</High>
+    <Low>217</Low>
+    <Settle>217.775</Settle>
+    <Volume>2120</Volume>
+    <OpenInterest>9099</OpenInterest>
+  </ObchodnyDen>
+  <ObchodnyDen>
     <Date>2014-09-11T00:00:00</Date>
     <Open>219.65</Open>
     <High>220</High>
