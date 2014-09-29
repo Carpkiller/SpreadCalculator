@@ -106,5 +106,14 @@ namespace SpreadCalculator
             textReader.Close();
             return list;
         }
+
+        public static void OcekujStareSubory()
+        {
+            var files = Directory.GetFiles(Environment.CurrentDirectory.Substring(0, Environment.CurrentDirectory.LastIndexOf("bin", StringComparison.Ordinal)) + "Docasne subory");
+
+            foreach (var file in files)
+                if (File.GetCreationTime(file).Date < DateTime.Today)
+                    File.Delete(file);
+        }
     }
 }

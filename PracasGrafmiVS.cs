@@ -74,7 +74,7 @@ namespace SpreadCalculator
             _graf.Invalidate();
         }
 
-        public void VykresliKorelacnySpread(string nazovGrafu, List<List<Spread>> listGrafKorelacie)
+        public void VykresliKorelacnySpread(string nazovGrafu, List<KorelacnySpread> listGrafKorelacie)
         {
             var listFarieb = new List<Color>
             {
@@ -96,6 +96,7 @@ namespace SpreadCalculator
             double max = -99999;
 
             _graf.Series.Clear();
+            var startRok = listGrafKorelacie[0].Rok;
 
             var series3 = new Series
             {
@@ -111,31 +112,32 @@ namespace SpreadCalculator
             {
                 var series = new Series
                 {
-                    Name = "Rok " + (int.Parse(listGrafKorelacie[i][0].Date.Year.ToString(CultureInfo.InvariantCulture)) - i),
+                    //Name = "Rok " + (listGrafKorelacie[i].Rok - i),
+                    Name = "Rok " + (startRok - i),
                     ChartType = SeriesChartType.Line,
                     IsVisibleInLegend = true,
                     Color = listFarieb[i],
                     BorderWidth = 2,
                 };
-                for (int j = 0; j < listGrafKorelacie[i].Count; j++)
+                for (int j = 0; j < listGrafKorelacie[i].Spread.Count; j++)
                 {
-                    series.Points.AddXY(listGrafKorelacie[i][j].Date, listGrafKorelacie[i][j].Value);
-                    if (listGrafKorelacie[i][j].Value > max)
+                    series.Points.AddXY(listGrafKorelacie[i].Spread[j].Date, listGrafKorelacie[i].Spread[j].Value);
+                    if (listGrafKorelacie[i].Spread[j].Value > max)
                     {
-                        max = listGrafKorelacie[i][j].Value;
+                        max = listGrafKorelacie[i].Spread[j].Value;
                     }
-                    if (listGrafKorelacie[i][j].Value < min)
+                    if (listGrafKorelacie[i].Spread[j].Value < min)
                     {
-                        min = listGrafKorelacie[i][j].Value;
+                        min = listGrafKorelacie[i].Spread[j].Value;
                     }
                 }
 
                 _graf.Series.Add(series);
 
             }
-            if (listGrafKorelacie[0][0].Date < DateTime.Today)
+            if (listGrafKorelacie[0].Spread[0].Date < DateTime.Today)
             {
-                var year = listGrafKorelacie[0][0].Date.Year;
+                var year = listGrafKorelacie[0].Spread[0].Date.Year;
                 var date = DateTime.Today;
                 series3.Points.AddXY(date.AddYears(year - date.Year), max);
                 series3.Points.AddXY(date.AddYears(year - date.Year), min);    

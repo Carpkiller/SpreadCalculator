@@ -75,7 +75,7 @@ namespace SpreadCalculator.GrafickeKomponenty
 
             textBoxVelky.Visible = false;
             chart1.Visible = true;
-            var dlzka = int.Parse(comboBoxRokyKorelacie.SelectedItem.ToString());
+            var dlzka = int.Parse(comboBoxRokyKorelacie.SelectedItem.ToString())+1;
             _pracaSGrafmi.VykresliKorelacnySpread(NazovGrafu(),
                 _jadro.PocitajGrafKorelacie(komodita1, komodita2, comboBoxMesiace1.Text, comboBoxKontrakt1.Text,
                     comboBoxMesiace2.Text, comboBoxKontrakt2.Text, dlzka));

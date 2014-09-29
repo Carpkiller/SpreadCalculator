@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Windows.Forms.DataVisualization.Charting;
 using System.Xml;
 using System.Xml.Linq;
 using CsvHelper;
-using SpreadCalculator.GrafickeKomponenty;
 using SpreadCalculator.PomocneTriedy;
 using System.Globalization;
 using SpreadCalculator.Statistiky;
@@ -36,6 +34,7 @@ namespace SpreadCalculator
         {
             _listFuturesKontraktov = new List<SirsiaSpecifikaciaKontraktu>();
             SledovaneSpready = new SledovaneSpreadyData();
+            PracaSoSubormi.OcekujStareSubory();
         }
 
         public List<ObchodnyDen> ParsujKontrakt(string cesta, out bool succes)
@@ -278,8 +277,8 @@ namespace SpreadCalculator
 
             string komodita = skratene ?? _listFuturesKontraktov[kontrakIndex - 1].Symbol + kontraktnyMesiac + rok;
 
-            string uri = "http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_" + komodita + ".xml?auth_token=UqHLDQVcxZy5AknRTZX9";
-
+            //string uri = "http://www.quandl.com/api/v1/datasets/OFDP/FUTURE_" + komodita + ".xml?auth_token=UqHLDQVcxZy5AknRTZX9";
+            string uri = String.Format(_listFuturesKontraktov[kontrakIndex - 1].Url, komodita, string.Empty, string.Empty);
             try
             {
                 WebRequest req = WebRequest.Create(uri);
@@ -290,6 +289,8 @@ namespace SpreadCalculator
                 var doc = new XmlDocument();
                 doc.Load(xmlReader);
 
+                int multiplikator = doc.InnerXml.Contains("Change") ? 10 : 8;
+
 
                 var text = doc.InnerXml.Replace(" type=\"array\"", "").Replace(" type=\"float\"", "");
                 var index = text.IndexOf("<data>");
@@ -297,6 +298,7 @@ namespace SpreadCalculator
                 index = text.IndexOf("</dataset>");
                 text = text.Substring(0, index);
                 text = text.Replace("  <datum>", "  <den>").Replace("  </datum>", "  </den>");
+                text = text.Replace("<datum></datum>", "<datum>0</datum>");
 
                 XDocument xdoc = XDocument.Parse(text);
 
@@ -307,14 +309,15 @@ namespace SpreadCalculator
                 {
                     for (int i = 0; i < dlzka; i++)
                     {
-                        var dat = authors.ElementAt(i*8 + 1).Value.ToString();
-                        var datum = DateTime.Parse(authors.ElementAt(i*8 + 1).Value.ToString());
-                        var open = double.Parse(authors.ElementAt(i * 8 + 2).Value.ToString(), CultureInfo.InvariantCulture);
-                        var high = double.Parse(authors.ElementAt(i * 8 + 3).Value.ToString(), CultureInfo.InvariantCulture);
-                        var low = double.Parse(authors.ElementAt(i * 8 + 4).Value.ToString(), CultureInfo.InvariantCulture);
-                        var close = double.Parse(authors.ElementAt(i * 8 + 5).Value.ToString(), CultureInfo.InvariantCulture);
-                        var volume = double.Parse(authors.ElementAt(i * 8 + 6).Value.ToString(), CultureInfo.InvariantCulture);
-                        var open_interest = double.Parse(authors.ElementAt(i * 8 + 7).Value.ToString(), CultureInfo.InvariantCulture);
+                        var dat = authors.ElementAt(i * multiplikator + 1).Value.ToString();
+                        var datum = DateTime.Parse(authors.ElementAt(i * multiplikator + 1).Value.ToString());
+                        var data = authors.ElementAt(i * multiplikator + 2).Value.ToString();
+                        var open = double.Parse(authors.ElementAt(i * multiplikator + 2).Value.ToString(), CultureInfo.InvariantCulture);
+                        var high = double.Parse(authors.ElementAt(i * multiplikator + 3).Value.ToString(), CultureInfo.InvariantCulture);
+                        var low = double.Parse(authors.ElementAt(i * multiplikator + 4).Value.ToString(), CultureInfo.InvariantCulture);
+                        var close = double.Parse(authors.ElementAt(i * multiplikator + multiplikator == 8 ? 5 : 7).Value.ToString(), CultureInfo.InvariantCulture);
+                        var volume = double.Parse(authors.ElementAt(i * multiplikator + multiplikator == 8 ? 6 : 8).Value.ToString(), CultureInfo.InvariantCulture);
+                        var open_interest = double.Parse(authors.ElementAt(i * multiplikator + multiplikator == 8 ? 7 : 9).Value.ToString(), CultureInfo.InvariantCulture);
                         var den = new ObchodnyDen(datum,open,high,low,close,volume,open_interest);
                         list.Add(den);
                     }
@@ -830,12 +833,12 @@ namespace SpreadCalculator
             return list;
         }
 
-        public List<List<Spread>> PocitajGrafKorelacie(int komodita1, int komodita2, string mesiac1, string kontrakt1, string mesiac2, string kontrakt2, int dlzka)
+        public List<KorelacnySpread> PocitajGrafKorelacie(int komodita1, int komodita2, string mesiac1, string kontrakt1, string mesiac2, string kontrakt2, int dlzka)
         {
             var succes = true;
             double hodnotaBodu1;
             double hodnotaBodu2;
-            var list = new List<List<Spread>>();
+            var list = new List<KorelacnySpread>();
 
             for (int i = 0; i < dlzka; i++)
             {
@@ -843,9 +846,10 @@ namespace SpreadCalculator
                 var kontrakt2Upr = (int.Parse(kontrakt2) - i).ToString();
                 var listKontraktHlavny1 = NacitajData(komodita1, mesiac1, kontrakt1Upr, out succes, out hodnotaBodu1);
                 var listKontraktHlavny2 = NacitajData(komodita2, mesiac2, kontrakt2Upr, out succes, out hodnotaBodu2);
-                var spread = vypocitajSpread(listKontraktHlavny1, listKontraktHlavny2, hodnotaBodu1, hodnotaBodu2).Take(250).ToList();
+                var spread = new KorelacnySpread(vypocitajSpread(listKontraktHlavny1, listKontraktHlavny2, hodnotaBodu1, hodnotaBodu2).Take(250).ToList());
+                spread.SetRok(spread.Spread[0].Date.Year);
 
-                foreach (var item in spread)
+                foreach (var item in spread.Spread)
                 {
                     item.Date = item.Date.AddYears(i);
                 }
