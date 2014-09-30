@@ -289,7 +289,6 @@ namespace SpreadCalculator
             {
                 WebRequest req = WebRequest.Create(uri);
                 req.Proxy = WebRequest.DefaultWebProxy;
-                req.Proxy.Credentials = new NetworkCredential("sl511lukseke","20jalec1500");
                 req.UseDefaultCredentials = true;
                 var resp = req.GetResponse();
                 var textReader = new StreamReader(resp.GetResponseStream());
