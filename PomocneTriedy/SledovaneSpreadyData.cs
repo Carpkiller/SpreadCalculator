@@ -72,7 +72,7 @@ namespace SpreadCalculator.PomocneTriedy
 
             foreach (var sledovanySpread in listData)
             {
-                list.Add(listKont[sledovanySpread.komodita1 - 1].Komodita + " " + sledovanySpread.kontrakt1 + sledovanySpread.rok1);
+                list.Add(listKont[sledovanySpread.komodita1 - 1].Symbol + sledovanySpread.kontrakt1[0] + sledovanySpread.rok1.Substring(2, 2) + " - " + listKont[sledovanySpread.komodita2 - 1].Symbol + sledovanySpread.kontrakt2[0] + sledovanySpread.rok2.Substring(2, 2));
             }
 
             return list;

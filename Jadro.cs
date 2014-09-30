@@ -207,22 +207,28 @@ namespace SpreadCalculator
             {
                 var opacne = listKontrakt1[0].Date > listKontrakt2[0].Date;
                 int indexZaciatkuDlhsiehoSpreadu;
+                int dlzka;
+
                 var list = new List<Spread>();
                 if(opacne)
                 {
-                    indexZaciatkuDlhsiehoSpreadu = listKontrakt1.IndexOf(new ObchodnyDen(listKontrakt2.First().Date)); 
+                    indexZaciatkuDlhsiehoSpreadu = listKontrakt1.IndexOf(new ObchodnyDen(listKontrakt2.First().Date));
+                    dlzka = listKontrakt1.Count - indexZaciatkuDlhsiehoSpreadu;
+                    if (dlzka > listKontrakt2.Count)
+                    {
+                        dlzka = listKontrakt2.Count;
+                    }
                 }
                 else
                 {
-                    indexZaciatkuDlhsiehoSpreadu = listKontrakt2.IndexOf(new ObchodnyDen(listKontrakt1.First().Date)); 
+                    indexZaciatkuDlhsiehoSpreadu = listKontrakt2.IndexOf(new ObchodnyDen(listKontrakt1.First().Date));
+                    dlzka = listKontrakt2.Count - indexZaciatkuDlhsiehoSpreadu;
+                    if (dlzka > listKontrakt1.Count)
+                    {
+                        dlzka = listKontrakt1.Count;
+                    }
                 }
           //      var indexZaciatkuDlhsiehoSpreadu = listKontrakt2.IndexOf(new ObchodnyDen(listKontrakt1.First().Date));       //  kontrola este z druhej strany
-                var dlzka = listKontrakt2.Count - indexZaciatkuDlhsiehoSpreadu;
-                if (dlzka > listKontrakt1.Count)
-                {
-                    dlzka = listKontrakt1.Count;
-                }
-
                 try
                 {
                     for (int i = 0; i < dlzka; i++)
@@ -282,6 +288,8 @@ namespace SpreadCalculator
             try
             {
                 WebRequest req = WebRequest.Create(uri);
+                req.Proxy = WebRequest.DefaultWebProxy;
+                req.Proxy.Credentials = new NetworkCredential("sl511lukseke","20jalec1500");
                 req.UseDefaultCredentials = true;
                 var resp = req.GetResponse();
                 var textReader = new StreamReader(resp.GetResponseStream());
@@ -303,21 +311,21 @@ namespace SpreadCalculator
                 XDocument xdoc = XDocument.Parse(text);
 
                 var authors = xdoc.Descendants("datum");
-                var dlzka = authors.Count() / 8;
+                var dlzka = authors.Count() / multiplikator;
 
                 if (dlzka > 0)
                 {
                     for (int i = 0; i < dlzka; i++)
                     {
-                        var dat = authors.ElementAt(i * multiplikator + 1).Value.ToString();
+                        //var dat = authors.ElementAt(i * multiplikator + 1).Value.ToString();
                         var datum = DateTime.Parse(authors.ElementAt(i * multiplikator + 1).Value.ToString());
-                        var data = authors.ElementAt(i * multiplikator + 2).Value.ToString();
+                       //var data = authors.ElementAt(i * multiplikator + 2).Value.ToString();
                         var open = double.Parse(authors.ElementAt(i * multiplikator + 2).Value.ToString(), CultureInfo.InvariantCulture);
                         var high = double.Parse(authors.ElementAt(i * multiplikator + 3).Value.ToString(), CultureInfo.InvariantCulture);
                         var low = double.Parse(authors.ElementAt(i * multiplikator + 4).Value.ToString(), CultureInfo.InvariantCulture);
-                        var close = double.Parse(authors.ElementAt(i * multiplikator + multiplikator == 8 ? 5 : 7).Value.ToString(), CultureInfo.InvariantCulture);
-                        var volume = double.Parse(authors.ElementAt(i * multiplikator + multiplikator == 8 ? 6 : 8).Value.ToString(), CultureInfo.InvariantCulture);
-                        var open_interest = double.Parse(authors.ElementAt(i * multiplikator + multiplikator == 8 ? 7 : 9).Value.ToString(), CultureInfo.InvariantCulture);
+                        var close = double.Parse(authors.ElementAt(i * multiplikator + (multiplikator == 8 ? 5 : 7)).Value.ToString(), CultureInfo.InvariantCulture);
+                        var volume = double.Parse(authors.ElementAt(i * multiplikator + (multiplikator == 8 ? 6 : 8)).Value.ToString(), CultureInfo.InvariantCulture);
+                        var open_interest = double.Parse(authors.ElementAt(i * multiplikator + (multiplikator == 8 ? 7 : 9)).Value.ToString(), CultureInfo.InvariantCulture);
                         var den = new ObchodnyDen(datum,open,high,low,close,volume,open_interest);
                         list.Add(den);
                     }

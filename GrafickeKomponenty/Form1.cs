@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace SpreadCalculator.GrafickeKomponenty
@@ -14,6 +15,7 @@ namespace SpreadCalculator.GrafickeKomponenty
 
         private int _poc;
         private double _zacSur;
+        private bool _zmena;
 
         public Form1()
         {
@@ -479,17 +481,24 @@ namespace SpreadCalculator.GrafickeKomponenty
 
         private void listBox1_DoubleClick(object sender, EventArgs e)
         {
+            _zmena = true;
             var spread = _jadro.SledovaneSpready.GetZaznam(listBox1.SelectedIndex);
             var komodita1 = spread.komodita1;
             var komodita2 = spread.komodita2;
 
             comboBoxKomodity.SelectedIndex = komodita1;
             if (komodita1 != komodita2)
+            {
                 comboBoxKomodity2.SelectedIndex = komodita2;
-            comboBoxMesiace1.Text = spread.kontrakt1;
-            comboBoxMesiace2.Text = spread.kontrakt2;
+                checkBoxDruhyKontrakt.Checked = true;
+            }
+            else
+                checkBoxDruhyKontrakt.Checked = false;
+            
             comboBoxKontrakt1.Text = spread.rok1;
+            comboBoxMesiace1.Text = spread.kontrakt1;
             comboBoxKontrakt2.Text = spread.rok2;
+            comboBoxMesiace2.Text = spread.kontrakt2;
 
             var dlzka = checkBoxVyber.Checked ? 0 : int.Parse(comboBoxMesiace.SelectedValue.ToString());
             if (_jadro.ParsujKontrakty(komodita1, komodita2, spread.kontrakt1, spread.rok1,
@@ -502,6 +511,7 @@ namespace SpreadCalculator.GrafickeKomponenty
                 labelHodnotaBodu.Text = _jadro.HodnotaBodu + @" $";
                 comboBoxMesiace.DataSource = _jadro.GetMesiace();
             }
+            _zmena = false;
         }
     }
 }

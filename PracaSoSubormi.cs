@@ -109,11 +109,20 @@ namespace SpreadCalculator
 
         public static void OcekujStareSubory()
         {
-            var files = Directory.GetFiles(Environment.CurrentDirectory.Substring(0, Environment.CurrentDirectory.LastIndexOf("bin", StringComparison.Ordinal)) + "Docasne subory");
+            try
+            {
+                var files = Directory.GetFiles(Environment.CurrentDirectory.Substring(0, Environment.CurrentDirectory.LastIndexOf("bin", StringComparison.Ordinal)) + "Docasne subory");
 
-            foreach (var file in files)
-                if (File.GetCreationTime(file).Date < DateTime.Today)
-                    File.Delete(file);
+                foreach (var file in files)
+                    if (File.GetCreationTime(file).Date < DateTime.Today)
+                        File.Delete(file);
+            }
+            catch (Exception)
+            {
+                var path = System.Environment.CurrentDirectory.Substring(0, System.Environment.CurrentDirectory.LastIndexOf("bin")) + "Docasne subory";
+                Directory.CreateDirectory(path);
+            }
+            
         }
     }
 }
