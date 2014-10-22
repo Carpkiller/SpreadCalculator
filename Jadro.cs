@@ -546,7 +546,7 @@ namespace SpreadCalculator
                     spreadVedlajsi.IndexOf(new Spread(0,
                         new DateTime(DateTime.Now.Year - 2, DateTime.Now.Month, DateTime.Now.Day)));
 
-                spreadHlavny = spreadHlavny.GetRange(0, index2 - index);
+                //spreadHlavny = spreadHlavny.GetRange(0, index2 - index);    //zmenene 21.10.2014
                 // spreadVedlajsi = spreadVedlajsi.GetRange(0, index2);
 
                 dataGrafTerajsi = Preved100Graf(spreadHlavny, 1);

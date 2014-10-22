@@ -30,6 +30,7 @@ namespace SpreadCalculator.GrafickeKomponenty
             labelHodnotaBodu.Text = _jadro.HodnotaBodu;
             comboBoxRokyKorelacie.SelectedIndex = 0;
             listBox1.DataSource = _jadro.SledovaneSpready.PopisSpreadov();
+            contextMenuStrip1.Items.Add("Zmazat");
         }
 
         private void ZmenPopis()
@@ -77,7 +78,7 @@ namespace SpreadCalculator.GrafickeKomponenty
 
             textBoxVelky.Visible = false;
             chart1.Visible = true;
-            var dlzka = int.Parse(comboBoxRokyKorelacie.SelectedItem.ToString())+1;
+            var dlzka = int.Parse(comboBoxRokyKorelacie.SelectedItem.ToString()) + 1;
             _pracaSGrafmi.VykresliKorelacnySpread(NazovGrafu(),
                 _jadro.PocitajGrafKorelacie(komodita1, komodita2, comboBoxMesiace1.Text, comboBoxKontrakt1.Text,
                     comboBoxMesiace2.Text, comboBoxKontrakt2.Text, dlzka));
@@ -494,7 +495,7 @@ namespace SpreadCalculator.GrafickeKomponenty
             }
             else
                 checkBoxDruhyKontrakt.Checked = false;
-            
+
             comboBoxKontrakt1.Text = spread.rok1;
             comboBoxMesiace1.Text = spread.kontrakt1;
             comboBoxKontrakt2.Text = spread.rok2;
@@ -512,6 +513,23 @@ namespace SpreadCalculator.GrafickeKomponenty
                 comboBoxMesiace.DataSource = _jadro.GetMesiace();
             }
             _zmena = false;
+        }
+
+        private void listBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                listBox1.SelectedIndex = listBox1.IndexFromPoint(e.X, e.Y);
+                contextMenuStrip1.Show(Cursor.Position);
+            }
+        }
+
+        private void contextMenuStrip1_MouseClick(object sender, MouseEventArgs e)
+        {
+            contextMenuStrip1.Close();
+            _jadro.SledovaneSpready.OdstranZaznam(listBox1.SelectedIndex);
+            listBox1.DataSource = null;
+            listBox1.DataSource = _jadro.SledovaneSpready.PopisSpreadov();
         }
     }
 }

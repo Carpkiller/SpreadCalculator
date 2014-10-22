@@ -24,7 +24,7 @@ namespace SpreadCalculator.PomocneTriedy
             {
                 IFormatter formatter = new BinaryFormatter();
                 stream = new FileStream("SledovaneSpready.bin", FileMode.Open, FileAccess.Read, FileShare.Read);
-                listData = (List<SledovanySpread>)formatter.Deserialize(stream);
+                listData = (List<SledovanySpread>) formatter.Deserialize(stream);
                 stream.Close();
             }
             catch (Exception e)
@@ -45,9 +45,9 @@ namespace SpreadCalculator.PomocneTriedy
             }
             catch (Exception e)
             {
-             stream.Close();
-            }      
-            
+                stream.Close();
+            }
+
         }
 
         public void PridajZaznam(SledovanySpread spread)
@@ -72,10 +72,17 @@ namespace SpreadCalculator.PomocneTriedy
 
             foreach (var sledovanySpread in listData)
             {
-                list.Add(listKont[sledovanySpread.komodita1 - 1].Symbol + sledovanySpread.kontrakt1[0] + sledovanySpread.rok1.Substring(2, 2) + " - " + listKont[sledovanySpread.komodita2 - 1].Symbol + sledovanySpread.kontrakt2[0] + sledovanySpread.rok2.Substring(2, 2));
+                list.Add(listKont[sledovanySpread.komodita1 - 1].Symbol + sledovanySpread.kontrakt1[0] +
+                         sledovanySpread.rok1.Substring(2, 2) + " - " + listKont[sledovanySpread.komodita2 - 1].Symbol +
+                         sledovanySpread.kontrakt2[0] + sledovanySpread.rok2.Substring(2, 2));
             }
 
             return list;
-        } 
+        }
+
+        public void OdstranZaznam(int selectedIndex)
+        {
+            listData.RemoveAt(selectedIndex);
+        }
     }
 }
