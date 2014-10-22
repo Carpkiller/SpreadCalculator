@@ -1,4 +1,6 @@
 ﻿using System.Globalization;
+using System.Linq;
+using System.Text.RegularExpressions;
 using CsvHelper;
 using SpreadCalculator.PomocneTriedy;
 using System;
@@ -60,6 +62,25 @@ namespace SpreadCalculator
             return list;
         }
 
+
+        public List<int> PocetStiahnutychKontraktov(List<SirsiaSpecifikaciaKontraktu> kontrakty)
+        {
+            var list = new List<int>();
+
+            foreach (var kontrakt in kontrakty)
+            {
+                var search = "*" + kontrakt.Symbol + "*";
+                string[] filePaths =
+                    Directory.GetFiles(
+                        @System.Environment.CurrentDirectory.Substring(0,
+                            System.Environment.CurrentDirectory.LastIndexOf("bin")) + "Download\\", search);
+                
+                search = kontrakt.Symbol + @"[A-Z]{1}[0-9]{4}";
+                list.Add(filePaths.Count(d => Regex.IsMatch(d, search,RegexOptions.Compiled)));
+            }
+
+            return list;
+        } 
 
         internal static bool SkontrolujSubor(string kontrakt)
         {

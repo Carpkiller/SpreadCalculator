@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Globalization;
 using System.Windows.Forms.DataVisualization.Charting;
 using SpreadCalculator.PomocneTriedy;
 
@@ -18,7 +17,7 @@ namespace SpreadCalculator
         }
 
 
-        public void VykresliSpread(string nazovGrafu, List<Spread> listSpread)
+        public void VykresliSpread(string nazovGrafu, List<Spread> listSpread, List<Spread> listSpread1 = null)
         {
             _graf.Series.Clear();
             var series1 = new Series
@@ -44,6 +43,27 @@ namespace SpreadCalculator
             for (int i = 0; i < listSpread.Count; i++)
             {
                 series1.Points.AddXY(listSpread[i].Date, listSpread[i].Value);
+            }
+
+            if (listSpread1 != null)
+            {
+                var series2 = new Series
+                {
+                    Name = "Odhad",
+                    LegendText = nazovGrafu,
+                    Color = Color.Black,
+                    IsVisibleInLegend = true,
+                    IsXValueIndexed = false,
+                    ChartType = SeriesChartType.Line,
+                    BorderWidth = 1
+                };
+
+                for (int i = 0; i < listSpread1.Count; i++)
+                {
+                    series2.Points.AddXY(listSpread1[i].Date, listSpread1[i].Value);
+                }
+
+                _graf.Series.Add(series2);
             }
 
             _graf.Series.Add(series1);

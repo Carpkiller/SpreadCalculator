@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
 using CsvHelper;
@@ -242,6 +243,8 @@ namespace SpreadCalculator
                             else
                                 spread = listKontrakt1[i + indexZaciatkuDlhsiehoSpreadu].Settle -
                                          listKontrakt2[i].Settle;
+
+                            list.Add(new Spread(spread, listKontrakt2[i].Date));
                         }
                         else
                         {
@@ -251,8 +254,10 @@ namespace SpreadCalculator
                             else
                                 spread = listKontrakt1[i].Settle -
                                          listKontrakt2[i + indexZaciatkuDlhsiehoSpreadu].Settle;
+
+                            list.Add(new Spread(spread, listKontrakt1[i].Date));
                         }
-                        list.Add(new Spread(spread, listKontrakt1[i].Date));
+                        
                     }
                 }
                 catch (Exception e)
@@ -510,13 +515,13 @@ namespace SpreadCalculator
             }
         }
 
-        internal bool PocitajSezonnost(int komodita, string kontraktnyMesiac1, string rokKont1, string kontraktnyMesiac2, string rokKont2, string roky)
+        internal bool PocitajSezonnost(int komodita, int komodita2, string kontraktnyMesiac1, string rokKont1, string kontraktnyMesiac2, string rokKont2, string roky)
         {
             try
             {
                 var rok1 = int.Parse(rokKont1);
                 var rok2 = int.Parse(rokKont2);
-                var listMinulychRokov = new List<Spread>();
+                var listMinulychRokoch = new List<Spread>();
 
                 bool succes1;
                 bool succes2;
@@ -528,30 +533,27 @@ namespace SpreadCalculator
                 double hodnotaBodu2Vedl;
 
                 var listKontraktHlavny1 = NacitajData(komodita, kontraktnyMesiac1, rokKont1, out succes1, out hodnotaBodu1);
-                var listKontraktHlavny2 = NacitajData(komodita, kontraktnyMesiac2, rokKont2, out succes2, out hodnotaBodu2);
+                var listKontraktHlavny2 = NacitajData(komodita2, kontraktnyMesiac2, rokKont2, out succes2, out hodnotaBodu2);
                 var spreadHlavny = vypocitajSpread(listKontraktHlavny1, listKontraktHlavny2, hodnotaBodu1, hodnotaBodu2);
 
-                listMinulychRokov = NacitajMinuleRoky(komodita, kontraktnyMesiac1, kontraktnyMesiac2, rok1, rok2,
-                    int.Parse(roky));
-                var listKontraktVedlajsi1 = NacitajData(komodita, kontraktnyMesiac1, (rok1 - 1).ToString(), out succes3, out hodnotaBodu1Vedl);
-                var listKontraktVedlajsi2 = NacitajData(komodita, kontraktnyMesiac2, (rok2 - 1).ToString(), out succes4, out hodnotaBodu2Vedl);
-                var spreadVedlajsi = vypocitajSpread(listKontraktVedlajsi1, listKontraktVedlajsi2, hodnotaBodu1Vedl, hodnotaBodu2Vedl);
+                listMinulychRokoch = NacitajMinuleRoky(komodita, komodita2, kontraktnyMesiac1, kontraktnyMesiac2, rok1, rok2,int.Parse(roky), spreadHlavny.Count);
+                //var listKontraktVedlajsi1 = NacitajData(komodita, kontraktnyMesiac1, (rok1 - 1).ToString(), out succes3, out hodnotaBodu1Vedl);
+                //var listKontraktVedlajsi2 = NacitajData(komodita, kontraktnyMesiac2, (rok2 - 1).ToString(), out succes4, out hodnotaBodu2Vedl);
+                //var spreadVedlajsi = vypocitajSpread(listKontraktVedlajsi1, listKontraktVedlajsi2, hodnotaBodu1Vedl, hodnotaBodu2Vedl);
 
                 // var dnesnyDen = DateTime.Now; 
 
-                var index =
-                    spreadVedlajsi.IndexOf(new Spread(0,
-                        new DateTime(DateTime.Now.Year - 1, DateTime.Now.Month, DateTime.Now.Day)));
-                var index2 =
-                    spreadVedlajsi.IndexOf(new Spread(0,
-                        new DateTime(DateTime.Now.Year - 2, DateTime.Now.Month, DateTime.Now.Day)));
+                var index = listMinulychRokoch.IndexOf(new Spread(0, new DateTime(DateTime.Now.Year - 1, DateTime.Now.Month, DateTime.Now.Day)));
+                var index2 = listMinulychRokoch.IndexOf(new Spread(0, new DateTime(DateTime.Now.Year - 2, DateTime.Now.Month, DateTime.Now.Day)));
 
                 //spreadHlavny = spreadHlavny.GetRange(0, index2 - index);    //zmenene 21.10.2014
                 // spreadVedlajsi = spreadVedlajsi.GetRange(0, index2);
 
-                dataGrafTerajsi = Preved100Graf(spreadHlavny, 1);
+                dataGrafTerajsi = Preved100Graf(spreadHlavny, 0).GetRange(0,140);
+                dataGrafVedalsi = listMinulychRokoch.GetRange(0, 227);
+
                 //dataGrafVedalsi = Preved110Graf(spreadVedlajsi,index);
-                dataGrafVedalsi = Preved100Graf(dataGrafVedalsi, 0);
+                //dataGrafVedalsi = Preved100Graf(dataGrafVedalsi, 0);
 
                 // zistit dlzku presahu minuleho intervalu oproti predoslemu, to pouyit na porovnanie predpovede
                 // potom od konca toho presahu odpocitat rok, cize sucasnz interval bude kratsi oproti preodslemu
@@ -569,7 +571,7 @@ namespace SpreadCalculator
             }
         }
 
-        private List<Spread> NacitajMinuleRoky(int komodita, string kontraktnyMesiac1, string kontraktnyMesiac2, int rok1, int rok2, int pocetRokov)
+        private List<Spread> NacitajMinuleRoky(int komodita, int komodita2, string kontraktnyMesiac1, string kontraktnyMesiac2, int rok1, int rok2, int pocetRokov, int count)
         {
             try
             {
@@ -580,11 +582,11 @@ namespace SpreadCalculator
                     double hodnotaBodu1;
                     double hodnotaBodu2;
                     var listKontraktVedlajsi1 = NacitajData(komodita, kontraktnyMesiac1, (rok1 - (i + 1)).ToString(), out succes, out hodnotaBodu1);
-                    var listKontraktVedlajsi2 = NacitajData(komodita, kontraktnyMesiac2, (rok2 - (i + 1)).ToString(), out succes, out hodnotaBodu2);
+                    var listKontraktVedlajsi2 = NacitajData(komodita2, kontraktnyMesiac2, (rok2 - (i + 1)).ToString(), out succes, out hodnotaBodu2);
                     var spreadVedlajsi = vypocitajSpread(listKontraktVedlajsi1, listKontraktVedlajsi2, hodnotaBodu1, hodnotaBodu2);
 
                     var index = spreadVedlajsi.IndexOf(new Spread(0, new DateTime(DateTime.Now.Year - (i + 1), DateTime.Now.Month, DateTime.Now.Day)));
-                    var dataGrafVedlajsi = Preved110Graf(spreadVedlajsi, 307);
+                    var dataGrafVedlajsi = Preved110Graf(spreadVedlajsi, count);
                     list.Add(dataGrafVedlajsi);
                 }
                 dataGrafVsetky = SpriemerujVsetkyData(list);
@@ -596,6 +598,11 @@ namespace SpreadCalculator
             }
         }
 
+        private int NajmensiList(List<List<Spread>> list)
+        {
+            return list.Min(x => x.Count);
+        }
+
         private List<List<Spread>> SpriemerujVsetkyData(List<List<Spread>> list)
         {
             var outputList = new List<List<Spread>>();
@@ -603,7 +610,7 @@ namespace SpreadCalculator
             foreach (var rok in list)
             {
                 var pomList = new List<Spread>();
-                for (int i = 0; i < 307; i++)
+                for (int i = 0; i < NajmensiList(list); i++)
                 {
                     pomList.Add(new Spread(rok[i].Value,list[0][i].Date));
                 }
@@ -617,7 +624,7 @@ namespace SpreadCalculator
         {
             var outputList = new List<Spread>();
 
-            for (int i = 0; i < 307; i++)
+            for (int i = 0; i < NajmensiList(list); i++)
             {
                 var hodnota = 0.0;
                 for (int j = 0; j < list.Count; j++)
@@ -628,17 +635,32 @@ namespace SpreadCalculator
                     }
                 }
                 hodnota = hodnota/list.Count;
-                outputList.Add(new Spread(hodnota, ((Spread) (list[0][i])).Date));
+                outputList.Add(new Spread(hodnota, ((Spread) (list[0][i])).Date.AddYears(1)));
             }
 
-            return outputList;
+            var max = -9999.0;
+            var min = 9999.0;
+
+            foreach (var item in outputList)
+            {
+                if (item.Value > max)
+                {
+                    max = item.Value;
+                } if (item.Value < min)
+                {
+                    min = item.Value;
+                }
+            }
+
+            return PrekonvertujList(Preved110Graf(outputList,0));
         }
 
         private List<Spread> Preved110Graf(List<Spread> spreadVedlajsi, int index)
         {
             var ind = spreadVedlajsi.Count <= index ? spreadVedlajsi.Count : index;
 
-            var hlavList = spreadVedlajsi.GetRange(0, ind);           
+            //var hlavList = spreadVedlajsi.GetRange(0, ind);           
+            var hlavList = spreadVedlajsi;
 
             var max = -9999.0;
             var min = 9999.0;
@@ -660,7 +682,7 @@ namespace SpreadCalculator
             foreach (var item in hlavList)
             {
                 list.Add(new Spread(item.Value * pomer, item.Date));
-            //    Console.WriteLine(item.Value * pomer);
+                //Console.WriteLine(item.Value * pomer);
             }
 
             return PrekonvertujList(list,index);
@@ -689,6 +711,7 @@ namespace SpreadCalculator
             for (int i = 0; i < list.Count; i++)
             {
                 list[i].Value = list[i].Value + posun;
+                //Console.WriteLine(list[i].Value + posun);
             }
 
             return list;
@@ -699,7 +722,8 @@ namespace SpreadCalculator
             var max = -9999.0;
             var min = 9999.0;
 
-            var pomList = spreadHlavny.Count == 253 ? spreadHlavny : spreadHlavny.GetRange(54, 253);
+            //var pomList = spreadHlavny.Count == 253 ? spreadHlavny : spreadHlavny.GetRange(54, 253);
+            var pomList = spreadHlavny;
 
             foreach (var item in pomList)
             {
@@ -730,7 +754,7 @@ namespace SpreadCalculator
             var max = -9999.0;
             var min = 9999.0;
 
-            var pomList = list.Count==253 ? list : list.GetRange(54,253);
+            //var pomList = list.Count==253 ? list : list.GetRange(54,253);
 
             foreach (var item in list)
             {
@@ -879,6 +903,20 @@ namespace SpreadCalculator
         public void Koniec()
         {
             SledovaneSpready.UlozData();
+        }
+
+        public ListViewItem[] PocetKontraktov()
+        {
+            var kontrakty = new PracaSoSubormi().GetKontraktyPodrobnejsie();
+            var pocetList = new PracaSoSubormi().PocetStiahnutychKontraktov(kontrakty);
+            var list = new List<Tuple<string, int>>();
+            
+            for (int index = 0; index < kontrakty.Count; index++)
+            {
+                list.Add(new Tuple<string, int>(kontrakty[index].Komodita, pocetList[index]));
+            }
+
+            return list.Select((t) => new ListViewItemHelpClass(t)).ToArray();
         }
     }
 }

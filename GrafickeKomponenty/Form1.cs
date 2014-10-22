@@ -251,7 +251,7 @@ namespace SpreadCalculator.GrafickeKomponenty
         {
             if (comboBoxKontrakt1Sez.Enabled && comboBoxKontrakt2Sez.Enabled)
             {
-                if (_jadro.PocitajSezonnost(comboBoxKomodity.SelectedIndex, comboBoxMesiace1Sez.Text,
+                if (_jadro.PocitajSezonnost(comboBoxKomodity.SelectedIndex, comboBoxKomodity2.SelectedIndex, comboBoxMesiace1Sez.Text,
                     comboBoxKontrakt1Sez.Text, comboBoxMesiace2Sez.Text, comboBoxKontrakt2Sez.Text, textBoxRoky.Text))
                 {
                     if (checkBoxJednotliveRoky.Checked)
@@ -267,14 +267,11 @@ namespace SpreadCalculator.GrafickeKomponenty
                     }
                     else
                     {
-                        //    MessageBox.Show("Done");
                         textBoxVelky.Visible = false;
-                        //zg1.Visible = true;
-                        //zg1 = PracasGrafmi.KresliGraf("Forecast graf", _jadro.dataGrafTerajsi, _jadro.dataGrafVedalsi,zg1);
-                        //zg1.Refresh();
-                        //zg1.IsShowPointValues = true;
-                        //zg1.RestoreScale(zg1.GraphPane);
-                        //textBox1.Text = jadro.statistika.ToString();
+                        chart1.Visible = true;
+                        _pracaSGrafmi.VykresliSpread(NazovGrafu(), _jadro.dataGrafTerajsi, _jadro.dataGrafVedalsi);
+                        labelHodnotaBodu.Text = _jadro.HodnotaBodu + @" $";
+                        //comboBoxMesiace.DataSource = _jadro.GetMesiace();
                     }
                 }
             }
@@ -530,6 +527,12 @@ namespace SpreadCalculator.GrafickeKomponenty
             _jadro.SledovaneSpready.OdstranZaznam(listBox1.SelectedIndex);
             listBox1.DataSource = null;
             listBox1.DataSource = _jadro.SledovaneSpready.PopisSpreadov();
+        }
+
+        private void spravaDatToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var spravaDat = new SpravaDat(_jadro);
+            spravaDat.Show();
         }
     }
 }
