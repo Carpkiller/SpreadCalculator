@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace SpreadCalculator.GrafickeKomponenty
@@ -15,7 +14,6 @@ namespace SpreadCalculator.GrafickeKomponenty
 
         private int _poc;
         private double _zacSur;
-        private bool _zmena;
 
         public Form1()
         {
@@ -120,43 +118,59 @@ namespace SpreadCalculator.GrafickeKomponenty
 
         private void comboBoxKontrakt1_TextChanged(object sender, EventArgs e)
         {
-            var predZnak = comboBoxMesiace1.SelectedIndex;
-            if (!ReferenceEquals(comboBoxKontrakt1.SelectedItem, "----------"))
+            try
             {
-                var listMesiacov = _jadro.LoadMesiaceSpecificke(comboBoxKomodity.SelectedItem.ToString(),
-                    comboBoxKontrakt1.SelectedItem.ToString());
-                if (listMesiacov != null)
+                var predZnak = comboBoxMesiace1.SelectedIndex;
+                if (!ReferenceEquals(comboBoxKontrakt1.SelectedItem, "----------"))
                 {
-                    comboBoxMesiace1.DataSource = listMesiacov;
-                    comboBoxKontrakt1.Enabled = true;
-                    if (listMesiacov.Count >= predZnak)
+                    var listMesiacov = _jadro.LoadMesiaceSpecificke(comboBoxKomodity.SelectedItem.ToString(),
+                        comboBoxKontrakt1.SelectedItem.ToString());
+                    if (listMesiacov != null)
                     {
-                        comboBoxMesiace1.SelectedIndex = predZnak;
+                        comboBoxMesiace1.DataSource = listMesiacov;
+                        comboBoxKontrakt1.Enabled = true;
+                        if (listMesiacov.Count >= predZnak)
+                        {
+                            comboBoxMesiace1.SelectedIndex = predZnak;
+                        }
                     }
                 }
             }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message, @"Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         private void comboBoxKontrakt2_TextChanged(object sender, EventArgs e)
         {
-            var predZnak = comboBoxMesiace2.SelectedIndex;
-            if (!ReferenceEquals(comboBoxKontrakt2.SelectedItem, "----------"))
+            try
             {
-                var listMesiacov =
-                    _jadro.LoadMesiaceSpecificke(
-                        checkBoxDruhyKontrakt.Checked
-                            ? comboBoxKomodity2.SelectedItem.ToString()
-                            : comboBoxKomodity.SelectedItem.ToString(), comboBoxKontrakt2.SelectedItem.ToString());
-                if (listMesiacov != null)
+                var predZnak = comboBoxMesiace2.SelectedIndex;
+                if (!ReferenceEquals(comboBoxKontrakt2.SelectedItem, "----------"))
                 {
-                    comboBoxMesiace2.DataSource = listMesiacov;
-                    comboBoxKontrakt1.Enabled = true;
-                    if (listMesiacov.Count >= predZnak)
+                    var listMesiacov =
+                        _jadro.LoadMesiaceSpecificke(
+                            checkBoxDruhyKontrakt.Checked
+                                ? comboBoxKomodity2.SelectedItem.ToString()
+                                : comboBoxKomodity.SelectedItem.ToString(), comboBoxKontrakt2.SelectedItem.ToString());
+                    if (listMesiacov != null)
                     {
-                        comboBoxMesiace2.SelectedIndex = predZnak;
+                        comboBoxMesiace2.DataSource = listMesiacov;
+                        comboBoxKontrakt1.Enabled = true;
+                        if (listMesiacov.Count >= predZnak)
+                        {
+                            comboBoxMesiace2.SelectedIndex = predZnak;
+                        }
                     }
                 }
             }
+            catch(Exception exc)
+            {
+                MessageBox.Show(exc.Message, @"Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         private string NazovGrafu()
@@ -211,39 +225,54 @@ namespace SpreadCalculator.GrafickeKomponenty
 
         private void comboBoxKontrakt1Sez_TextChanged(object sender, EventArgs e)
         {
-            var predZnak = comboBoxMesiace1Sez.SelectedIndex;
-            if (!ReferenceEquals(comboBoxKontrakt1Sez.SelectedItem, "----------"))
+            try
             {
-                var listMesiacov = _jadro.LoadMesiaceSpecificke(comboBoxKomodity.SelectedItem.ToString(),
-                    comboBoxKontrakt1Sez.SelectedItem.ToString());
-                if (listMesiacov != null)
+                var predZnak = comboBoxMesiace1Sez.SelectedIndex;
+                if (!ReferenceEquals(comboBoxKontrakt1Sez.SelectedItem, "----------"))
                 {
-                    comboBoxMesiace1Sez.DataSource = listMesiacov;
-                    comboBoxKontrakt1Sez.Enabled = true;
-                    if (listMesiacov.Count >= predZnak)
+                    var listMesiacov = _jadro.LoadMesiaceSpecificke(comboBoxKomodity.SelectedItem.ToString(),
+                        comboBoxKontrakt1Sez.SelectedItem.ToString());
+                    if (listMesiacov != null)
                     {
-                        comboBoxMesiace1Sez.SelectedIndex = predZnak;
+                        comboBoxMesiace1Sez.DataSource = listMesiacov;
+                        comboBoxKontrakt1Sez.Enabled = true;
+                        if (listMesiacov.Count >= predZnak)
+                        {
+                            comboBoxMesiace1Sez.SelectedIndex = predZnak;
+                        }
                     }
                 }
             }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message, @"Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         private void comboBoxKontrakt2Sez_TextChanged(object sender, EventArgs e)
         {
-            var predZnak = comboBoxMesiace2Sez.SelectedIndex;
-            if (!ReferenceEquals(comboBoxKontrakt2Sez.SelectedItem, "----------"))
+            try
             {
-                var listMesiacov = _jadro.LoadMesiaceSpecificke(comboBoxKomodity.SelectedItem.ToString(),
-                    comboBoxKontrakt2Sez.SelectedItem.ToString());
-                if (listMesiacov != null)
+                var predZnak = comboBoxMesiace2Sez.SelectedIndex;
+                if (!ReferenceEquals(comboBoxKontrakt2Sez.SelectedItem, "----------"))
                 {
-                    comboBoxMesiace2Sez.DataSource = listMesiacov;
-                    comboBoxKontrakt2Sez.Enabled = true;
-                    if (listMesiacov.Count >= predZnak)
+                    var listMesiacov = _jadro.LoadMesiaceSpecificke(comboBoxKomodity.SelectedItem.ToString(),
+                        comboBoxKontrakt2Sez.SelectedItem.ToString());
+                    if (listMesiacov != null)
                     {
-                        comboBoxMesiace2Sez.SelectedIndex = predZnak;
+                        comboBoxMesiace2Sez.DataSource = listMesiacov;
+                        comboBoxKontrakt2Sez.Enabled = true;
+                        if (listMesiacov.Count >= predZnak)
+                        {
+                            comboBoxMesiace2Sez.SelectedIndex = predZnak;
+                        }
                     }
                 }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message, @"Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -424,39 +453,46 @@ namespace SpreadCalculator.GrafickeKomponenty
 
         private void chart1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (tabPage1.Visible && chart1.Series.Count > 1)
+            try
             {
-                chart1.ChartAreas[0].CursorY.Interval = _jadro.Interval;
-
-                chart1.ChartAreas[0].CursorX.SetCursorPixelPosition(new Point(e.X, e.Y), true);
-                chart1.ChartAreas[0].CursorY.SetCursorPixelPosition(new Point(e.X, e.Y), true);
-
-                if (_poc == 1)
+                if (tabPage1.Visible && chart1.Series.Count > 1)
                 {
-                    chart1.PointToScreen(MousePosition);
+                    chart1.ChartAreas[0].CursorY.Interval = _jadro.Interval;
 
                     chart1.ChartAreas[0].CursorX.SetCursorPixelPosition(new Point(e.X, e.Y), true);
                     chart1.ChartAreas[0].CursorY.SetCursorPixelPosition(new Point(e.X, e.Y), true);
 
-                    double pX = chart1.ChartAreas[0].CursorX.Position; //X Axis Coordinate of your mouse cursor
-                    double pY = chart1.ChartAreas[0].CursorY.Position; //Y Axis Coordinate of your mouse cursor
-
-                    if (chart1.Series[chart1.Series.Count - 1].Points.Count == 2)
+                    if (_poc == 1)
                     {
-                        chart1.Series[chart1.Series.Count - 1].Points.RemoveAt(1);
-                    }
-                    chart1.Series[chart1.Series.Count - 1].Points.AddXY(pX, pY);
-                    chart1.Series[chart1.Series.Count - 1].Points.Last().Label =
-                        pY.ToString(CultureInfo.InvariantCulture);
-                    //Console.WriteLine("Poc po " + chart1.Series[1].Points.Count);
-                    chart1.Invalidate();
+                        chart1.PointToScreen(MousePosition);
 
-                    var komodita1 = comboBoxKomodity.SelectedIndex;
-                    var komodita2 = checkBoxDruhyKontrakt.Checked
-                        ? comboBoxKomodity2.SelectedIndex
-                        : comboBoxKomodity.SelectedIndex;
-                    labelPravitko.Text = _jadro.PocitajHodnotuVyberu(komodita1, komodita2, _zacSur, pY);
+                        chart1.ChartAreas[0].CursorX.SetCursorPixelPosition(new Point(e.X, e.Y), true);
+                        chart1.ChartAreas[0].CursorY.SetCursorPixelPosition(new Point(e.X, e.Y), true);
+
+                        double pX = chart1.ChartAreas[0].CursorX.Position; //X Axis Coordinate of your mouse cursor
+                        double pY = chart1.ChartAreas[0].CursorY.Position; //Y Axis Coordinate of your mouse cursor
+
+                        if (chart1.Series[chart1.Series.Count - 1].Points.Count == 2)
+                        {
+                            chart1.Series[chart1.Series.Count - 1].Points.RemoveAt(1);
+                        }
+                        chart1.Series[chart1.Series.Count - 1].Points.AddXY(pX, pY);
+                        chart1.Series[chart1.Series.Count - 1].Points.Last().Label =
+                            pY.ToString(CultureInfo.InvariantCulture);
+                        //Console.WriteLine("Poc po " + chart1.Series[1].Points.Count);
+                        chart1.Invalidate();
+
+                        var komodita1 = comboBoxKomodity.SelectedIndex;
+                        var komodita2 = checkBoxDruhyKontrakt.Checked
+                            ? comboBoxKomodity2.SelectedIndex
+                            : comboBoxKomodity.SelectedIndex;
+                        labelPravitko.Text = _jadro.PocitajHodnotuVyberu(komodita1, komodita2, _zacSur, pY);
+                    }
                 }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message, @"Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -479,7 +515,6 @@ namespace SpreadCalculator.GrafickeKomponenty
 
         private void listBox1_DoubleClick(object sender, EventArgs e)
         {
-            _zmena = true;
             var spread = _jadro.SledovaneSpready.GetZaznam(listBox1.SelectedIndex);
             var komodita1 = spread.komodita1;
             var komodita2 = spread.komodita2;
@@ -509,7 +544,6 @@ namespace SpreadCalculator.GrafickeKomponenty
                 labelHodnotaBodu.Text = _jadro.HodnotaBodu + @" $";
                 comboBoxMesiace.DataSource = _jadro.GetMesiace();
             }
-            _zmena = false;
         }
 
         private void listBox1_MouseDown(object sender, MouseEventArgs e)

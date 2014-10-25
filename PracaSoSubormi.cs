@@ -80,7 +80,7 @@ namespace SpreadCalculator
             }
 
             return list;
-        } 
+        }
 
         internal static bool SkontrolujSubor(string kontrakt)
         {
