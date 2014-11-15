@@ -550,7 +550,8 @@ namespace SpreadCalculator
                 // spreadVedlajsi = spreadVedlajsi.GetRange(0, index2);
 
                 dataGrafTerajsi = Preved100Graf(spreadHlavny, 0).GetRange(0,140);
-                dataGrafVedalsi = listMinulychRokoch.GetRange(0, 227);
+                dataGrafVedalsi = listMinulychRokoch.Count < 227 ? listMinulychRokoch : listMinulychRokoch.GetRange(0, 227);
+                
 
                 //dataGrafVedalsi = Preved110Graf(spreadVedlajsi,index);
                 //dataGrafVedalsi = Preved100Graf(dataGrafVedalsi, 0);
