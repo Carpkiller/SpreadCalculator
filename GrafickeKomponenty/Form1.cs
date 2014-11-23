@@ -568,5 +568,11 @@ namespace SpreadCalculator.GrafickeKomponenty
             var spravaDat = new SpravaDat(_jadro);
             spravaDat.Show();
         }
+
+        private void specifikacieKontraktovToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var spravaSpecifikacii = new SpravaSpecifikacii(_jadro);
+            spravaSpecifikacii.Show();
+        }
     }
 }

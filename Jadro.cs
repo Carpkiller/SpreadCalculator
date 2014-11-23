@@ -919,5 +919,17 @@ namespace SpreadCalculator
 
             return list.Select((t) => new ListViewItemHelpClass(t)).ToArray();
         }
+
+        public SirsiaSpecifikaciaKontraktu LoadSpecifikacie(int selectedIndex)
+        {
+            var list = new PracaSoSubormi().GetKontraktyPodrobnejsie();
+
+            return list.ElementAt(selectedIndex);
+        }
+
+        public void UlozZmenySpecifikacii(SirsiaSpecifikaciaKontraktu specikacia, int selectedIndex)
+        {
+            new PracaSoSubormi().UlozZmenySpecifikacii(specikacia, selectedIndex);
+        }
     }
 }

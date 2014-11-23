@@ -36,9 +36,10 @@ namespace SpreadCalculator
 
             if (File.Exists(file))
             {
+                var reader = new StreamReader(file);
                 try
                 {
-                    var csv = new CsvReader(new StreamReader(file));
+                    var csv = new CsvReader(reader);
                     csv.Configuration.HasHeaderRecord = true;
                     csv.Configuration.IgnoreHeaderWhiteSpace = true;
                     csv.Configuration.Delimiter = ";";
@@ -54,9 +55,12 @@ namespace SpreadCalculator
                 catch (Exception e)
                 {
                     var ee = e.Data["CsvHelper"];
-                     Console.WriteLine(e.Data.Values);
+                    Console.WriteLine(e.Data.Values);
                 }
-
+                finally
+                {
+                    reader.Close();
+                }
             }
 
             return list;
@@ -144,6 +148,41 @@ namespace SpreadCalculator
                 Directory.CreateDirectory(path);
             }
             
+        }
+
+        public void UlozZmenySpecifikacii(SirsiaSpecifikaciaKontraktu specikacia, int selectedIndex)
+        {
+            var file = System.Environment.CurrentDirectory.Substring(0, System.Environment.CurrentDirectory.LastIndexOf("bin")) + "Kontrakty\\Specifikacie.csv";
+            var records = GetKontraktyPodrobnejsie();
+            File.Delete(file);
+            //File.Create(file);
+
+            //if (File.Exists(file)){
+            using (StreamWriter sw = new StreamWriter(file, true))
+            {
+                try
+                {
+                    var writer = new CsvWriter(sw);
+                    writer.Configuration.Delimiter = ";";
+                    writer.WriteHeader(typeof (SirsiaSpecifikaciaKontraktu));
+                    for (int i = 0; i < selectedIndex; i++)
+                    {
+                        writer.WriteRecord(records[i]);
+                    }
+                    writer.WriteRecord(specikacia);
+                    for (int i = selectedIndex + 1; i < records.Count; i++)
+                    {
+                        writer.WriteRecord(records[i]);
+                    }
+                    sw.Close();
+                }
+                catch (Exception e)
+                {
+                    var ee = e.Data["CsvHelper"];
+                    Console.WriteLine(e.Data.Values);
+                }
+                // }
+            }
         }
     }
 }
