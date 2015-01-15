@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
@@ -901,9 +903,26 @@ namespace SpreadCalculator
             SledovaneSpready.PridajZaznam(new SledovanySpread(komodita1,mesiac1,rok1,komodita2,mesiac2,rok2));
         }
 
-        public void Koniec()
+        public void Koniec(string text)
         {
             SledovaneSpready.UlozData();
+            UlozPoznamky(text);
+        }
+
+        private void UlozPoznamky(string text)
+        {
+            Stream stream = null;
+            try
+            {
+                IFormatter formatter = new BinaryFormatter();
+                stream = new FileStream("Poznamky.bin", FileMode.Create, FileAccess.Write, FileShare.None);
+                formatter.Serialize(stream, text);
+                stream.Close();
+            }
+            catch (Exception e)
+            {
+                stream.Close();
+            }
         }
 
         public ListViewItem[] PocetKontraktov()
@@ -930,6 +949,25 @@ namespace SpreadCalculator
         public void UlozZmenySpecifikacii(SirsiaSpecifikaciaKontraktu specikacia, int selectedIndex)
         {
             new PracaSoSubormi().UlozZmenySpecifikacii(specikacia, selectedIndex);
+        }
+
+        public string NacitajPoznamky()
+        {
+            var result = "";
+            Stream stream = null;
+            try
+            {
+                IFormatter formatter = new BinaryFormatter();
+                stream = new FileStream("Poznamky.bin", FileMode.Open, FileAccess.Read, FileShare.Read);
+                result = formatter.Deserialize(stream).ToString();
+                stream.Close();
+            }
+            catch (Exception e)
+            {
+                stream.Close();
+            }
+
+            return result;
         }
     }
 }

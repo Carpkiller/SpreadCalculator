@@ -29,6 +29,7 @@ namespace SpreadCalculator.GrafickeKomponenty
             comboBoxRokyKorelacie.SelectedIndex = 0;
             listBox1.DataSource = _jadro.SledovaneSpready.PopisSpreadov();
             contextMenuStrip1.Items.Add("Zmazat");
+            textBoxPoznamky.Text = _jadro.NacitajPoznamky();
         }
 
         private void ZmenPopis()
@@ -510,7 +511,7 @@ namespace SpreadCalculator.GrafickeKomponenty
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _jadro.Koniec();
+            _jadro.Koniec(textBoxPoznamky.Text);
         }
 
         private void listBox1_DoubleClick(object sender, EventArgs e)

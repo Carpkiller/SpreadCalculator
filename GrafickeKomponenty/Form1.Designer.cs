@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -40,6 +40,7 @@
             this.dataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stiahnutDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.spravaDatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.specifikacieKontraktovToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comboBoxKomodity = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -101,7 +102,8 @@
             this.labelHodnotaBodu = new System.Windows.Forms.Label();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.specifikacieKontraktovToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.textBoxPoznamky = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -183,6 +185,13 @@
             this.spravaDatToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.spravaDatToolStripMenuItem.Text = "Sprava dat";
             this.spravaDatToolStripMenuItem.Click += new System.EventHandler(this.spravaDatToolStripMenuItem_Click);
+            // 
+            // specifikacieKontraktovToolStripMenuItem
+            // 
+            this.specifikacieKontraktovToolStripMenuItem.Name = "specifikacieKontraktovToolStripMenuItem";
+            this.specifikacieKontraktovToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.specifikacieKontraktovToolStripMenuItem.Text = "Specifikacie kontraktov";
+            this.specifikacieKontraktovToolStripMenuItem.Click += new System.EventHandler(this.specifikacieKontraktovToolStripMenuItem_Click);
             // 
             // comboBoxKomodity
             // 
@@ -818,7 +827,7 @@
             this.textBoxVelky.Multiline = true;
             this.textBoxVelky.Name = "textBoxVelky";
             this.textBoxVelky.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxVelky.Size = new System.Drawing.Size(786, 528);
+            this.textBoxVelky.Size = new System.Drawing.Size(758, 528);
             this.textBoxVelky.TabIndex = 21;
             this.textBoxVelky.Visible = false;
             // 
@@ -826,7 +835,7 @@
             // 
             this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(1125, 35);
+            this.label12.Location = new System.Drawing.Point(1083, 35);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(57, 13);
             this.label12.TabIndex = 22;
@@ -836,7 +845,7 @@
             // 
             this.labelPravitko.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelPravitko.AutoSize = true;
-            this.labelPravitko.Location = new System.Drawing.Point(1199, 35);
+            this.labelPravitko.Location = new System.Drawing.Point(1157, 35);
             this.labelPravitko.Name = "labelPravitko";
             this.labelPravitko.Size = new System.Drawing.Size(0, 13);
             this.labelPravitko.TabIndex = 23;
@@ -870,7 +879,7 @@
             this.panel1.Controls.Add(this.comboBoxMesiace);
             this.panel1.Controls.Add(this.label13);
             this.panel1.Controls.Add(this.checkBoxVyber);
-            this.panel1.Location = new System.Drawing.Point(1128, 102);
+            this.panel1.Location = new System.Drawing.Point(1086, 102);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(160, 95);
             this.panel1.TabIndex = 27;
@@ -878,7 +887,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(90, 65);
+            this.label15.Location = new System.Drawing.Point(90, 64);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(52, 13);
             this.label15.TabIndex = 27;
@@ -896,7 +905,7 @@
             // 
             this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(1125, 66);
+            this.label14.Location = new System.Drawing.Point(1083, 66);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(90, 13);
             this.label14.TabIndex = 28;
@@ -906,7 +915,7 @@
             // 
             this.labelHodnotaBodu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelHodnotaBodu.AutoSize = true;
-            this.labelHodnotaBodu.Location = new System.Drawing.Point(1219, 66);
+            this.labelHodnotaBodu.Location = new System.Drawing.Point(1177, 66);
             this.labelHodnotaBodu.Name = "labelHodnotaBodu";
             this.labelHodnotaBodu.Size = new System.Drawing.Size(0, 13);
             this.labelHodnotaBodu.TabIndex = 29;
@@ -916,17 +925,17 @@
             this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
             this.chart1.Location = new System.Drawing.Point(302, 27);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(796, 528);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chart1.Series.Add(series2);
+            this.chart1.Size = new System.Drawing.Size(758, 528);
             this.chart1.TabIndex = 30;
             this.chart1.Text = "chart1";
             this.chart1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseDown);
@@ -939,18 +948,34 @@
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             this.contextMenuStrip1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.contextMenuStrip1_MouseClick);
             // 
-            // specifikacieKontraktovToolStripMenuItem
+            // textBoxPoznamky
             // 
-            this.specifikacieKontraktovToolStripMenuItem.Name = "specifikacieKontraktovToolStripMenuItem";
-            this.specifikacieKontraktovToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
-            this.specifikacieKontraktovToolStripMenuItem.Text = "Specifikacie kontraktov";
-            this.specifikacieKontraktovToolStripMenuItem.Click += new System.EventHandler(this.specifikacieKontraktovToolStripMenuItem_Click);
+            this.textBoxPoznamky.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxPoznamky.Location = new System.Drawing.Point(1086, 229);
+            this.textBoxPoznamky.Multiline = true;
+            this.textBoxPoznamky.Name = "textBoxPoznamky";
+            this.textBoxPoznamky.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxPoznamky.Size = new System.Drawing.Size(202, 326);
+            this.textBoxPoznamky.TabIndex = 31;
+            // 
+            // label17
+            // 
+            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(1091, 213);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(62, 13);
+            this.label17.TabIndex = 32;
+            this.label17.Text = "Poznamky :";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1300, 584);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.textBoxPoznamky);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.labelHodnotaBodu);
             this.Controls.Add(this.label14);
@@ -1065,6 +1090,8 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem spravaDatToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem specifikacieKontraktovToolStripMenuItem;
+        private System.Windows.Forms.TextBox textBoxPoznamky;
+        private System.Windows.Forms.Label label17;
     }
 }
 
