@@ -4,6 +4,8 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
+using Cursor = System.Windows.Forms.Cursor;
 
 namespace SpreadCalculator.GrafickeKomponenty
 {
@@ -428,27 +430,39 @@ namespace SpreadCalculator.GrafickeKomponenty
         {
             if (tabPage1.Visible && chart1.Series.Count > 1)
             {
-                _poc = 1;
-                //Console.WriteLine(_positionDown);
-
-                chart1.ChartAreas[0].CursorY.Interval = _jadro.Interval;
-
-                chart1.ChartAreas[0].CursorX.SetCursorPixelPosition(new PointF(e.X, e.Y), true);
-                chart1.ChartAreas[0].CursorY.SetCursorPixelPosition(new PointF(e.X, e.Y), true);
-
-                double pX = chart1.ChartAreas[0].CursorX.Position; //X Axis Coordinate of your mouse cursor
-                double pY = chart1.ChartAreas[0].CursorY.Position; //Y Axis Coordinate of your mouse cursor
-                _zacSur = pY;
-
-                if (chart1.Series[chart1.Series.Count - 1].Points.Count > 0)
+                if (e.Button == MouseButtons.Left)
                 {
-                    chart1.Series[chart1.Series.Count - 1].Points.Clear();
-                }
+                    _poc = 1;
+                    //Console.WriteLine(_positionDown);
 
-                chart1.Series[chart1.Series.Count - 1].Points.AddXY(pX, pY);
-                chart1.Series[chart1.Series.Count - 1].Points.First().Label =
-                    _zacSur.ToString(CultureInfo.InvariantCulture);
-                chart1.Invalidate();
+                    chart1.ChartAreas[0].CursorY.Interval = _jadro.Interval;
+
+                    chart1.ChartAreas[0].CursorX.SetCursorPixelPosition(new PointF(e.X, e.Y), true);
+                    chart1.ChartAreas[0].CursorY.SetCursorPixelPosition(new PointF(e.X, e.Y), true);
+
+                    double pX = chart1.ChartAreas[0].CursorX.Position; //X Axis Coordinate of your mouse cursor
+                    double pY = chart1.ChartAreas[0].CursorY.Position; //Y Axis Coordinate of your mouse cursor
+
+                    labelDatum.Text = DateTime.FromOADate(pX).ToLongDateString();
+                    //Console.WriteLine(DateTime.FromOADate(pX) +" "+ pY);
+                    _zacSur = pY;
+
+                    if (chart1.Series[chart1.Series.Count - 1].Points.Count > 0)
+                    {
+                        chart1.Series[chart1.Series.Count - 1].Points.Clear();
+                    }
+
+                    chart1.Series[chart1.Series.Count - 1].Points.AddXY(pX, pY);
+                    chart1.Series[chart1.Series.Count - 1].Points.First().Label =
+                        _zacSur.ToString(CultureInfo.InvariantCulture);
+                    chart1.Invalidate();
+                }
+                else
+                {
+                    chart1.ChartAreas[0].CursorX.SetCursorPixelPosition(new PointF(e.X, e.Y), true);
+                    double pX = chart1.ChartAreas[0].CursorX.Position;
+                    labelDatum.Text = DateTime.FromOADate(pX).ToLongDateString();
+                }
             }
         }
 
@@ -458,10 +472,14 @@ namespace SpreadCalculator.GrafickeKomponenty
             {
                 if (tabPage1.Visible && chart1.Series.Count > 1)
                 {
-                    chart1.ChartAreas[0].CursorY.Interval = _jadro.Interval;
-
+                    double pxX = chart1.ChartAreas[0].CursorX.Position;
                     chart1.ChartAreas[0].CursorX.SetCursorPixelPosition(new Point(e.X, e.Y), true);
-                    chart1.ChartAreas[0].CursorY.SetCursorPixelPosition(new Point(e.X, e.Y), true);
+                    //Console.WriteLine(e.X+" - "+e.Y+" : "+DateTime.FromOADate(pxX));
+                    //Console.WriteLine(chart1.Height);
+                    if (!double.IsNaN(pxX))
+                    {
+                        labelDatum.Text = DateTime.FromOADate(pxX).ToLongDateString();  // vypisovanie aktualneho datuma podla polohy cursora
+                    }
 
                     if (_poc == 1)
                     {
@@ -472,7 +490,7 @@ namespace SpreadCalculator.GrafickeKomponenty
 
                         double pX = chart1.ChartAreas[0].CursorX.Position; //X Axis Coordinate of your mouse cursor
                         double pY = chart1.ChartAreas[0].CursorY.Position; //Y Axis Coordinate of your mouse cursor
-
+                        labelDatum.Text = DateTime.FromOADate(pX).ToLongDateString();
                         if (chart1.Series[chart1.Series.Count - 1].Points.Count == 2)
                         {
                             chart1.Series[chart1.Series.Count - 1].Points.RemoveAt(1);
