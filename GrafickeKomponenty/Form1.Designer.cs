@@ -154,13 +154,13 @@
             this.menuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.koniecToolStripMenuItem});
             this.menuToolStripMenuItem.Name = "menuToolStripMenuItem";
-            this.menuToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+            this.menuToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.menuToolStripMenuItem.Text = "Menu";
             // 
             // koniecToolStripMenuItem
             // 
             this.koniecToolStripMenuItem.Name = "koniecToolStripMenuItem";
-            this.koniecToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.koniecToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.koniecToolStripMenuItem.Text = "Koniec";
             // 
             // dataToolStripMenuItem
@@ -170,27 +170,27 @@
             this.spravaDatToolStripMenuItem,
             this.specifikacieKontraktovToolStripMenuItem});
             this.dataToolStripMenuItem.Name = "dataToolStripMenuItem";
-            this.dataToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
+            this.dataToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.dataToolStripMenuItem.Text = "Data";
             // 
             // stiahnutDataToolStripMenuItem
             // 
             this.stiahnutDataToolStripMenuItem.Name = "stiahnutDataToolStripMenuItem";
-            this.stiahnutDataToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.stiahnutDataToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.stiahnutDataToolStripMenuItem.Text = "Stiahnut data";
             this.stiahnutDataToolStripMenuItem.Click += new System.EventHandler(this.stiahnutDataToolStripMenuItem_Click);
             // 
             // spravaDatToolStripMenuItem
             // 
             this.spravaDatToolStripMenuItem.Name = "spravaDatToolStripMenuItem";
-            this.spravaDatToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.spravaDatToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.spravaDatToolStripMenuItem.Text = "Sprava dat";
             this.spravaDatToolStripMenuItem.Click += new System.EventHandler(this.spravaDatToolStripMenuItem_Click);
             // 
             // specifikacieKontraktovToolStripMenuItem
             // 
             this.specifikacieKontraktovToolStripMenuItem.Name = "specifikacieKontraktovToolStripMenuItem";
-            this.specifikacieKontraktovToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.specifikacieKontraktovToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.specifikacieKontraktovToolStripMenuItem.Text = "Specifikacie kontraktov";
             this.specifikacieKontraktovToolStripMenuItem.Click += new System.EventHandler(this.specifikacieKontraktovToolStripMenuItem_Click);
             // 
@@ -280,7 +280,7 @@
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(38, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(39, 17);
             this.toolStripStatusLabel1.Text = "Ready";
             // 
             // comboBoxMesiace2
@@ -972,6 +972,7 @@
             // 
             // labelDatum
             // 
+            this.labelDatum.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelDatum.AutoSize = true;
             this.labelDatum.Location = new System.Drawing.Point(299, 571);
             this.labelDatum.Name = "labelDatum";

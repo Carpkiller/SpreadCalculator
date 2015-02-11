@@ -178,6 +178,7 @@ namespace SpreadCalculator
             var list = PracaSoSubormi.NahrajDocasneData(komodita);
             if (list.Count > 0)
             {
+                SkontrolujData(list);
                 succes = true;
             }
             return list;
@@ -194,9 +195,21 @@ namespace SpreadCalculator
             var list = PracaSoSubormi.NahrajData(komodita);
             if (list.Count > 0)
             {
+                SkontrolujData(list);
                 succes = true;
             }
             return list;
+        }
+
+        private void SkontrolujData(List<ObchodnyDen> list)
+        {
+            foreach (var obchodnyDen in list)
+            {
+                if (obchodnyDen.Settle == 0)
+                {
+                    obchodnyDen.Settle = obchodnyDen.Open;
+                }
+            }
         }
 
         private bool ExistujeStiahnutySubor(string komodita)
@@ -303,7 +316,8 @@ namespace SpreadCalculator
                 var doc = new XmlDocument();
                 doc.Load(xmlReader);
 
-                int multiplikator = doc.InnerXml.Contains("Change") ? 10 : 8;
+                int multiplikator = VypocitajMultiplikator(doc.InnerXml);
+                    
 
 
                 var text = doc.InnerXml.Replace(" type=\"array\"", "").Replace(" type=\"float\"", "");
@@ -323,15 +337,15 @@ namespace SpreadCalculator
                 {
                     for (int i = 0; i < dlzka; i++)
                     {
-                        //var dat = authors.ElementAt(i * multiplikator + 1).Value.ToString();
+                        var dat = authors.ElementAt(i * multiplikator + 1).Value.ToString();
                         var datum = DateTime.Parse(authors.ElementAt(i * multiplikator + 1).Value.ToString());
                        //var data = authors.ElementAt(i * multiplikator + 2).Value.ToString();
                         var open = double.Parse(authors.ElementAt(i * multiplikator + 2).Value.ToString(), CultureInfo.InvariantCulture);
                         var high = double.Parse(authors.ElementAt(i * multiplikator + 3).Value.ToString(), CultureInfo.InvariantCulture);
                         var low = double.Parse(authors.ElementAt(i * multiplikator + 4).Value.ToString(), CultureInfo.InvariantCulture);
-                        var close = double.Parse(authors.ElementAt(i * multiplikator + (multiplikator == 8 ? 5 : 7)).Value.ToString(), CultureInfo.InvariantCulture);
-                        var volume = double.Parse(authors.ElementAt(i * multiplikator + (multiplikator == 8 ? 6 : 8)).Value.ToString(), CultureInfo.InvariantCulture);
-                        var open_interest = double.Parse(authors.ElementAt(i * multiplikator + (multiplikator == 8 ? 7 : 9)).Value.ToString(), CultureInfo.InvariantCulture);
+                        var close = double.Parse(authors.ElementAt(i * multiplikator + (multiplikator == 10 ? 7 : 5)).Value.ToString(), CultureInfo.InvariantCulture);
+                        var volume = double.Parse(authors.ElementAt(i * multiplikator + (multiplikator == 10 ? 8 : 6)).Value.ToString(), CultureInfo.InvariantCulture);
+                        var open_interest = double.Parse(authors.ElementAt(i * multiplikator + (multiplikator == 10 ? 9 : 7)).Value.ToString(), CultureInfo.InvariantCulture);
                         var den = new ObchodnyDen(datum,open,high,low,close,volume,open_interest);
                         list.Add(den);
                     }
@@ -363,6 +377,21 @@ namespace SpreadCalculator
             }
 
             return list;
+        }
+
+        private int VypocitajMultiplikator(string innerXml)
+        {
+            if (innerXml.Contains("Block Volume"))
+            {
+                return 13;
+            }
+
+            if (innerXml.Contains("Change"))
+            {
+                return 10;
+            }
+            
+            return 8;
         }
 
         private bool UlozData(ObchodnyDen obchodnyDen)
