@@ -140,7 +140,7 @@ namespace SpreadCalculator
                 ? kontraktnyMesiac1.Substring(0, kontraktnyMesiac1.IndexOf("  -"))
                 : kontraktnyMesiac1;
 
-            if (ExistujeStiahnutySubor(_listFuturesKontraktov[p1 - 1].Symbol + kontraktnyMesiac1 + rok1))
+            if (ExistujeStiahnutySubor(_listFuturesKontraktov[p1-1].Symbol + kontraktnyMesiac1 + rok1))   // odtranene [p1-1]
             {
                 if (ZmenaPopisu != null)
                 {

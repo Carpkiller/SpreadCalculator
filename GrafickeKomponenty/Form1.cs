@@ -211,7 +211,7 @@ namespace SpreadCalculator.GrafickeKomponenty
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedTab.Text == @"Sezonnost")
+            if (tabControl1.SelectedTab.Text == @"Sezonnost" && !ReferenceEquals(comboBoxKomodity.SelectedItem, "-----------"))
             {
                 var listKontraktov1 = _jadro.LoadRokySpecificke(comboBoxKomodity.SelectedItem.ToString());
                 var listKontraktov2 = new List<string>(listKontraktov1);
@@ -300,12 +300,27 @@ namespace SpreadCalculator.GrafickeKomponenty
                     {
                         textBoxVelky.Visible = false;
                         chart1.Visible = true;
-                        _pracaSGrafmi.VykresliSpread(NazovGrafu(), _jadro.dataGrafTerajsi, _jadro.dataGrafVedalsi);
+                        _pracaSGrafmi.VykresliSpread(NazovGrafuSezonnost(), _jadro.dataGrafTerajsi, _jadro.dataGrafVedalsi);
                         labelHodnotaBodu.Text = _jadro.HodnotaBodu + @" $";
                         //comboBoxMesiace.DataSource = _jadro.GetMesiace();
                     }
                 }
             }
+        }
+
+        private string NazovGrafuSezonnost()
+        {
+            var komodita = comboBoxKomodity.SelectedValue.ToString();
+            var komodita2 = comboBoxKomodity2.Visible
+                ? comboBoxKomodity2.SelectedValue.ToString()
+                : komodita;
+            var kontr1 = comboBoxKontrakt1Sez.SelectedValue + comboBoxMesiace1Sez.SelectedValue.ToString();
+            var kontr2 = comboBoxKontrakt2Sez.SelectedValue + comboBoxMesiace2Sez.SelectedValue.ToString();
+            //return komodita + "  -  " + kontr1 + " " + kontr2;
+            return komodita.Substring(komodita.LastIndexOf('-') + 2, 1) + kontr1.Substring(4, 1) +
+                   kontr1.Substring(2, 2) + " - " +
+                   komodita2.Substring(komodita2.LastIndexOf('-') + 2, 1) + kontr2.Substring(4, 1) +
+                   kontr1.Substring(2, 2);
         }
 
         private void checkBoxDruhyKontrakt_CheckedChanged(object sender, EventArgs e)
