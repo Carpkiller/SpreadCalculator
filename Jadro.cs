@@ -814,12 +814,12 @@ namespace SpreadCalculator
 
         public List<List<Spread>> dataGrafVsetky { get; set; }
 
-        public List<ObchodnyDen> GetDataPreGraf(int p1, string p2, string p3, int dlzka)
+        public List<ObchodnyDen> GetDataPreGraf(int komodita, string mesiac, string rok, int dlzka, DateTime? koncDatum = null)
         {
             bool succes;
             double hodnotaBodu;
-            var mesiac = p2.Contains("  -") ? p2.Substring(0, p2.IndexOf("  -", System.StringComparison.Ordinal)) : p2;
-            var listKontrakt = NacitajData(p1, mesiac, p3, out succes, out hodnotaBodu);
+            var mes = mesiac.Contains("  -") ? mesiac.Substring(0, mesiac.IndexOf("  -", StringComparison.Ordinal)) : mesiac;
+            var listKontrakt = NacitajData(komodita, mes, rok, out succes, out hodnotaBodu);
             foreach (var obchodnyDen in listKontrakt)
             {
                 if (obchodnyDen.High==0)
@@ -837,7 +837,12 @@ namespace SpreadCalculator
             }
 
             dlzka = 12;
-            var koncDatum = listKontrakt[0].Date.AddMonths(-1*dlzka);
+
+            if (koncDatum == null)
+            {
+                koncDatum = listKontrakt[0].Date.AddMonths(-1 * dlzka);
+            }
+            
 
             if (dlzka != 0)
             {
@@ -997,6 +1002,33 @@ namespace SpreadCalculator
             }
 
             return result;
+        }
+
+        public List<KorelacnyGraf> PocitajGrafKorelacieNormal(int komodita1, string mesiac, string rok, int dlzka)
+        {
+            var succes = true;
+            double hodnotaBodu1;
+            var list = new List<KorelacnyGraf>();
+
+            for (int i = 0; i < dlzka; i++)
+            {
+                var graf = vypocitajGraf(GetDataPreGraf(komodita1, mesiac, (int.Parse(rok) - i).ToString(), 0, DateTime.Today.AddYears(-i-1)));
+
+                graf.SetRok(graf.Graf[0].Date.Year);
+
+                foreach (var item in graf.Graf)
+                {
+                    item.Date = item.Date.AddYears(i);
+                }
+                list.Add(graf);
+            }
+
+            return list;
+        }
+
+        private KorelacnyGraf vypocitajGraf(List<ObchodnyDen> list)
+        {
+            return new KorelacnyGraf(list);
         }
     }
 }

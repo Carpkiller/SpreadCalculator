@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
 using Cursor = System.Windows.Forms.Cursor;
 
 namespace SpreadCalculator.GrafickeKomponenty
@@ -369,10 +368,9 @@ namespace SpreadCalculator.GrafickeKomponenty
                 //zg1.IsShowPointValues = true;
                 //zg1.RestoreScale(zg1.GraphPane);
                 //textBox1.Text = jadro.statistika.ToString();
-                var dlzka = checkBoxVyber.Checked ? 0 : int.Parse(comboBoxMesiace.SelectedValue.ToString());
-                _pracaSGrafmi.VykreliGraf("Graf komodity",
-                    _jadro.GetDataPreGraf(comboBoxKomodity.SelectedIndex, comboBoxMesiace1Graf.Text,
-                        comboBoxKontrakt1Graf.Text, dlzka));
+                //var dlzka = checkBoxVyber.Checked ? 0 : int.Parse(comboBoxMesiace.SelectedValue.ToString());
+                var dlzka = 0;
+                _pracaSGrafmi.VykreliGraf("Graf komodity", _jadro.GetDataPreGraf(comboBoxKomodity.SelectedIndex, comboBoxMesiace1Graf.Text, comboBoxKontrakt1Graf.Text, dlzka));
             }
         }
 
@@ -592,6 +590,27 @@ namespace SpreadCalculator.GrafickeKomponenty
         {
             var spravaSpecifikacii = new SpravaSpecifikacii(_jadro);
             spravaSpecifikacii.Show();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            var komodita1 = comboBoxKomodity.SelectedIndex;
+
+            textBoxVelky.Visible = false;
+            chart1.Visible = true;
+            var dlzka = int.Parse(comboBoxRokyKorelacie.SelectedItem.ToString()) + 1;
+            _pracaSGrafmi.VykresliKorelacnyGraf(NazovGrafuNormal(), _jadro.PocitajGrafKorelacieNormal(komodita1, comboBoxMesiace1Graf.Text, comboBoxKontrakt1Graf.Text, dlzka));
+            labelHodnotaBodu.Text = _jadro.HodnotaBodu + @" $";
+            //comboBoxMesiace.DataSource = _jadro.GetMesiace();
+        }
+
+        private string NazovGrafuNormal()
+        {
+            var komodita = comboBoxKomodity.SelectedValue.ToString();
+            var kontr1 = comboBoxKontrakt1Graf.SelectedValue + comboBoxMesiace1Graf.SelectedValue.ToString();
+
+            return komodita.Substring(komodita.LastIndexOf('-') + 2, 1) + kontr1.Substring(4, 1) +
+                   kontr1.Substring(2, 2);
         }
     }
 }

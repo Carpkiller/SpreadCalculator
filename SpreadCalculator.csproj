@@ -84,6 +84,7 @@
     <Compile Include="Jadro.cs" />
     <Compile Include="PomocneTriedy\Farby.cs" />
     <Compile Include="PomocneTriedy\KontraktneMesiace.cs" />
+    <Compile Include="PomocneTriedy\KorelacnyGraf.cs" />
     <Compile Include="PomocneTriedy\KorelacnySpread.cs" />
     <Compile Include="PomocneTriedy\ListViewItemHelpClass.cs" />
     <Compile Include="PomocneTriedy\ObchodnyDen.cs" />

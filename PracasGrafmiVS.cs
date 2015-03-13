@@ -177,5 +177,89 @@ namespace SpreadCalculator
             });
             _graf.Invalidate();
         }
+
+        public void VykresliKorelacnyGraf(string nazovGrafuNormal, List<KorelacnyGraf> listGrafKorelacie)
+        {
+            var listFarieb = new List<Color>
+            {
+                Color.Blue,
+                Color.Brown,
+                Color.BurlyWood,
+                Color.CadetBlue,
+                Color.Chartreuse,
+                Color.Chocolate,
+                Color.DarkCyan,
+                Color.DarkMagenta,
+                Color.Firebrick,
+                Color.Black,
+                Color.LightSeaGreen,
+                Color.Green
+            };
+
+            double min = 99999;
+            double max = -99999;
+
+            _graf.Series.Clear();
+            var startRok = listGrafKorelacie[0].Rok;
+
+            var series3 = new Series
+            {
+                //Name = "Series3",
+                ChartType = SeriesChartType.Line,
+                IsVisibleInLegend = false,
+                Color = Color.Black,
+                BorderWidth = 3,
+
+            };
+
+            for (int i = 0; i < listGrafKorelacie.Count; i++)
+            {
+                var series = new Series
+                {
+                    //Name = "Rok " + (listGrafKorelacie[i].Rok - i),
+                    Name = "Rok " + (startRok - i),
+                    ChartType = SeriesChartType.Line,
+                    IsVisibleInLegend = true,
+                    Color = listFarieb[i],
+                    BorderWidth = 2,
+                };
+                for (int j = 0; j < listGrafKorelacie[i].Graf.Count; j++)
+                {
+                    series.Points.AddXY(listGrafKorelacie[i].Graf[j].Date, listGrafKorelacie[i].Graf[j].Settle);
+                    if (listGrafKorelacie[i].Graf[j].Settle > max)
+                    {
+                        max = listGrafKorelacie[i].Graf[j].Settle;
+                    }
+                    if (listGrafKorelacie[i].Graf[j].Settle < min)
+                    {
+                        min = listGrafKorelacie[i].Graf[j].Settle;
+                    }
+                }
+
+                _graf.Series.Add(series);
+
+            }
+            if (listGrafKorelacie[0].Graf[0].Date < DateTime.Today)
+            {
+                var year = listGrafKorelacie[0].Graf[0].Date.Year;
+                var date = DateTime.Today;
+                series3.Points.AddXY(date.AddYears(year - date.Year), max);
+                series3.Points.AddXY(date.AddYears(year - date.Year), min);
+            }
+            else
+            {
+                series3.Points.AddXY(DateTime.Today.Date, max);
+                series3.Points.AddXY(DateTime.Today.Date, min);
+            }
+
+            _graf.Series.Add(series3);
+            _graf.Series.Add(new Series
+            {
+                IsVisibleInLegend = false,
+                ChartType = SeriesChartType.Line,
+                BorderWidth = 2
+            });
+            _graf.Invalidate();
+        }
     }
 }
