@@ -29,7 +29,7 @@ namespace SpreadCalculator.GrafickeKomponenty
             labelHodnotaBodu.Text = _jadro.HodnotaBodu;
             comboBoxRokyKorelacie.SelectedIndex = 0;
             listBox1.DataSource = _jadro.SledovaneSpready.PopisSpreadov();
-            contextMenuStrip1.Items.Add("Zmazat");
+            //contextMenuStrip1.Items.Add("Zmazat");
             textBoxPoznamky.Text = _jadro.NacitajPoznamky();
         }
 
@@ -587,14 +587,6 @@ namespace SpreadCalculator.GrafickeKomponenty
             }
         }
 
-        private void contextMenuStrip1_MouseClick(object sender, MouseEventArgs e)
-        {
-            contextMenuStrip1.Close();
-            _jadro.SledovaneSpready.OdstranZaznam(listBox1.SelectedIndex);
-            listBox1.DataSource = null;
-            listBox1.DataSource = _jadro.SledovaneSpready.PopisSpreadov();
-        }
-
         private void spravaDatToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var spravaDat = new SpravaDat(_jadro);
@@ -626,6 +618,20 @@ namespace SpreadCalculator.GrafickeKomponenty
 
             return komodita.Substring(komodita.LastIndexOf('-') + 2, 1) + kontr1.Substring(4, 1) +
                    kontr1.Substring(2, 2);
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            contextMenuStrip1.Close();
+            _jadro.SledovaneSpready.OdstranZaznam(listBox1.SelectedIndex);
+            listBox1.DataSource = null;
+            listBox1.DataSource = _jadro.SledovaneSpready.PopisSpreadov();
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            contextMenuStrip1.Close();
+            Clipboard.SetText(listBox1.Text);
         }
     }
 }
