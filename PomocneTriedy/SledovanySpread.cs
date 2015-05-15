@@ -21,5 +21,10 @@ namespace SpreadCalculator.PomocneTriedy
             this.kontrakt2 = kontrakt2;
             this.rok2 = rok2;
         }
+
+        public override string ToString()
+        {
+            return "";
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms.DataVisualization.Charting;
+using SpreadCalculator.Obchody;
 using SpreadCalculator.PomocneTriedy;
 
 namespace SpreadCalculator
@@ -259,6 +260,57 @@ namespace SpreadCalculator
                 ChartType = SeriesChartType.Line,
                 BorderWidth = 2
             });
+            _graf.Invalidate();
+        }
+
+        public void VykresliSpreadObchod(string nazovGrafu, List<Spread> listSpread, Obchod obchod)
+        {
+            _graf.Series.Clear();
+            var series1 = new Series
+            {
+                Name = "Series1",
+                LegendText = nazovGrafu,
+                Color = Color.Green,
+                IsVisibleInLegend = true,
+                IsXValueIndexed = false,
+                ChartType = SeriesChartType.Line
+            };
+
+            var series3 = new Series
+            {
+                Name = "Series3",
+                ChartType = SeriesChartType.Line,
+                IsVisibleInLegend = false,
+                Color = Color.Blue,
+                BorderWidth = 2,
+
+            };
+
+            var series2 = new Series
+            {
+                Name = "Series2",
+                LegendText = nazovGrafu,
+                Color = Color.Black,
+                IsVisibleInLegend = true,
+                IsXValueIndexed = false,
+                ChartType = SeriesChartType.Point
+            };
+
+            for (int i = 0; i < listSpread.Count; i++)
+            {
+                series1.Points.AddXY(listSpread[i].Date, listSpread[i].Value);
+            }
+
+            series2.Points.AddXY(obchod.ZaciatokObchodu, obchod.VstupnaCena);
+            if (obchod.VystupnaCena != null)
+            {
+                var koniecObchodu = obchod.VystupnaCena == null ? obchod.KoniecObchodu : DateTime.Now;
+                series2.Points.AddXY(obchod.KoniecObchodu, obchod.VystupnaCena);
+            }
+
+            _graf.Series.Add(series1);
+            _graf.Series.Add(series3);
+            _graf.Series.Add(series2);
             _graf.Invalidate();
         }
     }

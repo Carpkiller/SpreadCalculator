@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using Cursor = System.Windows.Forms.Cursor;
+using SpreadCalculator.Obchody;
 
 namespace SpreadCalculator.GrafickeKomponenty
 {
@@ -632,6 +632,56 @@ namespace SpreadCalculator.GrafickeKomponenty
         {
             contextMenuStrip1.Close();
             Clipboard.SetText(listBox1.Text);
+        }
+
+        private void pridatObchodToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var spread = _jadro.SledovaneSpready.GetZaznam(listBox1.SelectedIndex);
+            string zapis = listBox1.SelectedValue.ToString();
+            var pridajObchodOkno = new PridajObchod(zapis);
+            pridajObchodOkno.ShowDialog();
+            if (pridajObchodOkno.DialogResult == DialogResult.OK)
+            {
+                _jadro.PridajObchod(zapis, pridajObchodOkno.DatumVstupu, pridajObchodOkno.VstupnaCena, pridajObchodOkno.DatumVystupu, pridajObchodOkno.VystupnaCena, pridajObchodOkno.Ukonceny, spread);
+            }
+        }
+
+        private void nacitatObchodToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var obchody = new ObchodyForm(_jadro, this);
+            obchody.ShowDialog();
+        }
+
+        public void VykresliObchod(Obchod obchod)
+        {
+            var spread = obchod.Spread;
+            var komodita1 = spread.komodita1;
+            var komodita2 = spread.komodita2;
+
+            comboBoxKomodity.SelectedIndex = komodita1;
+            if (komodita1 != komodita2)
+            {
+                comboBoxKomodity2.SelectedIndex = komodita2;
+                checkBoxDruhyKontrakt.Checked = true;
+            }
+            else
+                checkBoxDruhyKontrakt.Checked = false;
+
+            comboBoxKontrakt1.Text = spread.rok1;
+            comboBoxMesiace1.Text = spread.kontrakt1;
+            comboBoxKontrakt2.Text = spread.rok2;
+            comboBoxMesiace2.Text = spread.kontrakt2;
+
+            var dlzka = checkBoxVyber.Checked ? 0 : int.Parse(comboBoxMesiace.SelectedValue.ToString());
+            if (_jadro.ParsujKontrakty(komodita1, komodita2, spread.kontrakt1, spread.rok1,
+                spread.kontrakt2, spread.rok2, dlzka))
+            {
+                textBoxVelky.Visible = false;
+                chart1.Visible = true;
+                _pracaSGrafmi.VykresliSpreadObchod(obchod.ZapisSpread, _jadro.ListSpread, obchod);
+                labelHodnotaBodu.Text = _jadro.HodnotaBodu + @" $";
+                comboBoxMesiace.DataSource = _jadro.GetMesiace();
+            }
         }
     }
 }

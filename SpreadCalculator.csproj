@@ -69,6 +69,12 @@
     <Compile Include="GrafickeKomponenty\Graf.Designer.cs">
       <DependentUpon>Graf.cs</DependentUpon>
     </Compile>
+    <Compile Include="GrafickeKomponenty\PridajObchod.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GrafickeKomponenty\PridajObchod.Designer.cs">
+      <DependentUpon>PridajObchod.cs</DependentUpon>
+    </Compile>
     <Compile Include="GrafickeKomponenty\SpravaDat.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,6 +88,14 @@
       <DependentUpon>SpravaSpecifikacii.cs</DependentUpon>
     </Compile>
     <Compile Include="Jadro.cs" />
+    <Compile Include="Obchody\Obchod.cs" />
+    <Compile Include="Obchody\ObchodyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Obchody\ObchodyForm.Designer.cs">
+      <DependentUpon>ObchodyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Obchody\UskutocneneObchody.cs" />
     <Compile Include="PomocneTriedy\Farby.cs" />
     <Compile Include="PomocneTriedy\KontraktneMesiace.cs" />
     <Compile Include="PomocneTriedy\KorelacnyGraf.cs" />
@@ -111,11 +125,17 @@
     <EmbeddedResource Include="GrafickeKomponenty\Graf.resx">
       <DependentUpon>Graf.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GrafickeKomponenty\PridajObchod.resx">
+      <DependentUpon>PridajObchod.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GrafickeKomponenty\SpravaDat.resx">
       <DependentUpon>SpravaDat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GrafickeKomponenty\SpravaSpecifikacii.resx">
       <DependentUpon>SpravaSpecifikacii.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Obchody\ObchodyForm.resx">
+      <DependentUpon>ObchodyForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -11,6 +11,7 @@ using System.Xml.Linq;
 using CsvHelper;
 using SpreadCalculator.PomocneTriedy;
 using System.Globalization;
+using SpreadCalculator.Obchody;
 using SpreadCalculator.Statistiky;
 
 namespace SpreadCalculator
@@ -24,6 +25,7 @@ namespace SpreadCalculator
         private List<SpecifikaciaKontraktu> _listSpecifikacii;
         private List<SirsiaSpecifikaciaKontraktu> _listFuturesKontraktov;
         public SledovaneSpreadyData SledovaneSpready;
+        public UskutocneneObchody UskutocneneObchody;
         public Statistika Statistika;
         public string StavText = "Ready";
         public SpravcaDownloadManager DownloadManager;
@@ -37,6 +39,7 @@ namespace SpreadCalculator
         {
             _listFuturesKontraktov = new List<SirsiaSpecifikaciaKontraktu>();
             SledovaneSpready = new SledovaneSpreadyData();
+            UskutocneneObchody = new UskutocneneObchody();
             PracaSoSubormi.OcekujStareSubory();
         }
 
@@ -935,11 +938,13 @@ namespace SpreadCalculator
         public void PridajSledovanySpread(int komodita1, int komodita2, string mesiac1, string rok1, string mesiac2, string rok2)
         {
             SledovaneSpready.PridajZaznam(new SledovanySpread(komodita1,mesiac1,rok1,komodita2,mesiac2,rok2));
+            SledovaneSpready.UlozData();
         }
 
         public void Koniec(string text)
         {
             SledovaneSpready.UlozData();
+            UskutocneneObchody.UlozObchody();
             UlozPoznamky(text);
         }
 
@@ -1029,6 +1034,30 @@ namespace SpreadCalculator
         private KorelacnyGraf vypocitajGraf(List<ObchodnyDen> list)
         {
             return new KorelacnyGraf(list);
+        }
+
+        public void PridajObchod(string zapis, DateTime datumVstupu, double vstupnaCena, DateTime datumVystupu, double? vystupnaCena, bool ukonceny, SledovanySpread spread)
+        {
+            UskutocneneObchody.PridajZaznam(new Obchod(datumVstupu,datumVystupu,vstupnaCena,vystupnaCena,zapis, ukonceny, spread));
+            UskutocneneObchody.UlozObchody();
+        }
+
+        public List<Obchod> NacitajObchody()
+        {
+            return UskutocneneObchody.listObchody;
+        }
+
+        public void UpravObchod(int index, string zapis, DateTime datumVstupu, double vstupnaCena, DateTime datumVystupu, double? vystupnaCena, bool ukonceny, SledovanySpread spread)
+        {
+            UskutocneneObchody.OdoberZaznam(index);
+            UskutocneneObchody.PridajZaznam(new Obchod(datumVstupu, datumVystupu, vstupnaCena, vystupnaCena, zapis, ukonceny, spread));
+            UskutocneneObchody.UlozObchody();
+        }
+
+        public void OdoberObchod(int index)
+        {
+            UskutocneneObchody.OdoberZaznam(index);
+            UskutocneneObchody.UlozObchody();
         }
     }
 }
