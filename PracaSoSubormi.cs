@@ -184,5 +184,19 @@ namespace SpreadCalculator
                 // }
             }
         }
+
+        public static int ZmazDocasneSubory()
+        {
+            var files = Directory.GetFiles(Environment.CurrentDirectory.Substring(0, Environment.CurrentDirectory.LastIndexOf("bin", StringComparison.Ordinal)) + "Docasne subory");
+            int poc = 0;
+
+            foreach (var file in files)
+            {
+                File.Delete(file);
+                poc++;
+            }
+
+            return poc;
+        }
     }
 }

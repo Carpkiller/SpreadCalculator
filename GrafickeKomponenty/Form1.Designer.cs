@@ -41,6 +41,9 @@
             this.stiahnutDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.spravaDatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.specifikacieKontraktovToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zmazatDocasneSuboryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.obchodyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nacitatObchodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comboBoxKomodity = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -102,13 +105,11 @@
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.pridatObchodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.textBoxPoznamky = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.labelDatum = new System.Windows.Forms.Label();
-            this.pridatObchodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.obchodyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.nacitatObchodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -166,7 +167,7 @@
             // koniecToolStripMenuItem
             // 
             this.koniecToolStripMenuItem.Name = "koniecToolStripMenuItem";
-            this.koniecToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.koniecToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.koniecToolStripMenuItem.Text = "Koniec";
             // 
             // dataToolStripMenuItem
@@ -174,7 +175,8 @@
             this.dataToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.stiahnutDataToolStripMenuItem,
             this.spravaDatToolStripMenuItem,
-            this.specifikacieKontraktovToolStripMenuItem});
+            this.specifikacieKontraktovToolStripMenuItem,
+            this.zmazatDocasneSuboryToolStripMenuItem});
             this.dataToolStripMenuItem.Name = "dataToolStripMenuItem";
             this.dataToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
             this.dataToolStripMenuItem.Text = "Data";
@@ -182,23 +184,45 @@
             // stiahnutDataToolStripMenuItem
             // 
             this.stiahnutDataToolStripMenuItem.Name = "stiahnutDataToolStripMenuItem";
-            this.stiahnutDataToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.stiahnutDataToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.stiahnutDataToolStripMenuItem.Text = "Stiahnut data";
             this.stiahnutDataToolStripMenuItem.Click += new System.EventHandler(this.stiahnutDataToolStripMenuItem_Click);
             // 
             // spravaDatToolStripMenuItem
             // 
             this.spravaDatToolStripMenuItem.Name = "spravaDatToolStripMenuItem";
-            this.spravaDatToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.spravaDatToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.spravaDatToolStripMenuItem.Text = "Sprava dat";
             this.spravaDatToolStripMenuItem.Click += new System.EventHandler(this.spravaDatToolStripMenuItem_Click);
             // 
             // specifikacieKontraktovToolStripMenuItem
             // 
             this.specifikacieKontraktovToolStripMenuItem.Name = "specifikacieKontraktovToolStripMenuItem";
-            this.specifikacieKontraktovToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.specifikacieKontraktovToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
             this.specifikacieKontraktovToolStripMenuItem.Text = "Specifikacie kontraktov";
             this.specifikacieKontraktovToolStripMenuItem.Click += new System.EventHandler(this.specifikacieKontraktovToolStripMenuItem_Click);
+            // 
+            // zmazatDocasneSuboryToolStripMenuItem
+            // 
+            this.zmazatDocasneSuboryToolStripMenuItem.Name = "zmazatDocasneSuboryToolStripMenuItem";
+            this.zmazatDocasneSuboryToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.zmazatDocasneSuboryToolStripMenuItem.Text = "Zmazat docasne subory";
+            this.zmazatDocasneSuboryToolStripMenuItem.Click += new System.EventHandler(this.zmazatDocasneSuboryToolStripMenuItem_Click);
+            // 
+            // obchodyToolStripMenuItem
+            // 
+            this.obchodyToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.nacitatObchodToolStripMenuItem});
+            this.obchodyToolStripMenuItem.Name = "obchodyToolStripMenuItem";
+            this.obchodyToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+            this.obchodyToolStripMenuItem.Text = "Obchody";
+            // 
+            // nacitatObchodToolStripMenuItem
+            // 
+            this.nacitatObchodToolStripMenuItem.Name = "nacitatObchodToolStripMenuItem";
+            this.nacitatObchodToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.nacitatObchodToolStripMenuItem.Text = "Nacitat obchod";
+            this.nacitatObchodToolStripMenuItem.Click += new System.EventHandler(this.nacitatObchodToolStripMenuItem_Click);
             // 
             // comboBoxKomodity
             // 
@@ -952,14 +976,21 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(140, 22);
             this.toolStripMenuItem1.Text = "Kopirovat";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
+            // pridatObchodToolStripMenuItem
+            // 
+            this.pridatObchodToolStripMenuItem.Name = "pridatObchodToolStripMenuItem";
+            this.pridatObchodToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.pridatObchodToolStripMenuItem.Text = "Pridat obchod";
+            this.pridatObchodToolStripMenuItem.Click += new System.EventHandler(this.pridatObchodToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(140, 22);
             this.toolStripMenuItem2.Text = "Zmazat";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
@@ -992,28 +1023,6 @@
             this.labelDatum.Name = "labelDatum";
             this.labelDatum.Size = new System.Drawing.Size(0, 13);
             this.labelDatum.TabIndex = 34;
-            // 
-            // pridatObchodToolStripMenuItem
-            // 
-            this.pridatObchodToolStripMenuItem.Name = "pridatObchodToolStripMenuItem";
-            this.pridatObchodToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.pridatObchodToolStripMenuItem.Text = "Pridat obchod";
-            this.pridatObchodToolStripMenuItem.Click += new System.EventHandler(this.pridatObchodToolStripMenuItem_Click);
-            // 
-            // obchodyToolStripMenuItem
-            // 
-            this.obchodyToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.nacitatObchodToolStripMenuItem});
-            this.obchodyToolStripMenuItem.Name = "obchodyToolStripMenuItem";
-            this.obchodyToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
-            this.obchodyToolStripMenuItem.Text = "Obchody";
-            // 
-            // nacitatObchodToolStripMenuItem
-            // 
-            this.nacitatObchodToolStripMenuItem.Name = "nacitatObchodToolStripMenuItem";
-            this.nacitatObchodToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.nacitatObchodToolStripMenuItem.Text = "Nacitat obchod";
-            this.nacitatObchodToolStripMenuItem.Click += new System.EventHandler(this.nacitatObchodToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -1145,6 +1154,7 @@
         private System.Windows.Forms.ToolStripMenuItem pridatObchodToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem obchodyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nacitatObchodToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem zmazatDocasneSuboryToolStripMenuItem;
     }
 }
 

@@ -168,7 +168,7 @@ namespace SpreadCalculator.GrafickeKomponenty
                     }
                 }
             }
-            catch(Exception exc)
+            catch (Exception exc)
             {
                 MessageBox.Show(exc.Message, @"Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -211,7 +211,8 @@ namespace SpreadCalculator.GrafickeKomponenty
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedTab.Text == @"Sezonnost" && !ReferenceEquals(comboBoxKomodity.SelectedItem, "-----------"))
+            if (tabControl1.SelectedTab.Text == @"Sezonnost" &&
+                !ReferenceEquals(comboBoxKomodity.SelectedItem, "-----------"))
             {
                 var listKontraktov1 = _jadro.LoadRokySpecificke(comboBoxKomodity.SelectedItem.ToString());
                 var listKontraktov2 = new List<string>(listKontraktov1);
@@ -282,7 +283,8 @@ namespace SpreadCalculator.GrafickeKomponenty
         {
             if (comboBoxKontrakt1Sez.Enabled && comboBoxKontrakt2Sez.Enabled)
             {
-                if (_jadro.PocitajSezonnost(comboBoxKomodity.SelectedIndex, comboBoxKomodity2.SelectedIndex, comboBoxMesiace1Sez.Text,
+                if (_jadro.PocitajSezonnost(comboBoxKomodity.SelectedIndex, comboBoxKomodity2.SelectedIndex,
+                    comboBoxMesiace1Sez.Text,
                     comboBoxKontrakt1Sez.Text, comboBoxMesiace2Sez.Text, comboBoxKontrakt2Sez.Text, textBoxRoky.Text))
                 {
                     if (checkBoxJednotliveRoky.Checked)
@@ -300,7 +302,8 @@ namespace SpreadCalculator.GrafickeKomponenty
                     {
                         textBoxVelky.Visible = false;
                         chart1.Visible = true;
-                        _pracaSGrafmi.VykresliSpread(NazovGrafuSezonnost(), _jadro.dataGrafTerajsi, _jadro.dataGrafVedalsi);
+                        _pracaSGrafmi.VykresliSpread(NazovGrafuSezonnost(), _jadro.dataGrafTerajsi,
+                            _jadro.dataGrafVedalsi);
                         labelHodnotaBodu.Text = _jadro.HodnotaBodu + @" $";
                         //comboBoxMesiace.DataSource = _jadro.GetMesiace();
                     }
@@ -385,7 +388,9 @@ namespace SpreadCalculator.GrafickeKomponenty
                 //textBox1.Text = jadro.statistika.ToString();
                 //var dlzka = checkBoxVyber.Checked ? 0 : int.Parse(comboBoxMesiace.SelectedValue.ToString());
                 var dlzka = 0;
-                _pracaSGrafmi.VykreliGraf("Graf komodity", _jadro.GetDataPreGraf(comboBoxKomodity.SelectedIndex, comboBoxMesiace1Graf.Text, comboBoxKontrakt1Graf.Text, dlzka));
+                _pracaSGrafmi.VykreliGraf("Graf komodity",
+                    _jadro.GetDataPreGraf(comboBoxKomodity.SelectedIndex, comboBoxMesiace1Graf.Text,
+                        comboBoxKontrakt1Graf.Text, dlzka));
             }
         }
 
@@ -491,7 +496,8 @@ namespace SpreadCalculator.GrafickeKomponenty
                     //Console.WriteLine(chart1.Height);
                     if (!double.IsNaN(pxX))
                     {
-                        labelDatum.Text = DateTime.FromOADate(pxX).ToLongDateString();  // vypisovanie aktualneho datuma podla polohy cursora
+                        labelDatum.Text = DateTime.FromOADate(pxX).ToLongDateString();
+                            // vypisovanie aktualneho datuma podla polohy cursora
                     }
 
                     if (_poc == 1)
@@ -606,7 +612,9 @@ namespace SpreadCalculator.GrafickeKomponenty
             textBoxVelky.Visible = false;
             chart1.Visible = true;
             var dlzka = int.Parse(comboBoxRokyKorelacie.SelectedItem.ToString()) + 1;
-            _pracaSGrafmi.VykresliKorelacnyGraf(NazovGrafuNormal(), _jadro.PocitajGrafKorelacieNormal(komodita1, comboBoxMesiace1Graf.Text, comboBoxKontrakt1Graf.Text, dlzka));
+            _pracaSGrafmi.VykresliKorelacnyGraf(NazovGrafuNormal(),
+                _jadro.PocitajGrafKorelacieNormal(komodita1, comboBoxMesiace1Graf.Text, comboBoxKontrakt1Graf.Text,
+                    dlzka));
             labelHodnotaBodu.Text = _jadro.HodnotaBodu + @" $";
             //comboBoxMesiace.DataSource = _jadro.GetMesiace();
         }
@@ -642,7 +650,8 @@ namespace SpreadCalculator.GrafickeKomponenty
             pridajObchodOkno.ShowDialog();
             if (pridajObchodOkno.DialogResult == DialogResult.OK)
             {
-                _jadro.PridajObchod(zapis, pridajObchodOkno.DatumVstupu, pridajObchodOkno.VstupnaCena, pridajObchodOkno.DatumVystupu, pridajObchodOkno.VystupnaCena, pridajObchodOkno.Ukonceny, spread);
+                _jadro.PridajObchod(zapis, pridajObchodOkno.DatumVstupu, pridajObchodOkno.VstupnaCena,
+                    pridajObchodOkno.DatumVystupu, pridajObchodOkno.VystupnaCena, pridajObchodOkno.Ukonceny, spread);
             }
         }
 
@@ -681,6 +690,19 @@ namespace SpreadCalculator.GrafickeKomponenty
                 _pracaSGrafmi.VykresliSpreadObchod(obchod.ZapisSpread, _jadro.ListSpread, obchod);
                 labelHodnotaBodu.Text = _jadro.HodnotaBodu + @" $";
                 comboBoxMesiace.DataSource = _jadro.GetMesiace();
+            }
+        }
+
+        private void zmazatDocasneSuboryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var poc = _jadro.ZmazDocasneSubory();
+            if (poc > 0)
+            {
+                MessageBox.Show(@"Zmazanie uspesne "+Environment.NewLine+@"Pocet zmazanych : "+poc, "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show(@"Zmazanie neuspesne" + Environment.NewLine + @"Pocet zmazanych : " + poc, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

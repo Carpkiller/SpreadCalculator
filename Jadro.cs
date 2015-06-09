@@ -1059,5 +1059,10 @@ namespace SpreadCalculator
             UskutocneneObchody.OdoberZaznam(index);
             UskutocneneObchody.UlozObchody();
         }
+
+        public int ZmazDocasneSubory()
+        {
+            return PracaSoSubormi.ZmazDocasneSubory();
+        }
     }
 }
