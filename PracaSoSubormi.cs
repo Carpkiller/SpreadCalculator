@@ -6,6 +6,7 @@ using SpreadCalculator.PomocneTriedy;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows.Forms;
 using System.Xml.Serialization;
 
 namespace SpreadCalculator
@@ -43,7 +44,7 @@ namespace SpreadCalculator
                     csv.Configuration.HasHeaderRecord = true;
                     csv.Configuration.IgnoreHeaderWhiteSpace = true;
                     csv.Configuration.Delimiter = ";";
-                    csv.Configuration.CultureInfo = CultureInfo.GetCultureInfoByIetfLanguageTag("sk-SK");
+                    csv.Configuration.CultureInfo = CultureInfo.GetCultureInfoByIetfLanguageTag("sk");
                     //csv.Configuration.IgnoreReadingExceptions = true;
                     var myCustomObjects = csv.GetRecords<SirsiaSpecifikaciaKontraktu>();
 
@@ -155,9 +156,7 @@ namespace SpreadCalculator
             var file = System.Environment.CurrentDirectory.Substring(0, System.Environment.CurrentDirectory.LastIndexOf("bin")) + "Kontrakty\\Specifikacie.csv";
             var records = GetKontraktyPodrobnejsie();
             File.Delete(file);
-            //File.Create(file);
 
-            //if (File.Exists(file)){
             using (StreamWriter sw = new StreamWriter(file, true))
             {
                 try
@@ -181,8 +180,10 @@ namespace SpreadCalculator
                     var ee = e.Data["CsvHelper"];
                     Console.WriteLine(e.Data.Values);
                 }
-                // }
             }
+
+            var text = File.ReadAllText(file).Replace(";0.", ";0,");
+            File.WriteAllText(file, text);
         }
 
         public static int ZmazDocasneSubory()

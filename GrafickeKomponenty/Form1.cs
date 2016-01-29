@@ -106,6 +106,15 @@ namespace SpreadCalculator.GrafickeKomponenty
                     comboBoxKontrakt1Graf.DataSource = listKontraktov1;
                     comboBox1TestyRok.DataSource = listKontraktov1;
                     comboBoxKontrakt1.Enabled = true;
+                    int i = 0;
+                    for (i = 0; i < listKontraktov1.Count; i++)
+                    {
+                        if (listKontraktov1[i] == DateTime.Now.Year.ToString())
+                        {
+                            comboBoxKontrakt1.SelectedIndex = i;
+                            break;
+                        }
+                    }
                     if (!checkBoxDruhyKontrakt.Checked)
                     {
                         var listKontraktov2 = new List<string>(listKontraktov1);
@@ -113,6 +122,7 @@ namespace SpreadCalculator.GrafickeKomponenty
                         comboBoxKontrakt2Sez.DataSource = listKontraktov2;
                         comboBox2TestyRok.DataSource = listKontraktov2;
                         comboBoxKontrakt2.Enabled = true;
+                        comboBoxKontrakt2.SelectedIndex = i;
                     }
                 }
             }

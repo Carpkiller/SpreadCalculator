@@ -27,7 +27,7 @@ namespace SpreadCalculator.GrafickeKomponenty
             textBoxBurza.Text = specikacie.Burza;
             textBoxEnd.Text = specikacie.EndRok;
             textBoxHodnotaBodu.Text = specikacie.HodnotaBod;
-            textBoxHodnotaTicku.Text = specikacie.VelkostTicku.ToString(CultureInfo.CurrentCulture);
+            textBoxHodnotaTicku.Text = specikacie.VelkostTicku.ToString(CultureInfo.GetCultureInfoByIetfLanguageTag("en"));
             textBoxKategoria.Text = specikacie.Kategoria;
             textBoxMesiace.Text = specikacie.TypyKontraktov;
             textBoxNazov.Text = specikacie.Komodita;
@@ -51,10 +51,16 @@ namespace SpreadCalculator.GrafickeKomponenty
                 TypyKontraktov = textBoxMesiace.Text,
                 Url = textBoxUrl.Text,
                 UrlCon = textBoxUrlCon.Text,
-                VelkostTicku = double.Parse(textBoxHodnotaTicku.Text,CultureInfo.GetCultureInfoByIetfLanguageTag("sk-SK"))
+                VelkostTicku = double.Parse(textBoxHodnotaTicku.Text,CultureInfo.GetCultureInfoByIetfLanguageTag("en"))
             };
 
             _jadro.UlozZmenySpecifikacii(specikacia, listBox1.SelectedIndex);
+            MessageBox.Show(@"Ukladanie dokoncene", @"Ïnfo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void button1_Click(object sender, System.EventArgs e)
+        {
+            this.Close();
         }
     }
 }
