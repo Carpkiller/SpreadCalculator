@@ -8,7 +8,7 @@ Gasoline;RB;NYMEX;https://www.quandl.com/api/v1/datasets/CME/{0}{1}{2}.xml?auth_
 Natural Gas;NG;NYMEX;https://www.quandl.com/api/v1/datasets/CME/{0}{1}{2}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;F,G,H,J,K,M,N,Q,U,V,X,Z;1991;2025;https://www.quandl.com/api/v1/datasets/CME/NG1.xml;Energy;10000;0,001
 WTI Crude Oil;CL;NYMEX;https://www.quandl.com/api/v1/datasets/CME/{0}{1}{2}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;F,G,H,J,K,M,N,Q,U,V,X,Z;1991;2020;https://www.quandl.com/api/v1/datasets/CME/CL1.xml;Energy;1000;0,01
 Brent Crude Oil;QA;NYMEX;https://www.quandl.com/api/v1/datasets/CME/{0}{1}{2}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;F,G,H,J,K,M,N,Q,U,V,X,Z;1991;2020;https://www.quandl.com/api/v1/datasets/CME/QA1.xml;Energy;1000;0,01
-Lean Hogs;LN;CME;httpss://www.quandl.com/api/v1/datasets/CME/{0}{1}{2}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;G,J,K,M,N,Q,V,Z;1970;2015;https://www.quandl.com/api/v1/datasets/CME/LN1.xml;Meats;400;0,025
+Lean Hogs;LN;CME;https://www.quandl.com/api/v1/datasets/CME/{0}{1}{2}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;G,J,K,M,N,Q,V,Z;1970;2017;https://www.quandl.com/api/v1/datasets/CME/LN1.xml;Meats;400;0,025
 Live Cattle;LC;CME;httpss://www.quandl.com/api/v1/datasets/CME/{0}{1}{2}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;G,J,M,Q,V,Z;1965-G;2015-V;https://www.quandl.com/api/v1/datasets/CME/LC1.xml;Meats;400;0,025
 Feeder Cattle;FC;CME;httpss://www.quandl.com/api/v1/datasets/CME/{0}{1}{2}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;F,H,J,K,Q,U,V,X;1981-H;2015-U;https://www.quandl.com/api/v1/datasets/CME/FC1.xml;Meats;500;0,025
 ICE Heating Oil;HO;NYMEX;https://www.quandl.com/api/v1/datasets/CME/{0}{1}{2}.xml?auth_token=UqHLDQVcxZy5AknRTZX9;F,G,H,J,K,M,N,Q,U,V,X,Z;2006-K;2020;https://www.quandl.com/api/v1/datasets/CHRIS/ICE_O1.xml;Energy;42000;0,0001
